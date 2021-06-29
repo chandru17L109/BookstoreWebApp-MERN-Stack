@@ -1,0 +1,70 @@
+.allBooksPageCarousel{
+    background-color: #29517e;
+    margin:0;
+    height: 350px;
+}
+
+.fontsizecarousal{
+    font-size: 90px !important;
+}
+
+svg text {
+    font-family: Lora !important;
+    letter-spacing: 10px;
+    stroke: white;
+    font-size: 100px;
+    font-weight: 100;
+    stroke-width: 3;
+    animation: textAnimate 5s infinite alternate;
+}
+
+@keyframes textAnimate {
+    0% {
+        stroke-dasharray: 0 50%;
+        stroke-dashoffset:  20%;
+        fill:hsl(189, 68%, 75%)
+
+    }
+    100% {
+        stroke-dasharray: 50% 0;
+        stroke-dashoffstet: -20%;
+        fill: hsla(189, 68%, 75%,0%)
+    }
+}
+
+
+
+
+
+/* ---------------------------MEDIA QUERY----------------------------------------------------- */
+
+@media only screen and (max-width: 1220px){
+    .fontsizecarousal{
+        font-size: 70px !important;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    .fontsizecarousal{
+        font-size: 40px !important;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .fontsizecarousal{
+        font-size: 30px !important;
+    }
+}
+
+
+@media only screen and (max-width: 480px){
+    .allBooksPageCarousel{
+        height: 180px;
+    }
+
+    .fontsizecarousal{
+        font-size: 15px !important;
+        font-weight: bolder;
+        /* height: 100px; */
+    }
+}

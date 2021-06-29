@@ -1,0 +1,69 @@
+.FAQcontent {
+  display: inline-block;
+  width: 100%;
+  margin: 20px auto;  
+}
+.img-data h1{
+  color: rgb(1, 3, 156);
+  font-weight:600;
+}
+
+.img-data button{
+  border: 1px solid rgb(55, 211, 50);
+  color: rgb(55, 211, 50);
+  background-color: white;
+}
+.cards{ 
+  width: 1200px;
+  margin:50px auto;
+  /* border:2px solid black; */
+  padding:20px;
+  background-color: rgb(255, 253, 253);
+}
+.card-content{
+  background-color: rgb(255, 253, 253);
+}
+
+.changeheight{
+height: 400px !important;
+}
+
+.dealsForYouContent {
+  display: inline-block;
+  width: 100%;
+  margin: 30px auto;
+}
+
+.dealsForYouHeading{
+  text-align: center;
+  font-weight: 600;
+  padding: 20px auto;
+}
+
+.dealsForYouImage{
+  object-fit: cover;
+  width: 600px;
+  height: 300px;
+  object-position: 0% 0%;
+  animation: dealsForYouImageAni 5s infinite;
+}  
+
+@keyframes dealsForYouImageAni {
+  50% {color: rgb(22, 21, 20);}
+  0% {
+    object-position: 0% 0%;
+  }
+  25% {
+    object-position: 20% 0%;
+  }
+  100% {
+    object-position: 100% 100%;
+  }
+}
+
+.sellImage{
+  height: 95px;
+  width: 95px;
+  padding: 10px;
+}
+

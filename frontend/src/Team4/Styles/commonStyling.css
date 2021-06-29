@@ -1,0 +1,273 @@
+.Main{
+    width: 100%;
+    box-sizing: border-box;
+    background-color: white;
+}
+.headersearchimg{
+    margin: auto;
+    width: fit-content;
+}
+.search-option-catagory{
+    background-color: white;
+    margin: 10px 0px 0px 7px;  
+}
+
+
+.card-top {
+    width: 100%;
+    height: 90%;
+    background-color: white;
+}
+
+.change-font{
+    margin: -10px 0px 0px 20px;
+    font-size: 14px;
+}
+.card-header {
+    margin-top: 5px;
+    background-color: white;
+    width: 170px !important;
+    height: 160px !important;
+    margin-left: 23px;
+}
+.cartbutton,.wishlistbutton{
+    width: 55px;
+    margin-top: 4px;
+    margin-left: 10px;
+}
+
+.bglight{
+    background-color: aliceblue;
+    color: aqua;
+}
+
+.headingpage{
+    font-size: 30px;
+}
+
+.search-sidecontent{
+    padding-top:  10px;
+}
+
+.bottomCard{
+    width: 100%;
+    margin:30px auto;
+    text-align: center;
+}
+
+.bottomCardImage{
+    height: 225px;
+    opacity: 80%;
+}
+
+.bottomCardContent{
+    color: rgb(112, 45, 45) !important;
+    font-weight: 600;
+    font-family: Trebuchet MS, Helvetica, sans-serif !important; 
+}
+
+.patterns {
+    height: 50vh;
+}
+
+.headersearchmain{
+    margin-left: 10px !important;
+}
+
+.searchheader-cardheader{
+    width: 170px !important;
+    height: 180px !important;
+    margin-left: 9px;
+}
+.searchheader-cardtop{
+    height: 93%;
+    background-color: white;
+}
+.searchheaderchangefont{
+    font-size: 12px;
+}
+
+
+/* --------------------------------------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 1220px){
+    .card-header {
+        width: 80% !important;
+        height: 80% !important;
+        margin: 0px;
+        margin-left: 10%;
+    }
+    .change-font{
+        font-size: 12px !important;
+        margin: 0px !important;
+        margin-top: -25% !important;
+        margin-left: 2% !important;
+       }
+
+    .card-top {
+        height: 90%;
+        margin: 0px !important;
+    }
+    .card-main{
+        padding-right: 10px;
+    }
+    .cartbutton,
+    .wishlistbutton{
+        width: 40px;
+        margin-top: 2px;
+        margin-left: 5px;
+        height: 35px;
+    }
+    .cartbutton i,
+    .wishlistbutton i{
+        font-size: 13px;
+    }
+    .search-sidecontent{
+        padding: 0px ;
+        margin-left: -10px; 
+    }
+    .headingpage{
+        font-size: 18px;
+        /* background-color: rgb(199, 11, 11); */
+        margin-bottom: 0px;
+    }
+  
+}
+
+
+@media only screen and (max-width: 900px){
+    .card-header {
+        width: 90% !important;
+        height: 80% !important;
+        margin: 0px;
+        margin-left: 5%;
+    }
+    .change-font{
+        font-size: 10px !important;
+        margin: 0px !important;
+        margin-top: -25% !important;
+        margin-left: 0% !important;
+       }
+
+    .card-top {
+        height: 87%;
+        margin: 0px !important;
+    }
+    .cartbutton,.wishlistbutton{
+        width: 33px;
+        margin-top: 4px;
+        margin-left: 5px;
+    }
+    .cartbutton i,.wishlistbutton i{
+        font-size: 10px;
+    }
+   
+    .searchheaderchangefont{
+        font-size: 10px;
+        margin-left: 0% !important;
+
+    }
+}
+    
+
+@media only screen and (max-width: 768px){
+    .card-header {
+        width: 90% !important;
+        margin-left: 7%;
+    }
+    .change-font{
+        font-size: 10px !important;
+        margin: 0px !important;
+        margin-top: -30% !important;
+        margin-left: 1% !important;
+       }
+    
+    .card-top {
+        height: 90%;
+        margin: 0px !important;
+    }
+    .cartbutton,
+    .wishlistbutton{
+        width: 40px;
+        margin-top: 2px;
+        margin-left: 3px;
+        height: 35px;
+    }
+    .cartbutton i,
+    .wishlistbutton i{
+        font-size: 15px;
+    }
+   
+    .searchheaderchangefont{
+        font-size: 9px;
+    }
+    
+    .bottomCardImage{
+        height: 320px;
+        /* opacity: 80%; */
+    }
+
+}
+
+
+@media only screen and (max-width: 480px){
+    .card-header {
+        width: 120px !important;
+        height: 100px !important;
+        margin: 0px;
+    }
+    .change-font{
+        font-size: 9px !important;
+        margin: 0px !important;
+        margin-top: -15px !important;
+       }
+
+    .card-top {
+        width: 130px;
+        height: 212px;
+        margin: 0px !important;
+    }
+
+    .cartbutton,
+    .wishlistbutton{
+        width: 40px;
+        margin-top: 2px;
+        margin-left: 2px;
+        height: 35px;
+    }
+    .cartbutton i,
+    .wishlistbutton i{
+        font-size: 13px;
+    }
+    .search-sidecontent{
+        padding-top: 10px ;
+        margin-left: -20px; 
+    }
+  
+    .headingpage{
+        font-size: 18px;
+        margin-bottom: 0px;
+    }
+
+    .bottomCardImage{
+        height: 200px;
+        /* opacity: 80%; */
+    }
+
+    .bottomCard{
+        width: 100%;
+        margin:30px auto;
+        text-align: center;
+    }
+    .bottomCardContent{
+        color: rgb(112, 45, 45) !important;
+        font-size: 18px !important;
+    }
+    .headersearchmain{
+        margin-left: 10px !important;
+    }
+    .newReleaseCard2Content{
+        font-size: 18px !important;
+        font-weight: 800;
+    }
+}

@@ -1,0 +1,162 @@
+/* .item ul, .nav input[type="checkbox"] { */
+.nav input[type="checkbox"] {
+    display: none;
+}
+
+#menu:checked ~ .multi-level, .item input:checked ~ ul {
+    display: block;
+}
+
+
+.search1 h4{
+    margin-left: 18px ;
+}
+.arrow {
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    float: left;
+    z-index: 0;
+    margin: 10px 1em 0 1em;
+}
+
+.item input + .arrow {
+    transform: rotate(-90deg);
+    transition: 0.1s;
+}
+.item input:checked + .arrow {
+    transform: rotate(0deg);
+    transition: 0.1s;
+}
+
+.item {
+    background-color:white;
+    margin-left: 7px;
+    margin-bottom: 5px;
+}
+
+li {
+    list-style-type: circle;
+    margin-left: 15px;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+label {
+    margin-top: 4px;
+}
+
+
+/*Styles*/
+
+/* _______________________________________________________________________________________ */
+
+.search1{
+    width: 100%;
+}
+
+
+@media only screen and (max-width: 1220px){
+    .search1 h4{
+        font-size: 17px;
+        margin: 8px 3px ;
+        padding: 0px;
+    }
+    .arrow {
+        display: none;
+    }
+    
+    .item {
+        margin-left: 1px;
+        margin-bottom: 5px;
+    }
+    .item li {
+        list-style-type: none;
+        margin-left: -20px;
+    }
+    label {
+        margin-left: 3px;
+    }
+
+    .item li{
+        font-size: 15px;
+    }
+}
+
+
+@media only screen and (max-width: 900px){
+    .arrow {
+        display: none;
+    }
+    
+    .item li {
+        list-style-type: none;
+        margin-left: -20px;
+    }
+
+    .item li{
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 768px){
+
+    .search1 h4{
+        font-size: 13px;
+        margin: 8px 0px ;
+        padding:0px;
+    }
+    .arrow {
+        display: none;
+    }
+    .item {
+        margin-left: 1px;
+        margin-bottom: 5px;
+    }
+    
+    .item li {
+        list-style-type: none;
+        margin-left: -20px;
+        padding-bottom: 4px;
+    }
+    
+    label {
+        margin: 0px;
+    }
+
+    .item li{
+        font-size: 13px;
+    }
+}
+
+
+@media only screen and (max-width: 480px){
+    .search1 h4{
+        font-size: 13px;
+        margin: 8px 0px ;
+        padding:0px;
+    }
+    .arrow {
+        display: none;
+    }
+    .item {
+        margin-left: 1px;
+        margin-bottom: 5px;
+    }
+    
+    .item li {
+        list-style-type: none;
+        /* margin-left: -20px; */
+        padding-bottom: 4px;
+    }
+    
+    label {
+        /* margin-left: 5px; */
+        font-size: 15px;
+    }
+
+    .item li{
+        font-size: 12px;
+    }
+}
+

@@ -1,0 +1,60 @@
+.newReleasePageCard {
+    display: inline-block;
+    width: 100%;
+    padding:20px;
+}
+
+.newReleasePageCardImage{
+    width: 100%;
+    height: 400px;
+}
+
+.newReleasePageCardContent{
+    position: absolute;
+    top: 38%;
+    left: 15%;
+    color: #f7076b ;
+    animation: newReleasePageAni 3s infinite;
+    font-family: Trebuchet MS, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 1px !important;
+}
+
+@keyframes newReleasePageAni {
+    50% {color: #07ce17 ;}
+    0% {
+      object-position: 0% 0%;
+    }
+    25% {
+      object-position: 20% 0%;
+    }
+    100% {
+      object-position: 100% 100%;
+    }
+}
+
+
+/* ----------------------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 768px){
+    .newReleasePageCardImage{
+        height: 320px;
+    }
+    
+    .newReleasePageCardContent{
+        top: 25%;
+        left: 15%;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .newReleasePageCardImage{
+        height: 200px;
+    }
+    
+    .newReleasePageCardContent{
+        top: 20%;
+        left: 10%;
+        font-size: 1px !important;
+    }
+}

@@ -1,0 +1,104 @@
+.header-color{
+  background-color: #131a22 !important; 
+}
+
+.headerLogo{
+  margin-left: 20px;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+.align-img-text{
+  display: flex;
+}
+.headerName{
+  margin-top: 20px;
+  /* float: left; */
+  font-size: 40px;
+  font-weight: 900;
+  color: rgb(244, 246, 247);
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.headerSearchBar{
+  display: inline !important;
+  text-align: center;
+  padding-top: 10px;
+  width: 360px !important;
+  border-radius: 5px !important;
+  /* border: 1px solid red !important; */
+}
+
+.headerSearchButton{
+  display: inline !important;
+  color: rgb(37, 77, 109) !important;
+  background-color: white !important;
+  /* border: 1px solid red !important; */
+  border-radius: 5px !important;
+  margin-left: 5px;
+  width: 60px;
+}
+
+.headerSearchButton:hover{
+  color: white !important;
+  background-color: red !important;
+}
+
+.headerButtons{
+  margin-right: 20px;  
+}
+.loginsignup{
+  position: relative;
+}
+
+@media only screen and (max-width: 1220px){
+
+  .headerSearchBar{
+    width: 300px !important;
+  }
+  
+  .button2{
+    position: absolute;
+    top: 8px;
+    left: 70px;
+  }
+
+}@media only screen and (max-width: 900px){
+  .headerName{
+    margin-left: 0px;
+    font-size: 30px;
+  }
+  .button2{
+    position: absolute;
+    top: 8px;
+    left: 70px;
+  }
+
+}@media only screen and (max-width: 768px){
+  .headerName{
+    margin-left: 0px;
+    font-size: 30px;
+  }
+  .button2{
+    position: absolute;
+    top: 8px;
+    left: 70px;
+  }
+
+}
+@media only screen and (max-width: 480px){
+  .headerName{
+    margin-left: 0px;
+    font-size: 30px;
+  }
+
+  .headerSearchBar{
+    width: 220px !important;
+  }
+
+  .button2{
+    position: absolute;
+    top: 8px;
+    left: 70px;
+  }
+
+}

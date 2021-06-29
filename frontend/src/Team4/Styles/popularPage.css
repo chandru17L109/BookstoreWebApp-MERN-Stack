@@ -1,0 +1,32 @@
+.popularPageCarousel {
+    display: inline-block;
+    width: 100%;
+    padding:20px;
+}
+
+.popularPageCarouselImage{
+    width: 100%;
+    height: 400px;
+}
+
+
+/* ---------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 768px){
+    .popularPageCarousel {
+        padding:0px;
+    }
+
+    .popularPageCarouselImage{
+        height: 320px;
+    }
+}
+
+@media only screen and (max-width: 480px){
+    .popularPageCarousel {
+        padding:0px;
+    }
+    .popularPageCarouselImage{
+        height: 200px;
+    }
+}
