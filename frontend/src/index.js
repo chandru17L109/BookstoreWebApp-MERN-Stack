@@ -44,7 +44,6 @@ const reducer = combineReducers({
   BookReducer : BookReducer
 })
 
-
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
@@ -57,6 +56,8 @@ const initialState = {
 }
 
 const appStore = createStore(reducer, initialState , composeWithDevTools(applyMiddleware(...middleware)))
+
+window.store = appStore
 
 ReactDOM.render(
   <React.StrictMode>

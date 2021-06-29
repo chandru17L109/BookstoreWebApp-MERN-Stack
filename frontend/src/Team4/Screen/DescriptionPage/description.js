@@ -6,13 +6,36 @@ import fiction2  from "../../images/fiction1.JPG"
 import userpic  from "../../images/empty_avatar.png"
 import {Link} from "react-router-dom";
 
-export default class ProductDetailspage extends Component {
+import * as actions from '../../action/action'
+import {connect} from 'react-redux';
+
+class ProductDetailspage extends Component {
   constructor(props){
     super(props);
     this.state = {bookdetails : props.location.query}
     console.log("props",props)
-    console.log("props bookdetail",this.state.bookdetails)
 }
+
+decidecartlist(bookid){
+  if(!this.props.Email){
+    alert("Please Login!")
+    this.props.history.push('/login')
+  }else{
+    console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+    this.props.onAddcartlist(this.props.Email.email, bookid);
+  }  
+}
+
+decidewishlist(bookid){
+if(!this.props.Email){
+    alert("Please Login!")
+    this.props.history.push('/login')
+  }else{
+    console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+    this.props.onAddwishlist(this.props.Email.email, bookid);
+  }
+}
+
   render() {
     console.log("props bookdetail",this.state.bookdetails)
     return (
@@ -38,10 +61,12 @@ export default class ProductDetailspage extends Component {
                   <i className="text-warning"><FaStar/></i>
                   <i className="text-warning"><FaStar/></i>
                 </strong>
-                <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({this.state.bookdetails.ratings} Ratings)</strong>
+                {/* <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({this.state.bookdetails.ratings} Ratings)</strong> */}
+                <strong style={{marginLeft:"5px",fontWeight:"normal"}}>(Ratings)</strong>
                 <br></br>
                 <div className="dropdown-divider mt-3"></div>
-                <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs. {this.state.bookdetails.sellprice}/-</strong>
+                {/* <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs. {this.state.bookdetails.sellprice}/-</strong> */}
+                <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs./-</strong>
                 <strong style={{marginLeft:"15px",textDecorationLine: 'line-through'}}>Rs. {this.state.bookdetails.price}</strong>
                 <br></br>
 
@@ -61,7 +86,7 @@ export default class ProductDetailspage extends Component {
                 </div>
                 <strong style={{fontSize:"14px",fontWeight:"normal"}}>Delivery - <span style={{fontWeight:"bold"}}>Expected within 5 working days</span> </strong>
                 <br></br>
-                <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.stock}</strong>
+                <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available}</strong>
                 <br></br>
                 <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
               </div>
@@ -113,7 +138,7 @@ export default class ProductDetailspage extends Component {
                   {/* <br></br> */}
                   <strong style={{fontWeight:"normal"}}>Inclusive of all taxes</strong>
                   <br></br>
-                  <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.stock}</strong>
+                  <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available}</strong>
                   <br></br>
                   <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
                   <br></br>
@@ -130,14 +155,14 @@ export default class ProductDetailspage extends Component {
                 {/* <a href="#" > */}
                   <Link to = {'/login'}>
                 <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                  <i className="text-white " style={{fontSize:"20px"}}><FaCartPlus/>    Add to cart</i>
+                  <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidecartlist.bind(this,this.state.bookdetails._id)}><FaCartPlus/>    Add to Cart</i>
                 </button>  
                 </Link>
                 {/* </a> */}
                 {/* <a href="#" > */}
                 <Link to = {'/login'}>
                   <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                    <i className="text-white " style={{fontSize:"20px"}}><FaShopify/>     Buy Now</i>
+                    <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidewishlist.bind(this,this.state.bookdetails._id)}><FaShopify/>     Add to Wishlist</i>
                   </button>  
                   </Link>
                 {/* </a> */}
@@ -278,3 +303,19 @@ export default class ProductDetailspage extends Component {
 );
 }
 }
+
+const mapStateToProps = (state) => {
+  console.log('Inside Component ', state);
+  return {
+      Email : state.userLogin.userInfo
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
+      onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailspage);

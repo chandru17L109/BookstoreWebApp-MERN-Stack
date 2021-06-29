@@ -6,10 +6,12 @@ import { logout } from '../actions/userActions'
 import { FaSignInAlt } from 'react-icons/fa'
 // import { FaStar } from "react-icons/fa";
 
+import { FaCartPlus } from "react-icons/fa";
 
 const Headers = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+  
   const dispatch = useDispatch()
 
   const logoutHandler = () => {
@@ -20,17 +22,29 @@ const Headers = () => {
   return (
     <header>
               {userInfo ? (
+                <>
+                <LinkContainer to='/wishlist'>
+                  <Nav.Link className="d-inline">
+                      <Button className="btn btn-primary">Wishlist</Button>
+                  </Nav.Link>
+                </LinkContainer>
+                <LinkContainer to='/cartlist'>
+                  <Nav.Link className="d-inline">
+                      <Button className="btn btn-primary">  Cart <FaCartPlus/> </Button>
+                  </Nav.Link>
+                </LinkContainer>
                 <NavDropdown title={userInfo.name} id='username'>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile Update</NavDropdown.Item>
+                  <LinkContainer to='/profile' className="d-inline">
+                      <NavDropdown.Item>Profile Update</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
                     LogOut
                   </NavDropdown.Item>
                 </NavDropdown>
+                 
+                </>
               ) : (
                 <LinkContainer to='/login'>
-                            
                   <Nav.Link>
                       <Button className="btn btn-primary button2"> <FaSignInAlt/>  Sign Up </Button>
                   </Nav.Link>

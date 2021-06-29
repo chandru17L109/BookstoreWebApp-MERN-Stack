@@ -1,6 +1,3 @@
-// import mongoose from 'mongoose';
-// import bcrypt from 'bcryptjs'
-// import crypto from 'crypto'
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
@@ -29,9 +26,7 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'no-photo.jpg'
     },
-
-
-},
+  },
     {
         timestamps: true
     })
@@ -39,7 +34,6 @@ const userSchema = mongoose.Schema({
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password)
 }
-
 
 
 userSchema.pre('save', async function (next) {

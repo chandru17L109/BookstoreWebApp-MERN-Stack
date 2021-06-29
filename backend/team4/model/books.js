@@ -15,22 +15,10 @@ const BooksSchema = new Schema({
         type: String,
         required: true
       },
-      description: {
-        type: String
-      },
       price:{
         type: Number
       },
-      publishedDate: {
-        type: Date
-      },
-      publisher: {
-        type: String
-      },
       discount:{
-        type: String
-      },
-      price:{
         type: String
       },
       available:{
@@ -39,6 +27,10 @@ const BooksSchema = new Schema({
       },
       category:{
         type: String
+     },
+     publishDate : {
+       type : Date,
+       Default : Date.now 
      }
 });
 

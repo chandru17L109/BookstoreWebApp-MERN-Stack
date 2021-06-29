@@ -4,9 +4,12 @@ export const GET_BOOKS_BY_QUERY_HOMEPAGE_TODAYDEALS = "GET_BOOKS_BY_QUERY_HOMEPA
 export const GET_BOOKS_BY_QUERY_HOMEPAGE_POPULARBOOKS = "GET_BOOKS_BY_QUERY_HOMEPAGE_POPULARBOOKS"
 export const GET_BOOKS_BY_QUERY_HOMEPAGE_NEWRELEASE = "GET_BOOKS_BY_QUERY_HOMEPAGE_NEWRELEASE"
 export const GET_BOOKS_BY_QUERY_PAGINATION = "GET_BOOKS_BY_QUERY_PAGINATION"
+export const ADD_TO_WISH_LIST = "ADD_TO_WISH_LIST"
+export const ADD_TO_CART_LIST = "ADD_TO_CART_LIST"
 
 
-const API = "http://localhost:4000"
+
+const API = "http://localhost:8080"
 var FETCHQUERY = ""
 var templist =[]
 
@@ -108,7 +111,7 @@ export const fetchbooksHomepagetodaydeals = (givencondition) => {
     console.log(`${API}/books${query}${condition}`)
 
         return dispatch => {
-            return fetch(`${API}/books/${query}${condition}`, {
+            return fetch(`${API}/books${query}${condition}`, {
                     headers: { 'Content-Type': 'application/json' },
                 })
                 .then(data =>data.json()) 
@@ -130,7 +133,7 @@ export const fetchbooksHomepagepopularbooks = (givencondition) => {
     console.log(`${API}/books${query}${condition}`)
 
         return dispatch => {
-            return fetch(`${API}/books/${query}${condition}`, {
+            return fetch(`${API}/books${query}${condition}`, {
                     headers: { 'Content-Type': 'application/json' },
                 })
                 .then(data =>data.json()) 
@@ -152,7 +155,7 @@ export const fetchbooksHomepagenewrelease = (givencondition) => {
     console.log(`${API}/books${query}${condition}`)
 
         return dispatch => {
-            return fetch(`${API}/books/${query}${condition}`, {
+            return fetch(`${API}/books${query}${condition}`, {
                     headers: { 'Content-Type': 'application/json' },
                 })
                 .then(data =>data.json()) 
@@ -200,6 +203,50 @@ export const fetchAllbooksPagination = (currentpage) => {
                         payload : {
                             data : res.data,
                             paginate : res.pagination
+                        }
+                    })
+                })
+        }
+}
+
+export const Addtocartlist = (email,bookid) => {
+
+    console.log(`${API}/api/cartlist/`)
+
+        return dispatch => {
+            return fetch(`${API}/api/cartlist/`, {
+                    method : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body : JSON.stringify({email: email, bookid : bookid}),
+                })
+                .then(data =>data.json()) 
+                .then(res=>{
+                    dispatch({
+                        type : ADD_TO_CART_LIST,
+                        payload : {
+                            data : res
+                        }
+                    })
+                })
+        }
+}
+
+export const Addtowishlist = (email,bookid) => {
+
+    console.log(`${API}/api/wishlist/`)
+
+        return dispatch => {
+            return fetch(`${API}/api/wishlist/`, {
+                    method : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body : JSON.stringify({email: email, books : bookid}),
+                })
+                .then(data =>data.json()) 
+                .then(res=>{
+                    dispatch({
+                        type : ADD_TO_WISH_LIST,
+                        payload : {
+                            data : res
                         }
                     })
                 })

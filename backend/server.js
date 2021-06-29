@@ -8,6 +8,9 @@ const { notFound_1, errorHandler_1 } = require('./team1/middleware/errorMiddlewa
 const errorHandler = require('./team4/middleware/errorhandler')
 
 const searchpageRoute = require('./team4/routes/newsearch')
+const wishlistRoute = require('./team4/routes/wishlist')
+const cartlistRoute = require('./team4/routes/cart')
+
 const userRoutes = require('./team1/routes/userRoutes')
 
 // const fileupload = require('express-fileupload')
@@ -23,17 +26,20 @@ app.use(express.json())
 connectToDatabase();
 
 app.use('/books', searchpageRoute);
-app.use(errorHandler);
+app.use('/api/wishlist', wishlistRoute);
+app.use('/api/cartlist', cartlistRoute);
 
+app.use(errorHandler);
 
 // app.use(fileupload())
 
 app.use('/api/users', userRoutes)
+
 app.use(notFound_1)
 app.use(errorHandler_1)
 
 
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 8080
 
 app.listen(PORT, console.log(`listening in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`.yellow.bold))
 

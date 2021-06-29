@@ -5,7 +5,7 @@ let initialState = {
     homepagetodaydeals : [],
     homepagepopularbooks : [],
     homepagenewrelease : [],
-    booksPagination : []
+    booksPagination : [],
 }
 
 const BookReducer = (state = initialState, action) =>{

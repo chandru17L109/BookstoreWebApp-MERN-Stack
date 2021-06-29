@@ -18,6 +18,8 @@ import ProfileScreen from './Team1/screens/ProfileScreen';
 
 import ForgotPasswordScreen from './Team1/screens/ForgotPasswordScreen';
 import NewPasswordScreen from './Team1/screens/NewPasswordScreen';
+import CartPage from "./Team4/Screen/cartlist/cartlist";
+import WishPage from "./Team4/Screen/wishlist/wishlist";
 
 function App() {
   return (
@@ -34,6 +36,9 @@ function App() {
                 <Route path="/newrelease" component={NewRelease}></Route>
                 <Route path="/headersearchresults/:searchelement" component={Headersearch}></Route>
                 <Route path="/description" component={ProductDetailspage}></Route>
+                <Route path="/wishlist" component={WishPage}></Route>
+                <Route path="/cartlist" component={CartPage}></Route>
+
 
 
                 <Route path='/login' component={LoginScreen}></Route>

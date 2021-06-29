@@ -15,6 +15,7 @@ export default class Header extends Component {
         this.setState({searchelement : searchdata})
         console.log("searchelement",this.state.searchelement)
     }
+
     render() {
         return (
             <div className="header-color">
@@ -41,9 +42,14 @@ export default class Header extends Component {
                             {/* <Nav.Link href="#login"><Button variant="success" className="button1">Login</Button></Nav.Link> */}
                             {/* <Nav.Link href="#signup"><Button variant="info"  className="button2">Sign Up</Button></Nav.Link> */}
                             <Nav.Link> 
+                                {/* <div className="d-inline"> <Button variant="warning" >Cart</Button></div>
+                                <div className="d-inline"> <Button variant="danger">Wishlist</Button></div> */}
+                                {/* <div className="d-inline"> <Button><Headers/></Button></div> */}
                                 <Headers/>
+                                
+                                {/* <Button variant="success" className="button1">Cart</Button>
+                                <Button variant="info"  className="button2">Wishlist</Button> */}
                             </Nav.Link>
-                           
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

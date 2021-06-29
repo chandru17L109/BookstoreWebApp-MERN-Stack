@@ -12,8 +12,8 @@ import NewReleasePageCardImage from '../../images/newReleasePageCardImage.jpg'
 import NewreleasebottomCardImage from '../../images/NewreleasebottomCardImage.jpg'
 
 import * as actions from '../../action/action'
-// import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
+
 
 class NewReleasePage extends Component {
 
@@ -38,12 +38,26 @@ class NewReleasePage extends Component {
           cur=cur-1
           this.props.onFetchAllbooks(cur)
       }
-      decidenow(){
-          console.log("decide function")
-          alert("Please Login!")
-          this.props.history.push('/login')
+
+      decidecartlist(bookid){
+          if(!this.props.Email){
+            // alert("Please Login!")
+            this.props.history.push('/login')
+          }else{
+            console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+            this.props.onAddcartlist(this.props.Email.email, bookid);
+          }  
       }
 
+      decidewishlist(bookid){
+        if(!this.props.Email){
+            // alert("Please Login!")
+            this.props.history.push('/login')
+          }else{
+            console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+            this.props.onAddwishlist(this.props.Email.email, bookid);
+          }
+    }
     
     render() {
         var showprevbutton = true
@@ -107,10 +121,10 @@ class NewReleasePage extends Component {
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id)}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidewishlist.bind(this,books._id)}>
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
@@ -191,20 +205,20 @@ class NewReleasePage extends Component {
 const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {
-        Books: state.BookReducer.books
+        Books: state.BookReducer.books,
+        Email : state.userLogin.userInfo
     }
   }
   
   const mapDispatchToProps = (dispatch) => {
     return {
         onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
+        onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
+        onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
     }
   }
   
   export default connect(mapStateToProps, mapDispatchToProps)(NewReleasePage);
-
-  
-
 
   
 // onFetchNewReleaseBooks: ()=>dispatch(actions.fetchbooksbynewrelease()),
