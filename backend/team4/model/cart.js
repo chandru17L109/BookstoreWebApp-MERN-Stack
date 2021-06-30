@@ -10,16 +10,16 @@ const CartListBooksSchema = new Schema({
         type : Number
     },
     books:[
-        {
-            quantity:{
-                type: Number,
-                default: 1
-            },
-            bookid:{
-                type : mongoose.Schema.Types.ObjectId,
-                ref : 'HomepageBookData',
+            {
+                quantity:{
+                    type: Number,
+                    default: 1
+                },
+                bookid:{
+                    type : mongoose.Schema.Types.ObjectId,
+                    ref : 'HomepageBookData',
+                }
             }
-        }
     ],
 });
 

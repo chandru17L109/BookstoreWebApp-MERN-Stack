@@ -18,5 +18,12 @@ const decidewishlist = (bookid) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
+      onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+  }
+}
+
 export default {decidecartlist, decidewishlist}
 

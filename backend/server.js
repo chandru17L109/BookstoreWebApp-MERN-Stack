@@ -5,6 +5,10 @@ const cors = require('cors')
 require('dotenv').config()
 
 const { notFound_1, errorHandler_1 } = require('./team1/middleware/errorMiddleware')
+
+const { notFound_5, errorHandler_5 } = require('./team5/middleware/errorMiddleware')
+
+
 const errorHandler = require('./team4/middleware/errorhandler')
 
 const searchpageRoute = require('./team4/routes/newsearch')
@@ -12,6 +16,8 @@ const wishlistRoute = require('./team4/routes/wishlist')
 const cartlistRoute = require('./team4/routes/cart')
 
 const userRoutes = require('./team1/routes/userRoutes')
+
+const reviewRoutes = require('./team5/routes/review')
 
 // const fileupload = require('express-fileupload')
 
@@ -33,15 +39,18 @@ app.use(errorHandler);
 
 // app.use(fileupload())
 
+
+app.use('/api/bookreview', reviewRoutes)
+
+
+app.use(notFound_5)
+app.use(errorHandler_5)
+
+
 app.use('/api/users', userRoutes)
 
 app.use(notFound_1)
 app.use(errorHandler_1)
-
-// app.use('/api/products', productRoutes)
-// app.use(notFound_5)
-// app.use(errorHandler_5)
-
 
 const PORT = process.env.PORT || 8080
 

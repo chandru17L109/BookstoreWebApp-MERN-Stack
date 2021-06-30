@@ -12,4 +12,7 @@ router.route('/')
 router.route('/CommonSearch/:searchitem')
 .get(findDataBasedOnSearchItem)
 
+// router.route('/:id')
+// .get(findDataBasedOnSearchItem)
+
 module.exports = router

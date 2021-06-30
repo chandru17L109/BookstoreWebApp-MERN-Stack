@@ -1,4 +1,5 @@
 //This model is for temperory usage by team4 
+const reviewSchema = require('../../team5/model/review')
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -32,6 +33,17 @@ const BooksSchema = new Schema({
        type : Date,
        Default : Date.now 
      }
+    //  review : [reviewSchema],
+    //  rating: {
+    //   type: Number,
+    //   required: true,
+    //   default: 0,
+    //  },
+    //  numReviews: {
+    //    type: Number,
+    //    required: true,
+    //    default: 0,
+    //  }
 });
 
 BooksSchema.index({title: "text", author: "text"})

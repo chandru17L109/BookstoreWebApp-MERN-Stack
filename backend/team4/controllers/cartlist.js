@@ -26,11 +26,15 @@ const findallcart = asyncHandler(async(req,res,next)=>{
 })
 
 const findonecart = asyncHandler(async(req,res,next)=>{
-    let searchData=await CartListBooks.find({email : req.params.email});
+    let searchData=await CartListBooks.findOne({email : req.params.email}).populate('books.bookid');;
     if(searchData.length !=0){
         res.json(searchData);
         console.log(searchData);}
     else next({message:"no record found"});
+    //res.status(200).json(res.advancedResults);
 })
 
 module.exports = {insertdata,findallcart,findonecart};
+
+
+// var arr=booksitem.map((element)=>{return (Products.find({_id:element}))})

@@ -1,25 +1,31 @@
-import asyncHandler from 'express-async-handler'
-// const {Product} = require('../model/review')
-import Product from '../model/review.js'
+// import asyncHandler from 'express-async-handler'
+const asyncHandler = require('express-async-handler');
+
+const BookReview = require('../model/review.js')
+
+const Books = require('../../team4/model/books')
+
+// import Product from '../model/review.js'
 
 // @desc    Create new review
 // @route   POST /api/products/:id/reviews
 // @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body
-  
-    const product = await Product.findById(req.params.id)
+    console.log("req.params._id",req.params.id)
+    const product = await Books.find({id:req.params.id})
+    console.log("product",product)
   
     if (product) {
       const alreadyReviewed = product.reviews.find(
         (r) => r.user.toString() === req.user._id.toString()
       )
-  
+
       if (alreadyReviewed) {
         res.status(400)
         throw new Error('Product already reviewed')
       }
-  
+      
       const review = {
         rating: Number(rating),
         comment,
@@ -43,4 +49,6 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
   })
 
- export {createProductReview}
+//  export {createProductReview}
+
+ module.exports = {createProductReview};

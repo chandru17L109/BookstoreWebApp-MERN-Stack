@@ -17,7 +17,7 @@ const insertdata = asyncHandler(async(req,res,next)=>{
 })
 
 const findonewishlist = asyncHandler(async(req,res,next)=>{
-    let searchData=await WishListBooks.find({email : req.params.email});
+    let searchData=await WishListBooks.findOne({email : req.params.email})
     if(searchData.length !=0){
         res.json(searchData);
         console.log(searchData);}
