@@ -40,17 +40,19 @@ app.use(errorHandler);
 // app.use(fileupload())
 
 
-app.use('/api/bookreview', reviewRoutes)
-
-
-app.use(notFound_5)
-app.use(errorHandler_5)
 
 
 app.use('/api/users', userRoutes)
 
 app.use(notFound_1)
 app.use(errorHandler_1)
+
+app.use('/api/bookreview', reviewRoutes)
+
+
+app.use(notFound_5)
+app.use(errorHandler_5)
+
 
 const PORT = process.env.PORT || 8080
 
