@@ -34,11 +34,25 @@ class PopularBookPage extends Component {
     //     console.log("alldeals",this.state.popularbooks)
     // }
 
-    decidenow(){
-        console.log("decide function")
-        alert("Please Login!")
-        this.props.history.push('/login')
+    decidecartlist(bookid){
+        if(!this.props.Email){
+          // alert("Please Login!")
+          this.props.props.history.push('/login')
+        }else{
+          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+          this.props.onAddcartlist(this.props.Email.email, bookid);
+        }  
     }
+
+    decidewishlist(bookid){
+      if(!this.props.Email){
+          // alert("Please Login!")
+          this.props.props.history.push('/login')
+        }else{
+          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+          this.props.onAddwishlist(this.props.Email.email, bookid);
+        }
+  }
 
 
     render() {
@@ -62,7 +76,7 @@ class PopularBookPage extends Component {
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
-                                <strong style={{marginLeft:"7px",color:"red"}}>Rs. {books.sellprice}</strong>
+                                <strong style={{marginLeft:"7px",color:"red"}}>Rs.{Math.round(books.price - (books.price * books.discount/100))}</strong>
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
@@ -76,10 +90,10 @@ class PopularBookPage extends Component {
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id)}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 wishlistbutton" onClick={this.decidewishlist.bind(this,books._id)}>
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
@@ -101,16 +115,20 @@ class PopularBookPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+  const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {
-        popularBooks : state.BookReducer.homepagepopularbooks
+        popularBooks : state.BookReducer.homepagepopularbooks,
+        Email : state.userLogin.userInfo
+
     }
   }
   
   const mapDispatchToProps = (dispatch) => {
     return {
         onFetchpopularBooks: (condition_popular)=>dispatch(actions.fetchbooksHomepagepopularbooks(condition_popular)),
+        onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
+        onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
     }
   }
   

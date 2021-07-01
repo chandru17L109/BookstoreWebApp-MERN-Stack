@@ -92,7 +92,7 @@ class Headersearch extends Component {
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
-                                <strong style={{marginLeft:"7px",color:"red"}}>Rs. {books.sellprice}</strong>
+                                <strong style={{marginLeft:"7px",color:"red"}}>Rs.{Math.round(books.price - (books.price * books.discount/100))}</strong>
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">

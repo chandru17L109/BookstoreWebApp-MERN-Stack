@@ -15,23 +15,42 @@ import HomePageCarousal2Image3 from '../../../images/homePageCarousal2Image3.jpg
 import BooklistCard2Image from '../../../images/booklistCard2Image.png'
 import * as actions from '../../../action/action'
 import {connect} from 'react-redux';
+import Snackbar from '@material-ui/core/Snackbar';
+
+// import SellingPrice from './BookListComponents/calculateprice'
 
 class AllBooksPage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {allbooks : []}
+        this.state = {allbooks : [], notify:false}
     }
 
     componentDidMount(){
        this.props.onFetchBooklistBooks();
    }
 
-   decidenow(){
-    console.log("decide function")
-    alert("Please Login !")
-    this.props.history.push('/login')
+   decidecartlist(bookid){
+    if(!this.props.Email){
+      // alert("Please Login!")
+      console.log("history",this.props)
+      this.props.props.history.push('/login')
+    }else{
+      console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+      this.props.onAddcartlist(this.props.Email.email, bookid);
+    }  
+}
+
+decidewishlist(bookid){
+  if(!this.props.Email){
+      this.setState({notify:true})
+      // alert("Please Login!")
+      this.props.props.history.push('/login')
+    }else{
+      console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+      this.props.onAddwishlist(this.props.Email.email, bookid);
     }
+}
 
     render() {
         var allbookslist = this.props.Books.map((books, i)=>{
@@ -55,7 +74,9 @@ class AllBooksPage extends Component {
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
-                                <strong style={{marginLeft:"7px",color:"red"}}>Rs. {books.sellprice}</strong>
+                                {/* <strong style={{marginLeft:"7px",color:"red"}}>Rs.{SellingPrice(books.price,books.discount)}</strong> */}
+                                <strong style={{marginLeft:"7px",color:"red"}}>Rs.{Math.round(books.price - (books.price * books.discount/100))}</strong>
+                               
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
@@ -69,10 +90,19 @@ class AllBooksPage extends Component {
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidenow.bind(this)}>
+                                {/* <Button variant="outlined" onClick={handleClick}>
+                                    Open success snackbar
+                                    </Button>
+                                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                    <Alert onClose={handleClose} severity="success">
+                                        This is a success message!
+                                    </Alert>
+                                    </Snackbar>
+                                <Alert severity="error">This is an error message!</Alert> */}
+                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id)}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 wishlistbutton"  onClick={this.decidewishlist.bind(this,books._id)}>
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
@@ -87,6 +117,13 @@ class AllBooksPage extends Component {
         
         return (
             <>
+
+            {/* {
+            this.state.notify && <Snackbar open={this.state.notify} autoHideDuration={3000}>
+                    <Alert severity="success"> Please Login to continue ! </Alert>
+                </Snackbar>
+            } */}
+
             <div className="Main">
          
                 <p className="visibility">{"Chandru & co"}</p>
@@ -139,12 +176,12 @@ class AllBooksPage extends Component {
 
                 <h3>Today Deals</h3>
                     <div className="row">
-                      <TodayDealsPage/>
+                      <TodayDealsPage props={this.props.props}/>
                     </div>
 
                 <h3>New Releases</h3>
                     <div className="row">
-                      <NewRelease/>
+                      <NewRelease props={this.props.props}/>
                     </div>
 
                     <Card className="booklistCard2">
@@ -184,7 +221,7 @@ class AllBooksPage extends Component {
 
                   <h3>Popular Books</h3>
                     <div className="row">
-                        <PopularBookPage/>
+                        <PopularBookPage props={this.props.props}/>
                     </div>
             </div>
             </>
@@ -192,16 +229,20 @@ class AllBooksPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+  const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {
-        Books: state.BookReducer.books
+        Books: state.BookReducer.books,
+        Email : state.userLogin.userInfo
+
     }
   }
   
   const mapDispatchToProps = (dispatch) => {
     return {
         onFetchBooklistBooks: ()=>dispatch(actions.fetchbooksbyquery()),
+        onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
+        onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
     }
   }
   

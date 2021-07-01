@@ -11,7 +11,7 @@ export default class Home extends Component {
         return (
             <>
                 <Carousalslide/>
-                <Booklist/>
+                <Booklist props={this.props}/>
                 <HomeContentCards/>
                 <Author/>
                 <Frequentques/>

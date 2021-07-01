@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { FaStar } from "react-icons/fa";
+import { FaHeart, FaStar } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
-import { FaShopify } from "react-icons/fa";
 import fiction2  from "../../images/fiction1.JPG"
 import userpic  from "../../images/empty_avatar.png"
-import {Link} from "react-router-dom";
 
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
@@ -66,7 +64,7 @@ if(!this.props.Email){
                 <br></br>
                 <div className="dropdown-divider mt-3"></div>
                 {/* <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs. {this.state.bookdetails.sellprice}/-</strong> */}
-                <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs./-</strong>
+                <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price : </span>Rs. {Math.round(this.state.bookdetails.price - (this.state.bookdetails.price * this.state.bookdetails.discount/100))}/-</strong>
                 <strong style={{marginLeft:"15px",textDecorationLine: 'line-through'}}>Rs. {this.state.bookdetails.price}</strong>
                 <br></br>
 
@@ -82,13 +80,14 @@ if(!this.props.Email){
                   <br></br>
                   <strong style={{fontWeight:"normal",fontSize:"14px"}}>Bank Offer - ₹20 Off on first prepaid transaction using RuPay debit card, minimum order value ₹750/-</strong>
                   <br></br>
-                  <strong style={{fontWeight:"normal",fontSize:"14px"}}>Combo Offer - Buy 2 Books save 5%;Buy 3 or more save 10% <Link to='/booklist'><a style={{marginLeft:"7px",fontWeight:"bold"}}>See all Books</a></Link> </strong>
+                  <strong style={{fontWeight:"normal",fontSize:"14px"}}>Combo Offer - Buy 2 Books save 5%;Buy 3 or more save 10% </strong> 
+                  {/* <Link to='/booklist'><a style={{marginLeft:"7px",fontWeight:"bold"}}>See all Books</a></Link>  */}
                 </div>
                 <strong style={{fontSize:"14px",fontWeight:"normal"}}>Delivery - <span style={{fontWeight:"bold"}}>Expected within 5 working days</span> </strong>
                 <br></br>
                 <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available}</strong>
                 <br></br>
-                <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
+                {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong> */}
               </div>
               <br></br>
 
@@ -120,12 +119,15 @@ if(!this.props.Email){
             <div className="card shadow rounded"  >
               <div className="card-body">
                 <div className="form-group">
-                  <strong style={{fontSize:"16px"}}><span>Price - </span>Rs. {this.state.bookdetails.sellprice}/-</strong>
-                  <strong style={{marginLeft:"5px",textDecorationLine: 'line-through'}}>Rs. {this.state.bookdetails.price}</strong>
+                  <strong> 
+                    <span>M.R.P : </span>
+                    <span style={{fontSize:"16px",textDecorationLine: 'line-through'}}>Rs.{this.state.bookdetails.price}/-</span>
+                  </strong>
+                  {/* <strong style={{marginLeft:"5px",textDecorationLine: 'line-through'}}>Rs. {this.state.bookdetails.price}</strong> */}
                   <br></br>
                   <strong>
-                    <span>M.R.P:</span>
-                    <span className="text-danger font-weight-bold"><i className="fas fa-rupee-sign"></i> Rs. {this.state.bookdetails.price}</span>
+                    <span>Price : </span>
+                    <span className="text-danger font-weight-bold"><i className="fas fa-rupee-sign"></i> Rs. {Math.round(this.state.bookdetails.price - (this.state.bookdetails.price * this.state.bookdetails.discount/100))}</span>
                   </strong>
                   <br></br>
                   <strong style={{fontWeight:"normal"}}>Discount - ({this.state.bookdetails.discount}%)</strong>
@@ -139,8 +141,8 @@ if(!this.props.Email){
                   <strong style={{fontWeight:"normal"}}>Inclusive of all taxes</strong>
                   <br></br>
                   <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available}</strong>
-                  <br></br>
-                  <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
+                  {/* <br></br> */}
+                  {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
                   <br></br>
                   <label for="quantity">Quantity:</label>
                   <select className="form-control form-control-sm d-inline ml-2" style={{width: "50px"}} id="quantity">
@@ -150,28 +152,28 @@ if(!this.props.Email){
                     <option>4</option>
                     <option>5</option>
                     <option>10</option>
-                  </select>
+                  </select> */}
                 </div>
                 {/* <a href="#" > */}
-                  <Link to = {'/login'}>
+                  {/* <Link to = {'/login'}> */}
                 <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
                   <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidecartlist.bind(this,this.state.bookdetails._id)}><FaCartPlus/>    Add to Cart</i>
                 </button>  
-                </Link>
+                {/* </Link> */}
                 {/* </a> */}
                 {/* <a href="#" > */}
-                <Link to = {'/login'}>
+                {/* <Link to = {'/login'}> */}
                   <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                    <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidewishlist.bind(this,this.state.bookdetails._id)}><FaShopify/>     Add to Wishlist</i>
+                    <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidewishlist.bind(this,this.state.bookdetails._id)}><FaHeart/>     Add to Wishlist</i>
                   </button>  
-                  </Link>
+                  {/* </Link> */}
                 {/* </a> */}
           
                 <div className="dropdown-divider"></div>
-                <a href="#">
+                {/* <a href="#">
                   <i className="fas fa-map-marker-alt text-dark"></i>
                     Select Delivery Location
-                </a>
+                </a> */}
               </div>
             </div>  
             </div>
