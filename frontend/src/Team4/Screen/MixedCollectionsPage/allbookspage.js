@@ -11,7 +11,10 @@ import '../../Styles/allBooksPage.css';
 import AllbooksbottomCardImage from '../../images/AllbooksbottomCardImage.png'
 import * as actions from '../../action/action'
 // import React, { useEffect } from 'react'
+
 import {connect} from 'react-redux';
+import NewRelease from '../HomePage/Components/BookListComponents/newrelease';
+
 class AllBooksPage extends Component {
     constructor(props){
         super(props);
@@ -202,6 +205,13 @@ class AllBooksPage extends Component {
                     </Card>
                 </div>
 
+                {/* <div className="w-100">
+                      <span className="heading_"> Today Deals</span>
+                </div>
+               
+                <div className="row">
+                    <NewRelease props={this.props.props}/>
+                </div> */}
                 
            </div>
             

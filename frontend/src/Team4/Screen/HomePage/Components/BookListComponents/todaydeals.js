@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import {Button,Card,Row,Container} from 'react-bootstrap' 
+import {Card} from 'react-bootstrap' 
 import fiction2  from "../../../../images/fiction1.JPG"
-import SearchPage from '../../../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
 import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import '../../../../Styles/design.css';
 import * as actions from '../../../../action/action'
-// import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
 
 class TodayDealsPage extends Component {
@@ -44,6 +42,7 @@ class TodayDealsPage extends Component {
   }
 
     render() {
+        console.log("this.props.todaydealsBooks",this.props.todaydealsBooks)
         var DealsBooklist = this.props.todaydealsBooks.map((books, i)=>{
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>

@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import {Button,Card,Row,Container} from 'react-bootstrap' 
+import {Card} from 'react-bootstrap' 
 import fiction2  from "../../../../images/fiction1.JPG"
-import ProductDetailspage from '../../../DescriptionPage/description';
 import {Link} from "react-router-dom";
-import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
-import SearchPage from '../../../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
 import { FaStar } from "react-icons/fa";

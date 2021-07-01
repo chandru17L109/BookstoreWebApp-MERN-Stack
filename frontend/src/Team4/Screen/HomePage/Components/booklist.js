@@ -15,7 +15,7 @@ import HomePageCarousal2Image3 from '../../../images/homePageCarousal2Image3.jpg
 import BooklistCard2Image from '../../../images/booklistCard2Image.png'
 import * as actions from '../../../action/action'
 import {connect} from 'react-redux';
-import Snackbar from '@material-ui/core/Snackbar';
+import CustomizedSnackbars from '../../../alert_notify/alert';
 
 // import SellingPrice from './BookListComponents/calculateprice'
 
@@ -23,7 +23,7 @@ class AllBooksPage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {allbooks : [], notify:false}
+        this.state = {allbooks : [], notify: null}
     }
 
     componentDidMount(){
@@ -32,22 +32,31 @@ class AllBooksPage extends Component {
 
    decidecartlist(bookid){
     if(!this.props.Email){
-      // alert("Please Login!")
-      console.log("history",this.props)
-      this.props.props.history.push('/login')
+      this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+      setTimeout(()=>{
+          this.setState({notify:null})
+      },2000)
+    //   this.props.props.history.push('/login')
     }else{
-      console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+      this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+      setTimeout(()=>{
+        this.setState({notify:null})
+      },2000)
       this.props.onAddcartlist(this.props.Email.email, bookid);
     }  
 }
 
 decidewishlist(bookid){
   if(!this.props.Email){
-      this.setState({notify:true})
-      // alert("Please Login!")
-      this.props.props.history.push('/login')
+    this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+      setTimeout(()=>{
+          this.setState({notify:null})
+      },2000)
     }else{
-      console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+    this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+      setTimeout(()=>{
+        this.setState({notify:null})
+      },2000)
       this.props.onAddwishlist(this.props.Email.email, bookid);
     }
 }
@@ -90,15 +99,6 @@ decidewishlist(bookid){
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                {/* <Button variant="outlined" onClick={handleClick}>
-                                    Open success snackbar
-                                    </Button>
-                                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                    <Alert onClose={handleClose} severity="success">
-                                        This is a success message!
-                                    </Alert>
-                                    </Snackbar>
-                                <Alert severity="error">This is an error message!</Alert> */}
                                     <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id)}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
@@ -106,7 +106,6 @@ decidewishlist(bookid){
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
-
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -117,20 +116,18 @@ decidewishlist(bookid){
         
         return (
             <>
-
-            {/* {
-            this.state.notify && <Snackbar open={this.state.notify} autoHideDuration={3000}>
-                    <Alert severity="success"> Please Login to continue ! </Alert>
-                </Snackbar>
-            } */}
+            {this.state.notify}
 
             <div className="Main">
          
                 <p className="visibility">{"Chandru & co"}</p>
-                <h3>Mixed Collections</h3>
-                        <div className="row">
-                            {allbookslist} 
-                        </div>
+                <div className="w-100">
+                      <span className="heading_">Mixed Collections</span>
+                      <Link to = {'/allbookspage'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                </div>
+                <div className="row">
+                    {allbookslist} 
+                </div>
             
 
                 <div className="homePageCarousal2">
@@ -173,16 +170,23 @@ decidewishlist(bookid){
                     </Carousel>
                 </div>
 
+                <div className="w-100">
+                      <span className="heading_"> Today Deals</span>
+                      <Link to = {'/todaydealspage'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                </div>
+               
+                <div className="row">
+                    <TodayDealsPage props={this.props.props}/>
+                </div>
 
-                <h3>Today Deals</h3>
-                    <div className="row">
-                      <TodayDealsPage props={this.props.props}/>
-                    </div>
+                <div className="w-100">
+                      <span className="heading_"> New Releases</span>
+                      <Link to = {'/newrelease'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                </div>
 
-                <h3>New Releases</h3>
-                    <div className="row">
-                      <NewRelease props={this.props.props}/>
-                    </div>
+                <div className="row">
+                    <NewRelease props={this.props.props}/>
+                </div>
 
                     <Card className="booklistCard2">
                         <Row>
@@ -218,11 +222,13 @@ decidewishlist(bookid){
                         </div>
                     </div>
                 </div> */}
-
-                  <h3>Popular Books</h3>
-                    <div className="row">
-                        <PopularBookPage props={this.props.props}/>
-                    </div>
+                <div className="w-100">
+                      <span className="heading_">Popular Books</span>
+                      <Link to = {'/popularpage'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                </div>
+                <div className="row">
+                    <PopularBookPage props={this.props.props}/>
+                </div>
             </div>
             </>
         )

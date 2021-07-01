@@ -115,7 +115,7 @@ class NewRelease extends Component {
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchNewReleaseBooks: (condition_popular)=>dispatch(actions.fetchbooksHomepagenewrelease(condition_popular)),
+        onFetchNewReleaseBooks: (condition_popular)=> dispatch(actions.fetchbooksHomepagenewrelease(condition_popular)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
     }

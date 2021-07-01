@@ -12,6 +12,17 @@
     margin: 10px 0px 0px 7px;  
 }
 
+.viewmore{
+    float: right;
+    margin: 0px 20px;
+    cursor: pointer;
+    color: rgb(31, 117, 187) !important;
+}
+
+.heading_{
+    font-size: 30px;
+    padding: 20px;
+}
 
 .card-top {
     width: 100%;
