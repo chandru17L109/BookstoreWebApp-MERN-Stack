@@ -6,8 +6,8 @@ export const GET_BOOKS_BY_QUERY_HOMEPAGE_NEWRELEASE = "GET_BOOKS_BY_QUERY_HOMEPA
 export const GET_BOOKS_BY_QUERY_PAGINATION = "GET_BOOKS_BY_QUERY_PAGINATION"
 export const ADD_TO_WISH_LIST = "ADD_TO_WISH_LIST"
 export const ADD_TO_CART_LIST = "ADD_TO_CART_LIST"
-
-
+export const ADD_REVIEW = "ADD_REVIEW"
+export const GET_BOOKS_BY_REVIEWS = "GET_BOOKS_BY_REVIEWS"
 
 const API = "http://localhost:8080"
 var FETCHQUERY = ""
@@ -232,9 +232,7 @@ export const Addtocartlist = (email,bookid) => {
 }
 
 export const Addtowishlist = (email,bookid) => {
-
     console.log(`${API}/api/wishlist/`)
-
         return dispatch => {
             return fetch(`${API}/api/wishlist/`, {
                     method : 'POST',
@@ -253,7 +251,47 @@ export const Addtowishlist = (email,bookid) => {
         }
 }
 
+export const AddReview = (rating,comment,username,bookid) => {
+    console.log(rating,comment,username,bookid)
+    var add_review_data = {rating : rating, comment : comment, user : username, book : bookid }
+    console.log(`${API}/books/review`)
+        return dispatch => {
+            return fetch(`${API}/books/review`, {
+                    method : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body : JSON.stringify(add_review_data),
+                })
+                .then(data =>data.json()) 
+                .then(res=>{
+                    dispatch({
+                        type : ADD_REVIEW,
+                        payload : {
+                            data : res
+                        }
+                    })
+                })
+        }
+}
 
+export const FetchReview = (bookid) => {
+
+    console.log(`${API}/books/review?book=${bookid}`)
+
+        return dispatch => {
+            return fetch(`${API}/books/review?book=${bookid}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                .then(data =>data.json()) 
+                .then(res=>{
+                    dispatch({
+                        type : GET_BOOKS_BY_REVIEWS,
+                        payload : {
+                            data : res.data
+                        }
+                    })
+                })
+        }
+}
     // else{
     //     FETCHQUERY = `/CommonSearch/${findurl}/?1`
     // }

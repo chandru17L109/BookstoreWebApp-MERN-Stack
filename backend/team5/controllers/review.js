@@ -41,15 +41,14 @@ const createProductReview = asyncHandler(async (req, res) => {
         book : req.body.book
       }
       const product = await Reviews.create(review)
-
     
       // product.reviews.push(review)
   
       // product.numReviews = product.reviews.length
   
-      // product.rating =
-      //   product.reviews.reduce((acc, item) => item.rating + acc, 0) /
-      //   product.reviews.length
+      // product.avgRating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length
+
+      // console.log("product avg",product)
   
       // await product.save()
       res.status(201).json({ message: 'Review added', review: product })

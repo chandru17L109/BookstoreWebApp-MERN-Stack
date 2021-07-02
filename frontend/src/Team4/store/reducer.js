@@ -6,6 +6,7 @@ let initialState = {
     homepagepopularbooks : [],
     homepagenewrelease : [],
     booksPagination : [],
+    review : []
 }
 
 const BookReducer = (state = initialState, action) =>{
@@ -17,6 +18,7 @@ const BookReducer = (state = initialState, action) =>{
         case actions.GET_BOOKS_BY_QUERY_HOMEPAGE_POPULARBOOKS : return {...state, homepagepopularbooks : action.payload } 
         case actions.GET_BOOKS_BY_QUERY_HOMEPAGE_NEWRELEASE : return {...state, homepagenewrelease : action.payload } 
         case actions.GET_BOOKS_BY_QUERY_PAGINATION : return {...state, booksPagination : action.payload } 
+        case actions.GET_BOOKS_BY_REVIEWS : return {...state, review : action.payload } 
         default : return {...state}
     }
 }

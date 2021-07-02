@@ -16,24 +16,24 @@ const reviewSchema = new Schema(
         type: String,
         required: true
       },
+      avgRating :{
+         type:Number,
+      },
      reviewDate : {
        type : Date,
        Default : Date.now
      },
      user: {
-         type: mongoose.Schema.Types.ObjectId,
-          required: true,
-         ref: 'User',
+         type: String,
+         required: true,
+         unique:true
       },
       book: {
          type : mongoose.Schema.Types.ObjectId,
           ref : 'HomepageBookData',
           required: true,
-       },
-    },
-   {
-     timestamps: true,
-   }
+       }
+    }
  )
 
  const Reviews = mongoose.model('Review', reviewSchema);
