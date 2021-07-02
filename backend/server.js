@@ -23,7 +23,7 @@ const wishItemRoutes = require('./team2/routes/wishItem')
 const addressRoutes = require('./team2/routes/address')
 const orderRoutes = require('./team2/routes/order')
 
-const reviewRoutes = require('./team5/routes/review')
+// const reviewRoutes = require('./team5/routes/review')
 
 // const fileupload = require('express-fileupload')
 

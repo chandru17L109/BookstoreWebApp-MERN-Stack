@@ -3,7 +3,7 @@ import { FaHeart, FaStar } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import fiction2  from "../../images/fiction1.JPG"
 import userpic  from "../../images/empty_avatar.png"
-
+import ReviewPage from './review'
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
 
@@ -190,7 +190,7 @@ if(!this.props.Email){
             </div>
           </div>
           <div className="row border-bottom mt-3" style={{fontSize:"15px"}}>
-            <div className="col-md-12 my-3">
+            <div className="col-md-12 mt-3">
               <h6 className="font-weight-bold">Save Extra with 5 offers</h6>
               <ul>
                 <li><span className="text-danger">No Cost EMI:</span> Avail No Cost EMI on select cards for orders above ₹3000</li>
@@ -204,17 +204,17 @@ if(!this.props.Email){
               </ul>
             </div>
           </div>
-          <div style={{marginLeft:"5px"}}>
+          {/* <div style={{marginLeft:"5px"}}>
             <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.stock}</strong>
             <br></br>
             <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
 
-          </div>   
+          </div>    */}
 
         </div>
           
         {/* <div className="col-md-8" style={{marginLeft:"60px"}}> */}
-        <div className="col-md-8">
+        {/* <div className="col-md-8">
           <p className="text-capitalize font-weight-bold">Top reviews from India</p>
           <div className="row" >
             <div className="col-md-12">
@@ -295,12 +295,14 @@ if(!this.props.Email){
                 </p>
               </div>
             </div>
-            
-          <div className="dropdown-divider mt-3"></div>
+             */}
+          {/* <div className="dropdown-divider mt-3"></div>
           <a href="#" className="font-weight-bold">See all reviews <i className="fas fa-caret-right"></i></a>
-          
-        </div>       
-      </div> 
+           */}
+        {/* </div>        */}
+
+        <ReviewPage props={this.state.bookdetails}/>
+     </div> 
         
 );
 }
