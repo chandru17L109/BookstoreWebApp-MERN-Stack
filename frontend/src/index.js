@@ -8,6 +8,8 @@ import './Team4/Styles/bootstrap.min.css';
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {Provider} from 'react-redux'
 import BookReducer from './Team4/store/reducer'
+import BookReducerCart from './Team2/store/reducer'
+
 // import store from './Team1/store'
 // import thunkMiddleware from 'redux-thunk'
 import thunk from 'redux-thunk'
@@ -41,7 +43,8 @@ const reducer = combineReducers({
   userDetails:userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   forgotPassword: forgotPasswordReducer,
-  BookReducer : BookReducer
+  BookReducer : BookReducer,
+  BookReducerCart : BookReducerCart
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
