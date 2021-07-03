@@ -111,11 +111,11 @@ class NewReleasePage extends Component {
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
+                                        {/* <i className="text-warning"><FaStar/></i>
                                         <i className="text-warning"><FaStar/></i>
                                         <i className="text-warning"><FaStar/></i>
                                         <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
+                                        <i className="text-warning"><FaStar/></i> */}
                                     </strong>
                                     <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
                                 </div>

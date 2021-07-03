@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
 import {Card} from 'react-bootstrap' 
 import nonfic2  from "../../../images/nonfic2.JPG"
 import SearchPage from '../../SideSearchBar/searchbar';
@@ -8,26 +8,35 @@ import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import * as actions from '../../../action/action'
 import {connect} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router";
+// class Headersearch extends Component {
+//     constructor(props){
+//         super(props);
+//     }
+
+function Headersearch(props){
 
 
-class Headersearch extends Component {
-    constructor(props){
-        super(props);
-        this.state = {headersearch : [], prev:false, next:true, showprev:true, shownext:true, current:1,paginate:[]}
-    }
+    // componentDidMount(){
+    //     const { match: { params } } = this.props;
+    //     console.log(this.props,params.searchelement);
+    //     this.props.onFetchheadersearchresults(params.searchelement);
+    // }
 
+    const { match: { params } } = props;
+    useEffect(() => {
+        console.log("props,params.searchelement",props,params.searchelement);
+        props.onFetchheadersearchresults(params.searchelement);
+    },[params.searchelement]);
 
-    componentDidMount(){
-        const { match: { params } } = this.props;
-        console.log(this.props,params.searchelement);
-        this.props.onFetchheadersearchresults(params.searchelement);
-       
-    }
+    const history = useHistory();
 
-    decidenow(){
+    const decidenow = () =>{
         console.log("decide function")
         alert("Please Login!")
-        this.props.history.push('/login')
+        history.push('/login');
+        // props.history.push('/login')
     }
 
     // changenext(){
@@ -64,15 +73,15 @@ class Headersearch extends Component {
     //     }
     // }
 
-    render() {
-        console.log("this.props.Books headersearch",this.props.Books)
-       if(this.props.Books.message){
+    // render() {
+    console.log("this.props.Books headersearch",props.Books)
+       if(props.Books.message){
         var newsearchresultslist = (
             <div className="alert alert-dismissible alert-info">
                 <strong className="m-5">No Search Results Found !</strong>
            </div>)
        }else{
-        var newsearchresultslist = this.props.Books.map((books, i)=>{
+        var newsearchresultslist = props.Books.map((books, i)=>{
             return(
                 <div className="ml-5 col-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
                     
@@ -106,10 +115,10 @@ class Headersearch extends Component {
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 cartbutton"  onClick={decidenow}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidenow.bind(this)}>
+                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={decidenow}>
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
@@ -161,7 +170,7 @@ class Headersearch extends Component {
         </div>   
         )
     }
-}
+// }
 const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {

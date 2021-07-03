@@ -85,7 +85,7 @@ if(!this.props.Email){
                 </div>
                 <strong style={{fontSize:"14px",fontWeight:"normal"}}>Delivery - <span style={{fontWeight:"bold"}}>Expected within 5 working days</span> </strong>
                 <br></br>
-                <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available}</strong>
+                <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available >0 ? "Available" : "Not Available"}</strong>
                 <br></br>
                 {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong> */}
               </div>
@@ -140,7 +140,7 @@ if(!this.props.Email){
                   {/* <br></br> */}
                   <strong style={{fontWeight:"normal"}}>Inclusive of all taxes</strong>
                   <br></br>
-                  <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available}</strong>
+                  <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available >0 ? "Available" : "Not Available"}</strong>
                   {/* <br></br> */}
                   {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
                   <br></br>
