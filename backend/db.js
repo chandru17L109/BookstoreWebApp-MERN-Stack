@@ -12,21 +12,23 @@
 
 // module.exports = connectToDatabase;
 
-
 // import mongoose from 'mongoose';
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect("mongodb://localhost:27017/bookstoreDB", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    })
-    console.log(`Mongo connected:${conn.connection.host}`.rainbow)
-  } catch (error) {
-    console.log(`Error: ${error.message}`.red);
-    process.exit(1);
-  }
-};
+	try {
+		const conn = await mongoose.connect(
+			'mongodb://localhost:27017/bookstoreDB',
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+				useCreateIndex: true,
+			}
+		)
+		console.log(`Mongo connected:${conn.connection.host}`.rainbow)
+	} catch (error) {
+		console.log(`Error: ${error.message}`.red)
+		process.exit(1)
+	}
+}
 // export default connectDB
-module.exports=connectDB
+module.exports = connectDB
