@@ -22,7 +22,12 @@ import {
   NEW_PASSWORD_REQUEST,
   NEW_PASSWORD_SUCCESS,
   NEW_PASSWORD_FAIL,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  USER_DETAILS_RESET,
+	USER_UPDATE_PIC_FAIL,
+	USER_UPDATE_PIC_SUCCESS,
+	USER_UPDATE_PIC_REQUEST,
+	USER_UPDATE_PIC_RESET,
 } from '../constants/userConstants'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -125,6 +130,31 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     default:
       return state
   }
+}
+
+export const uploadProfilePicReducer = (state = {}, action) => {
+	switch (action.type) {
+		case USER_UPDATE_PIC_REQUEST:
+			return {
+				loading: true,
+			}
+		case USER_UPDATE_PIC_SUCCESS:
+			return {
+				loading: false,
+				success: true,
+			}
+		case USER_UPDATE_PIC_FAIL:
+			return {
+				loading: false,
+				error: action.payload,
+			}
+		case USER_UPDATE_PIC_RESET:
+			return {
+				loading: false,
+			}
+		default:
+			return state
+	}
 }
 
 export const forgotPasswordReducer = (state = {}, action) => {

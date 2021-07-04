@@ -3,6 +3,7 @@ const app = express();
 const colors = require('colors')
 const cors = require('cors')
 require('dotenv').config()
+const fileupload = require('express-fileupload')
 
 const { notFound_1, errorHandler_1 } = require('./team1/middleware/errorMiddleware')
 
@@ -36,6 +37,9 @@ app.use(cors())
 app.use(express.json())
 
 connectToDatabase();
+
+app.use(fileupload())
+app.use('/dp', express.static('team1/public/uploads'))
 
 app.use('/books', searchpageRoute);
 app.use('/api/wishlist', wishlistRoute);

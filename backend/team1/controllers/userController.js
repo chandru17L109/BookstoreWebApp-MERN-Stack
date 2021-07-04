@@ -141,7 +141,7 @@ const uploadProfilePic = asyncHandler(async (req, res, next) => {
 
 	console.log('2', file.name)
 
-	file.mv(`backend/public/uploads/${file.name}`, async (err) => {
+	file.mv(`team1/public/uploads/${file.name}`, async (err) => {
 		console.log(err)
 		if (err) return next({ status: 500, message: 'Cant upload file' })
 		console.log('inside')
