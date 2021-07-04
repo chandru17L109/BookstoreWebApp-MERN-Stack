@@ -7,7 +7,7 @@ const sendEmail = require('../util/email')
 const crypto = require('crypto');
 const path = require('path');
 
-
+// checking for access
 
 // @desc   register a new Profile
 // @route   POST /api/users
