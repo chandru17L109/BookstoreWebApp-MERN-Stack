@@ -5,6 +5,7 @@ import * as actions from '../../action/action'
 import {connect} from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router";
+import AvgRating from '../AvgRating/AvgRating'
 
 function ProductDetailspage(props) {
 
@@ -14,12 +15,11 @@ function ProductDetailspage(props) {
 
   useEffect(() => {
       console.log("props",props.location.pathname);
-      var a = (props.location.pathname).split('/')
-      var b = a[a.length - 1]
-      console.log(b)
-      setBookid(b)
-      props.onFetchBookDescription(b);
-  },[]);
+      var findurl_bookid = (props.location.pathname).split('/')
+      var book_id = findurl_bookid[findurl_bookid.length - 1]
+      setBookid(book_id)
+      props.onFetchBookDescription(book_id);
+  },[props.location.pathname]);
 
 
 const history = useHistory();
@@ -45,6 +45,14 @@ if(!props.Email){
     // props.onAddwishlist(props.Email.email, bookid);
   }
 }
+  var booksreview = props.AvgReview;
+          var Reviewfound = booksreview.findIndex(function(post, index) {
+              if(post._id._id === props.Bookdetail._id)
+                  return true;
+          })
+          
+          var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+          console.log(Reviewfound)
 
     return (
 
@@ -66,11 +74,7 @@ if(!props.Email){
                 <strong style={{fontWeight:"normal"}}>{props.Bookdetail.authors} (Author)</strong>
                 <br></br>
                 <strong>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
+                <AvgRating rating={Math.round(RatingValue)}></AvgRating>
                 </strong>
                 {/* <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({props.Bookdetail.ratings} Ratings)</strong> */}
                 <strong style={{marginLeft:"5px",fontWeight:"normal"}}>(Ratings)</strong>
@@ -228,7 +232,9 @@ const mapStateToProps = (state) => {
   console.log('Inside Component ', state);
   return {
       Email : state.userLogin.userInfo,
-      Bookdetail : state.BookReducer.bookdetail
+      Bookdetail : state.BookReducer.bookdetail,
+      AvgReview : state.BookReducer.avgreview,
+
   }
 }
 
@@ -236,7 +242,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
       onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
       onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
-      onFetchBookDescription : (bookid) => dispatch(actions.FetchBookDescription(bookid))
+      onFetchBookDescription : (bookid) => dispatch(actions.FetchBookDescription(bookid)),
+      OnAvgreview : () => dispatch(actions.FetchAverageReview())
+
   }
 }
 

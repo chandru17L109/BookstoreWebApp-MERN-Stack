@@ -55,7 +55,7 @@ export default class SecondHeader extends Component {
                             <Link to={"/allbookspage"}><Button variant="outline-primary border-0 my-1">All</Button></Link>
                             <Link to={"/todaydealspage"}><Button variant="outline-primary border-0 my-1">Today Deals</Button></Link>
                             <Link to={"/newrelease"}><Button variant="outline-primary border-0 my-1">New Releases</Button></Link>
-                            <Link to={"/popularpage"}><Button variant="outline-primary border-0 my-1">Popular Books</Button></Link>
+                            <Link to={"/popularpage"}><Button variant="outline-primary border-0 my-1">Top Rated</Button></Link>
                             </div>
 
                             <div className="search ml-1">
@@ -74,7 +74,7 @@ export default class SecondHeader extends Component {
                                     <div className="dataResult">
                                         {this.state.filterData.slice(0,4).map((value, key) => {
                                             return (
-                                                <Link to= {{pathname : '/description', query : value}}>
+                                                <Link to= {'/description/'+value._id}>
                                                     <p onClick={clearInput}>{value.title} </p>
                                                 </Link>
                                             );

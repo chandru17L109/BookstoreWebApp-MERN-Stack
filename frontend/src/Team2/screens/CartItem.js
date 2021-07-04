@@ -16,25 +16,23 @@ import {
     FormControl,
 } from "react-bootstrap";
 
-const Item = ({ item, adjustQty, moveTo, remove }) => {
+const Item = (props) => {
 
-
-
-    const [input, setInput] = useState(item.quantity)
+    const [input, setInput] = useState(props.item.quantity)
 
 
     const onChangeHandler = (e) => {
         setInput(e.target.value);
-        adjustQty(item._id, e.target.value);
+        props.adjustQty(props.item._id, e.target.value, props.userdetail.email);
     };
 
 
 
     const move = (event) => {
-        moveTo(item._id);
+        props.moveTo(props.item._id);
     };
     const del = (event) => {
-        remove(item._id);
+        props.remove(props.item._id);
     }
 
     return (
@@ -47,20 +45,20 @@ const Item = ({ item, adjustQty, moveTo, remove }) => {
 
                         <Col md={1} >
                             {/* <Link to={`/`}>
-                                <Image src={item.imageUrl} fluid rounded />
+                                <Image src={props.item.imageUrl} fluid rounded />
                             </Link> */}
                         </Col>
 
                         <Col md={3} >
-                            <Link to={`/`}>{item.title}   </Link>
+                            <Link to={`/`}>{props.item.title}   </Link>
                         </Col>
 
-                        <Col md={1}>${item.price}</Col>
+                        <Col md={2}>Rs {props.item.price}</Col>
 
-                        <Col md="1">
+                        <Col md={2}>
                             <input
                                 min="1"
-                                max={item.available}
+                                max={props.item.available}
                                 type="number"
                                 id="qty"
                                 name="qty"
@@ -69,13 +67,13 @@ const Item = ({ item, adjustQty, moveTo, remove }) => {
                             />
                         </Col>
 
-                        <Col md={1} >
+                        <Col md={2} >
                             <Button onClick={move} type="button" className="btn btn-primary">
                                 Move To Wishlist
                             </Button>
                         </Col>
                         <Col >
-                            <Button onClick={del} type="button" className="btn btn-danger">
+                            <Button onClick={del} type="button" className="btn btn-danger ml-5">
                                 <i
                                     className="fa fa-trash "
                                     aria-hidden="true"
@@ -93,10 +91,16 @@ const Item = ({ item, adjustQty, moveTo, remove }) => {
 };
 
 
+const mapStateToProps = (state) => {
+    console.log('Inside', state);
+    return {
+        userdetail : state.userLogin.userInfo
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
-        adjustQty: (_id, value) => dispatch(actions.adjustItemQty(_id, value)),
+        adjustQty: (_id, value, useremail) => dispatch(actions.adjustItemQty(_id, value, useremail)),
     };
 };
 
-export default connect(null, mapDispatchToProps)(Item);
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

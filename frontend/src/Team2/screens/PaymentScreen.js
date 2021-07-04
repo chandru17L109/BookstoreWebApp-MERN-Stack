@@ -14,16 +14,14 @@ import { Link } from "react-router-dom";
 import OrderSummary from "../components/OrderSummary";
 
 function PaymentScreen(props) {
-  const OnconfirmPayment = () => {};
 
   useEffect(() => {
-    console.log("-------/--------------", props.cartItems, props.address);
-    props.OnconfirmPayment(props.cartItems, props.address);
+    props.onCartLoad(props.userdetail.email);
   }, []);
 
   return (
     <div>
-      <Col md={5}>
+      <Col className="ml-5" md={5}>
         <Card>
           <ListGroup variant="flush">
             <h3 style={{ color: "#fe019a" }}> &nbsp; order Summary</h3>
@@ -36,13 +34,13 @@ function PaymentScreen(props) {
                         <Image src={item.imageUrl} fluid rounded />
                       </Col>
                       <Col md={4}>
-                        <p>{item.name}</p>
+                        <p>{item.title}</p>
                       </Col>
-                      <Col md={2}>
+                      <Col md={3}>
                         <p>${item.price}</p>
                       </Col>
-                      <Col md={2}>
-                        <p>Qty:{item.qty}</p>
+                      <Col md={3}>
+                        <p>Qty:{item.quantity}</p>
                       </Col>
                     </Row>
                     <h1></h1>
@@ -60,37 +58,28 @@ function PaymentScreen(props) {
               <p className="name" style={{ color: "black" }}>
                 {props.address.name},
               </p>
-              <p>{props.address.flat}</p>
+              <p>{props.address.houseNumber}</p>
 
-              {props.address.landmark ? (
-                <p>
-                  {props.address.area}, {props.address.landmark}
-                </p>
-              ) : (
-                <p>{props.address.area}</p>
-              )}
+              <p>
+                {props.address.locality},{props.address.phone}
+              </p>
+
               {props.address.city ? (
                 <p>
-                  {props.address.city} ,{props.address.pincode}
+                  {props.address.city} ,{props.address.pinCode}
                 </p>
               ) : (
-                <p>{props.address.pincode}</p>
+                <p>{props.address.pinCode}</p>
               )}
 
               {props.address.state ? (
-                <p>
-                  {props.address.state}, India,{props.address.mobile}
-                </p>
+                <p>{props.address.state}, India</p>
               ) : (
-                <p>India,{props.address.mobile}</p>
+                <p>India</p>
               )}
             </Col>
             <Link to="/lastScreen">
-              <Button
-                type="button"
-                className="btn-block"
-                onclick={OnconfirmPayment}
-              >
+              <Button type="button" className="btn-block">
                 Confirm Payment
               </Button>
             </Link>
@@ -104,13 +93,15 @@ const mapStateToProps = (state) => {
   return {
     address: state.BookReducerCart.address,
     cartItems: state.BookReducerCart.cart,
+    amount: state.BookReducerCart.amount,
+    userdetail : state.userLogin.userInfo
+
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    OnconfirmPayment: (cartItems, address) =>
-      dispatch(actions.OnconfirmPaymentAction(cartItems, address)),
+    onCartLoad: (useremail) => dispatch(actions.onCartLoadAction(useremail)),
   };
 };
 

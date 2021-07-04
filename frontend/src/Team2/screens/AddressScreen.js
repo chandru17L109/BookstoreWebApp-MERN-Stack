@@ -25,7 +25,6 @@ function AddressScreen(props) {
   const [pinCode, setPincode] = useState("");
   const [houseNumber, setflatno] = useState("");
   const [locality, setArea] = useState("");
-  const [landmark, setLandmark] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [id, SetId] = useState("");
@@ -34,17 +33,12 @@ function AddressScreen(props) {
   //Form Validations
   const pincodereg = new RegExp("[0-9]{6}");
   const [pinstyle, setPinstyle] = useState({ borderColor: "transparent" });
-  const mobilereg = new RegExp("^[7,8,9][0-9]{9}");
-  const [mobstyle, setMobstyle] = useState({ borderColor: "transparent" });
 
   class sendaddress {
-    constructor(name, mobile, pinCode, houseNumber, locality, landmark, city, state) {
-      this.name = name;
-      this.mobile = mobile;
+    constructor(pinCode, houseNumber, locality, city, state) {
       this.pinCode = pinCode;
       this.houseNumber = houseNumber;
       this.locality = locality;
-      this.landmark = landmark;
       this.city = city;
       this.state = state;
     }
@@ -53,15 +47,16 @@ function AddressScreen(props) {
   const addAddress = () => {
     props.onAddAddress(
       new sendaddress(
-        // name,
-        // mobile,
         pinCode,
         houseNumber,
         locality,
-        // landmark,
+
         city,
         state
-      )
+      ),
+      props.userdetail.email,
+      props.userdetail.name,
+      props.userdetail.phone
     );
 
     resetform();
@@ -69,12 +64,9 @@ function AddressScreen(props) {
 
   const editaddress = (id, arr) => {
     console.log("id", id);
-    setName(arr.name);
     setArea(arr.locality);
-    setMobile(arr.mobile);
     setPincode(arr.pinCode);
     setflatno(arr.houseNumber);
-    setLandmark(arr.landmark);
     setCity(arr.city);
     setState(arr.state);
     SetId(id);
@@ -85,16 +77,8 @@ function AddressScreen(props) {
   const updateaddress = () => {
     props.OnEditAddress(
       id,
-      new sendaddress(
-        name,
-        mobile,
-        pinCode,
-        houseNumber,
-        locality,
-        landmark,
-        city,
-        state
-      )
+      new sendaddress(pinCode, houseNumber, locality, city, state),
+      props.userdetail.email
     );
     resetform();
   };
@@ -102,7 +86,6 @@ function AddressScreen(props) {
   const resetform = () => {
     setName("");
     setArea("");
-    setLandmark("");
     setCity("");
     setMobile("");
     setPincode("");
@@ -111,17 +94,20 @@ function AddressScreen(props) {
   };
 
   useEffect(() => {
-    props.onAddressLoad();
+    props.onAddressLoad(props.userdetail.email);
+
+    props.onCartLoad(props.userdetail.email);
   }, []);
 
   const deleteAddress = (_id) => {
-    props.onDeleteAddress(_id);
+    props.onDeleteAddress(_id,props.userdetail.email);
   };
 
   return (
+    
     <div className="address">
       <h2>Select a delivery adress</h2>
-      {props.Books.map((element) => {
+      {props.Books ? (props.Books.map((element) => {
         return (
           <AddressItem
             key={element._id}
@@ -132,38 +118,13 @@ function AddressScreen(props) {
             editaddress={editaddress}
           ></AddressItem>
         );
-      })}
+      }
+      )):<br></br>}
       <div className="new-address">
         <br></br>
         <div className="form">
           <h2> Address Form</h2>
-          <input
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            placeholder="Full Name"
-          ></input>
-          <input
-            style={mobstyle}
-            value={mobile}
-            onChange={(e) => {
-              setMobile(e.target.value);
-            }}
-            onBlur={(e) => {
-              console.log("onblur triggere");
-              var mobbool = mobilereg.test(e.target.value);
-              if (!mobbool) {
-                setMobstyle({ borderColor: "red" });
-                console.log("if in mob triggered");
-              } else {
-                console.log("else in mob triggered");
-                setMobstyle({ borderColor: "transparent" });
-              }
-            }}
-            placeholder="Mobile Number"
-            maxlength="10"
-          ></input>
+
           <input
             style={pinstyle}
             value={pinCode}
@@ -195,13 +156,7 @@ function AddressScreen(props) {
             }}
             placeholder="Area /Colony/Street"
           ></input>
-          <input
-            value={landmark}
-            onChange={(e) => {
-              setLandmark(e.target.value);
-            }}
-            placeholder="Landmark"
-          ></input>
+
           <input
             value={city}
             onChange={(e) => {
@@ -275,13 +230,13 @@ function AddressScreen(props) {
                           <Image src={item.imageUrl} fluid rounded />
                         </Col>
                         <Col md={4}>
-                          <p>{item.name}</p>
+                          <p>{item.title}</p>
                         </Col>
-                        <Col md={2}>
-                          <p>${item.price}</p>
+                        <Col md={4}>
+                          <p>Rs {item.price}</p>
                         </Col>
-                        <Col md={2}>
-                          <p>Qty:{item.qty}</p>
+                        <Col md={3}>
+                          <p>Qty:{item.quantity}</p>
                         </Col>
                       </Row>
                       <h1></h1>
@@ -293,11 +248,6 @@ function AddressScreen(props) {
               <ListGroupItem>
                 <OrderSummary />
               </ListGroupItem>
-              {/* <Link to="/address">
-                                <Button type="button" className="btn-block">
-                                    Proceed to Payment
-                                </Button>
-                            </Link> */}
             </ListGroup>
           </Card>
         </Col>
@@ -311,18 +261,19 @@ const mapStateToProps = (state) => {
   return {
     Books: state.BookReducerCart.books,
     cartItems: state.BookReducerCart.cart,
+    userdetail : state.userLogin.userInfo
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddressLoad: () => dispatch(actions.onAddressLoadAction()),
+    onAddressLoad: (useremail) => dispatch(actions.onAddressLoadAction(useremail)),
+    onCartLoad: (useremail) => dispatch(actions.onCartLoadAction(useremail)),
+    onDeleteAddress: (_id,useremail) => dispatch(actions.onDeleteAddressAction(_id,useremail)),
 
-    onDeleteAddress: (_id) => dispatch(actions.onDeleteAddressAction(_id)),
-
-    onAddAddress: (obj) => dispatch(actions.onAddAddressAction(obj)),
-    OnEditAddress: (id, elem) =>
-      dispatch(actions.OnEditAddressAction(id, elem)),
+    onAddAddress: (obj,useremail,username,userphone) => dispatch(actions.onAddAddressAction(obj,useremail,username,userphone)),
+    OnEditAddress: (id, elem,useremail) =>
+      dispatch(actions.OnEditAddressAction(id, elem,useremail)),
   };
 };
 

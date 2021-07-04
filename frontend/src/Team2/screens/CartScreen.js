@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import * as actions from "../action/action";
 import { connect } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
+import TodayDealsPage from '../../Team4/Screen/HomePage/Components/BookListComponents/todaydeals';
 
 import {
   Row,
@@ -26,102 +27,80 @@ const CartScreen = (props) => {
   const [cartTotal, setCarttotal] = useState(0);
 
   useEffect(() => {
-    props.onCartLoad();
+    props.onCartLoad(props.userdetail.email);
   }, []);
 
-  useEffect(() => {
-    let items = 0;
-    let price = 0;
-    let charge = 0;
-    let cart = 0;
-
-    props.Books.forEach((item) => {
-      console.log("quantity of each change", item.quantity);
-      items += item.quantity * 1;
-      price += item.quantity * item.price;
-      charge += item.quantity * 10;
-      cart += item.quantity * item.price + item.quantity * 10;
-    });
-
-    setTotalPrice(price);
-    setTotalItems(items);
-    setCharges(charge);
-    setCarttotal(cart);
-    props.OrderSummary(totalPrice, totalItems, charges, cartTotal);
-    props.amount(cartTotal)
-  }, [
-    props.Books,
-    totalPrice,
-    totalItems,
-    charges,
-    cartTotal
-  ]);
-
   const deleteCartItem = (_id) => {
-    props.onDeleteItem(_id);
+    props.onDeleteItem(_id,props.userdetail.email);
   };
 
   const moveToWishlist = (_id) => {
-    props.onMoveItem(_id);
+    props.onMoveItem(_id,props.userdetail.email);
   };
 
   // const number = props.Books.length;
 
   return (
     <div>
-
-      <Row>
-        <h1>
-          <span> Shopping Cart </span>
-        </h1>
-        {console.log("CARTLIST", props.Books)}
-        {props.Books.map(function (item) {
-          return (
-            <Col sm={8}>
-              <CartItem
-                key={item._id}
-                item={item}
-                moveTo={moveToWishlist}
-                remove={deleteCartItem}
-              />
-            </Col>
-          );
-        })}
-        <br></br>
-        <Col sm={3}>
-          <Card>
-            <ListGroup variant="flush">
-              <ListGroupItem>
-                <FormControl
-                  className="form-control me-sm-2"
-                  type="text"
-                  placeholder="Apply Coupon"
-                  style={{ height: "50px" }}
-                  className="mr-sm-2"
+      {props.Books ? (
+        <Row>
+          <h1>
+            <span> Shopping Cart </span>
+          </h1>
+          {console.log("cartlist", props.Books)}
+          {props.Books.map(function (item) {
+            return (
+              <Col sm={8}>
+                <CartItem
+                  key={item._id}
+                  item={item}
+                  moveTo={moveToWishlist}
+                  remove={deleteCartItem}
                 />
-              </ListGroupItem>
-              <ListGroupItem>
-                <Button
-                  className="btn btn-primary my-2 my-sm-0"
-                  type="submit"
-                >
-                  Apply Coupon
-                </Button>
-              </ListGroupItem>
+              </Col>
+            );
+          })}
+          <br></br>
+          <Col sm={3}>
+            <Card>
+              <ListGroup variant="flush">
+                <ListGroupItem>
+                  <FormControl
+                    className="form-control me-sm-2"
+                    type="text"
+                    placeholder="Apply Coupon"
+                    style={{ height: "50px" }}
+                    className="mr-sm-2"
+                  />
+                </ListGroupItem>
+                <ListGroupItem>
+                  <Button
+                    className="btn btn-primary my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Apply Coupon
+                  </Button>
+                </ListGroupItem>
 
-              <ListGroupItem>
-                <OrderSummary />
-              </ListGroupItem>
-              <Link to="/address">
-                <Button type="button" className="btn-block">
-                  Proceed to checkOut
-                </Button>
-              </Link>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-
+                <ListGroupItem>
+                  <OrderSummary />
+                </ListGroupItem>
+                <Link to="/address">
+                  <Button type="button" className="btn-block">
+                    Proceed to checkOut
+                  </Button>
+                </Link>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      ) : (
+        <EmptyCart></EmptyCart>
+      )}
+      <div className="row">
+          <h6>Books You May Like</h6>
+        <TodayDealsPage props={props.props}/>
+          </div>
     </div>
   );
 };
@@ -129,25 +108,18 @@ const CartScreen = (props) => {
 const mapStateToProps = (state) => {
   console.log("Inside", state);
   return {
-    Books: state.BookReducerCart.cart
-
+    Books: state.BookReducerCart.cart,
+    userdetail : state.userLogin.userInfo
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onCartLoad: () => dispatch(actions.onCartLoadAction()),
+    onCartLoad: (useremail) => dispatch(actions.onCartLoadAction(useremail)),
 
-    onDeleteItem: (_id) => dispatch(actions.onDeleteItemAction(_id)),
+    onDeleteItem: (_id,useremail) => dispatch(actions.onDeleteItemAction(_id,useremail)),
 
-    onMoveItem: (_id) =>
-      dispatch(actions.onMoveItemAction(_id)),
-
-    OrderSummary: (totalPrice, totalItems, charges, cartTotal) =>
-      dispatch(
-        actions.OrderSummaryAction(totalPrice, totalItems, charges, cartTotal)
-      ),
-    amount: (cartTotal) => dispatch(actions.amountAction(cartTotal))
+    onMoveItem: (_id,useremail) => dispatch(actions.onMoveItemAction(_id,useremail)),
   };
 };
 

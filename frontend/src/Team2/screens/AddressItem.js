@@ -17,20 +17,16 @@ import {
 
 function Item1(props) {
     const editaddress = () => {
-
         props.editaddress(props.arr._id, props.arr);
     };
 
     const deladdress = (event) => {
-
         props.delete(props.arr._id);
     };
 
     const deliverToAddress = () => {
-
         props.OndeliverToAddress(props.arr._id, props.arr);
-    }
-
+    };
 
     return (
         <Row>
@@ -49,20 +45,19 @@ function Item1(props) {
                                             return e.target.value;
                                         });
                                     }}
-                                ></input></Col>
-
+                                ></input>
+                            </Col>
 
                             <Col>
-                                <p className="name">{props.arr.name}</p>
+                                <p className="name" style={{ color: "black" }}>
+                                    {props.arr.name},
+                                </p>
                                 <p>{props.arr.houseNumber}</p>
 
-                                {props.arr.landmark ? (
-                                    <p>
-                                        {props.arr.locality}, {props.arr.landmark}
-                                    </p>
-                                ) : (
-                                    <p>{props.arr.locality}</p>
-                                )}
+                                <p>
+                                    {props.arr.locality},{props.arr.phone}
+                                </p>
+
                                 {props.arr.city ? (
                                     <p>
                                         {props.arr.city} ,{props.arr.pinCode}
@@ -71,15 +66,24 @@ function Item1(props) {
                                     <p>{props.arr.pinCode}</p>
                                 )}
 
-                                {props.arr.state ? <p>{props.arr.state}, India,{props.arr.mobile}</p> : <p>India,{props.arr.mobile}</p>}
+                                {props.arr.state ? (
+                                    <p>{props.arr.state}, India</p>
+                                ) : (
+                                    <p>India</p>
+                                )}
                             </Col>
                         </Row>
                         {props.radio == props.arr._id ? (
                             <div className="button-div">
-                                <Link to="/payment" >
-                                    <button type="button" className="btn btn-primary deliver" onClick={deliverToAddress}>
+                                <Link to="/payment">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary deliver"
+                                        onClick={deliverToAddress}
+                                    >
                                         Deliver to this address
-                                    </button>&nbsp;&nbsp;
+                                    </button>
+                                    &nbsp;&nbsp;
                                 </Link>
                                 <button
                                     type="button"
@@ -87,8 +91,8 @@ function Item1(props) {
                                     onClick={deladdress}
                                 >
                                     Delete address
-                                </button>&nbsp;&nbsp;
-
+                                </button>
+                                &nbsp;&nbsp;
                                 <button
                                     type="button"
                                     class="btn btn-warning edit"
@@ -100,7 +104,6 @@ function Item1(props) {
                         ) : (
                             <header></header>
                         )}
-
                     </ListGroupItem>
                 </ListGroup>
             </Col>
@@ -110,8 +113,8 @@ function Item1(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        OndeliverToAddress: (id, arr) => dispatch(actions.OndeliverToAddressAction(id, arr)),
-
+        OndeliverToAddress: (id, arr) =>
+            dispatch(actions.OndeliverToAddressAction(id, arr)),
     };
 };
 

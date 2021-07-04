@@ -16,6 +16,8 @@ import * as actions from '../../action/action'
 // import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
 
+import AvgRating from '../AvgRating/AvgRating'
+
  class PopularPage extends Component {
 
     constructor(props){
@@ -65,41 +67,52 @@ import {connect} from 'react-redux';
   }
 
     render() {
-        var showprevbutton = true
-        var shownextbutton = true
-        console.log("this.props.Books",this.props.Books)
+        // var showprevbutton = true
+        // var shownextbutton = true
+        // console.log("this.props.Books",this.props.Books)
 
-        if(this.state.current !== 1){
-            showprevbutton = false
-        }
+        // if(this.state.current !== 1){
+        //     showprevbutton = false
+        // }
 
-        if(this.props.Books.length === 0 || this.props.Books.length !== 12){
-            shownextbutton = true
+        // if(this.props.Books.length === 0 || this.props.Books.length !== 12){
+        //     shownextbutton = true
 
-            if(this.props.Books.length === 0){
-                var popularbookslist = (
-                    <div className="alert alert-dismissible alert-info m-3">
-                        <strong>No Data Available !</strong>
-                        <p>Click <b>Prev</b> to move to before page</p>
-                        <Button class="page-link" onClick={this.changeprev.bind(this)} disabled={showprevbutton}>Prev</Button>
-                    </div>)
-            }
-        }
+        //     if(this.props.Books.length === 0){
+        //         var popularbookslist = (
+        //             <div className="alert alert-dismissible alert-info m-3">
+        //                 <strong>No Data Available !</strong>
+        //                 <p>Click <b>Prev</b> to move to before page</p>
+        //                 <Button class="page-link" onClick={this.changeprev.bind(this)} disabled={showprevbutton}>Prev</Button>
+        //             </div>)
+        //     }
+        // }
 
-        if(this.props.Books.length === 12 || this.props.Books.length > 0){
+        // if(this.props.Books.length === 12 || this.props.Books.length > 0){
 
-            if(this.props.Books.length === 12){
-                shownextbutton = false
-            }
+        //     if(this.props.Books.length === 12){
+        //         shownextbutton = false
+        //     }
 
             var popularbookslist = this.props.Books.map((books, i)=>{
+
+                var booksreview = this.props.AvgReview;
+                console.log("booksreview",booksreview);
+                var Reviewfound = booksreview.findIndex(function(post, index) {
+                    if(post._id === books._id)
+                        return true;
+                })
+                
+                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+                console.log(Reviewfound)
+             
             // if(i < 4){
             return(
                 <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
                     
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
-                        <Link to= {{pathname : '/description', query : books}}>
+                    <Link to= {'/description/'+books._id._id}>
                             <Card.Img className="card-header bg-white " src={books._id.image} variant="top" />
                         </Link>
                         
@@ -117,20 +130,17 @@ import {connect} from 'react-redux';
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
+                                        {/* {RatingValue} */}
+                                    <AvgRating rating={Math.round(RatingValue)}></AvgRating>
                                     </strong>
                                     <strong style={{marginLeft:"10px"}}>({books._id.discount}%)</strong>
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id._id)}>
+                                    <button class="btn btn-light border-0 cartbutton"  >
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidewishlist.bind(this,books._id._id)}>
+                                    <button class="btn btn-light border-0 wishlistbutton" >
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
@@ -141,7 +151,7 @@ import {connect} from 'react-redux';
                 </div>
             )
         })
-    }
+    // }
         
         return (
             <>
@@ -239,7 +249,8 @@ import {connect} from 'react-redux';
     console.log('Inside Component ', state);
     return {
         Books: state.BookReducer.avgreview,
-        Email : state.userLogin.userInfo
+        Email : state.userLogin.userInfo,
+        AvgReview : state.BookReducer.avgreview,
     }
   }
   
@@ -248,6 +259,8 @@ import {connect} from 'react-redux';
         onFetchAverageReview: ()=>dispatch(actions.FetchAverageReview()),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+        OnAvgreview : () => dispatch(actions.FetchAverageReview())
+
     }
   }
   
