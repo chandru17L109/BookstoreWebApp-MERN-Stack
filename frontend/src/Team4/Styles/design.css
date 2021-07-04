@@ -116,7 +116,13 @@
     margin-left: 10px !important;
   }
 
+  .leftpaddingcarddata{
+    margin-left: 10px !important;
+  }
   
+  .leftpaddingcarddata .aligncartwishlist{
+    margin-left: -10px !important;
+  }
   
   .booklistCard2{
     width: 100%;
@@ -212,7 +218,13 @@
   .booklistCard2Image{
     width: 300px;
   }
-
+  .leftpaddingcarddata{
+    margin-top: 10px !important;
+  }
+  
+  .leftpaddingcarddata .aligncartwishlist{
+    margin-left: 10px !important;
+  }
 }
 
 @media only screen and (max-width: 900px){
@@ -232,6 +244,13 @@
 
   .lineHeight{
     line-height: 0 !important;
+  }
+  .leftpaddingcarddata{
+    margin-top: 20px !important;
+  }
+  
+  .leftpaddingcarddata .aligncartwishlist{
+    margin-left: 40px !important;
   }
 
 }
@@ -261,6 +280,14 @@
 
 .homePageCarousal2Text{
   font-size: 28px !important;
+}
+
+.leftpaddingcarddata{
+  margin-top: 20px !important;
+}
+
+.leftpaddingcarddata .aligncartwishlist{
+  margin-left: 20px !important;
 }
 
 }
@@ -309,4 +336,7 @@
   font-size: 14px !important;
 }
 
+.leftpaddingcarddata .aligncartwishlist{
+  margin-left: 0px !important;
+}
 }

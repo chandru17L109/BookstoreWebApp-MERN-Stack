@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Button,Card,Row,Container} from 'react-bootstrap' 
-import fiction2  from "../../images/fiction2.JPG"
+// import fiction2  from "../../images/fiction2.JPG"
 import SearchPage from '../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
@@ -94,7 +94,7 @@ class TodayDealsPage extends Component {
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
                         <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header bg-white " src={fiction2} variant="top" />
+                            <Card.Img className="card-header bg-white " src={books.image} variant="top" />
                         </Link>
                         
                         <Card.Body className="card-body change-font text-dark" >
@@ -103,7 +103,7 @@ class TodayDealsPage extends Component {
                                 <div className="text-dark">
                                     <strong >{books.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books.authors}</strong>
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>

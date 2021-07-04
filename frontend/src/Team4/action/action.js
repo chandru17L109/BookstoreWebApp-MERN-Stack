@@ -8,6 +8,8 @@ export const ADD_TO_WISH_LIST = "ADD_TO_WISH_LIST"
 export const ADD_TO_CART_LIST = "ADD_TO_CART_LIST"
 export const ADD_REVIEW = "ADD_REVIEW"
 export const GET_BOOKS_BY_REVIEWS = "GET_BOOKS_BY_REVIEWS"
+export const GET_BOOKS_BY_AVERAGE_REVIEWS = "GET_BOOKS_BY_AVERAGE_REVIEWS"
+export const GET_BOOK_FOR_DESCRIPTION = "GET_BOOK_FOR_DESCRIPTION"
 
 const API = "http://localhost:8080"
 var FETCHQUERY = ""
@@ -292,6 +294,60 @@ export const FetchReview = (bookid) => {
                 })
         }
 }
+
+export const FetchAverageReview = (bookid) => {
+    console.log(`${API}/books/review/avgrating`)
+        return dispatch => {
+            return fetch(`${API}/books/review/avgrating`, {
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                .then(data =>data.json()) 
+                .then(res=>{
+                    dispatch({
+                        type : GET_BOOKS_BY_AVERAGE_REVIEWS,
+                        payload : res
+                    })
+                })
+        }
+}
+
+export const FetchBookDescription = (bookid) =>{
+    console.log("bookid",bookid)
+    console.log(`${API}/books?_id=${bookid}`)
+
+    return dispatch => {
+        return fetch(`${API}/books?_id=${bookid}`, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(data =>data.json()) 
+            .then(res=>{
+                console.log("res",res)
+                dispatch({
+                    type : GET_BOOK_FOR_DESCRIPTION,
+                    payload : res.data[0]
+                })
+            })
+    }
+}
+
+// export const FetchAllbooksBasedonAvgRating = (currentpage) =>{
+//     console.log("currentpage",currentpage)
+//     console.log(`${API}/books/review/avgrating`)
+//     return dispatch => {
+//         return fetch(`${API}/books/review/avgrating`, {
+//                 headers: { 'Content-Type': 'application/json' },
+//             })
+//             .then(data =>data.json()) 
+//             .then(res=>{
+//                 console.log("res",res)
+//                 dispatch({
+//                     type : GET_BOOK_BY_,
+//                     payload : res.data[0]
+//                 })
+//             })
+//     }
+// }
+
     // else{
     //     FETCHQUERY = `/CommonSearch/${findurl}/?1`
     // }

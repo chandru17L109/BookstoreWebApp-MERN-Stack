@@ -20,17 +20,7 @@ class PopularBookPage extends Component {
     componentDidMount(){
         this.props.onFetchpopularBooks(this.state.popular);
     }
-    // componentDidMount(){
-    //     fetch('http://localhost:4000'+'/books/?sort=-ratings',{
-    //         headers:{'content-type': 'application/json'},
-    //     })
-    //     .then(res=>res.json())
-    //     .then(data=>{
-    //         this.setState({popularbooks : data.data})
-    //     });
-    //     console.log("alldeals",this.state.popularbooks)
-    // }
-
+   
     decidecartlist(bookid){
         if(!this.props.Email){
           // alert("Please Login!")
@@ -60,16 +50,16 @@ class PopularBookPage extends Component {
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
                         <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header leftpaddingcard bg-white" src={fiction2} variant="top" />
+                            <Card.Img className="card-header leftpaddingcard bg-white" src={books.image} variant="top" />
                         </Link>
                         
-                        <Card.Body className="card-body change-font text-dark" >
+                        <Card.Body className="card-body leftpaddingcarddata change-font text-dark" >
                             <Card.Text as="div" className="cardtext">
 
                                 <div className="text-dark">
                                     <strong >{books.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books.authors}</strong>
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>

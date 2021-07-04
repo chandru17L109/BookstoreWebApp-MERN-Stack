@@ -1,56 +1,69 @@
-import React, { Component } from 'react'
 import { FaHeart, FaStar } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
-import fiction2  from "../../images/fiction1.JPG"
-import userpic  from "../../images/empty_avatar.png"
 import ReviewPage from './review'
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router";
 
-class ProductDetailspage extends Component {
-  constructor(props){
-    super(props);
-    this.state = {bookdetails : props.location.query}
-    console.log("props",props)
-}
+function ProductDetailspage(props) {
 
-decidecartlist(bookid){
-  if(!this.props.Email){
-    alert("Please Login!")
-    this.props.history.push('/login')
+  const { match: { params } } = props;
+
+  const [bookid, setBookid] = useState("")
+
+  useEffect(() => {
+      console.log("props",props.location.pathname);
+      var a = (props.location.pathname).split('/')
+      var b = a[a.length - 1]
+      console.log(b)
+      setBookid(b)
+      props.onFetchBookDescription(b);
+  },[]);
+
+
+const history = useHistory();
+
+const decidecartlist = (bookid) =>{
+  if(!props.Email){
+        // alert("Please Login!")
+        // history.push('/login');
+        console.log("please login")
   }else{
-    console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-    this.props.onAddcartlist(this.props.Email.email, bookid);
+    console.log("props.Email and bookid",props.Email.email, bookid)
+    // props.onAddcartlist(props.Email.email, bookid);
   }  
 }
 
-decidewishlist(bookid){
-if(!this.props.Email){
-    alert("Please Login!")
-    this.props.history.push('/login')
+const decidewishlist = (bookid) => {
+if(!props.Email){
+    // alert("Please Login!")
+    // history.push('/login')
+    console.log("please login")
   }else{
-    console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-    this.props.onAddwishlist(this.props.Email.email, bookid);
+    console.log("this.props.Email and bookid",props.Email.email, bookid)
+    // props.onAddwishlist(props.Email.email, bookid);
   }
 }
 
-  render() {
-    console.log("props bookdetail",this.state.bookdetails)
     return (
+
       <div style={{color:"black"}}>
+         { console.log("props bookdetail",props.Bookdetail)}
+
         <div className="container mb-0" >
           <div className="row" >
 
             <div className="col-6 col-sm-6 col-md-2 col-lg-2 col-xl-2"> 
-              <img className="card shadow rounded" src={fiction2} className="img-fluid" alt="product image"/>
+              <img className="card shadow rounded" src={props.Bookdetail.image} className="img-fluid" alt="product image"/>
             </div> 
 
             {/* <div className="col-md-7"> */}
             <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-7"> 
               <div>
-                <strong style={{fontSize:"18px"}}>{this.state.bookdetails.title}</strong>
+                <strong style={{fontSize:"18px"}}>{props.Bookdetail.title}</strong>
                 <br></br>
-                <strong style={{fontWeight:"normal"}}>{this.state.bookdetails.author} (Author)</strong>
+                <strong style={{fontWeight:"normal"}}>{props.Bookdetail.authors} (Author)</strong>
                 <br></br>
                 <strong>
                   <i className="text-warning"><FaStar/></i>
@@ -59,20 +72,20 @@ if(!this.props.Email){
                   <i className="text-warning"><FaStar/></i>
                   <i className="text-warning"><FaStar/></i>
                 </strong>
-                {/* <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({this.state.bookdetails.ratings} Ratings)</strong> */}
+                {/* <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({props.Bookdetail.ratings} Ratings)</strong> */}
                 <strong style={{marginLeft:"5px",fontWeight:"normal"}}>(Ratings)</strong>
                 <br></br>
                 <div className="dropdown-divider mt-3"></div>
-                {/* <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs. {this.state.bookdetails.sellprice}/-</strong> */}
-                <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price : </span>Rs. {Math.round(this.state.bookdetails.price - (this.state.bookdetails.price * this.state.bookdetails.discount/100))}/-</strong>
-                <strong style={{marginLeft:"15px",textDecorationLine: 'line-through'}}>Rs. {this.state.bookdetails.price}</strong>
+                {/* <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price - </span>Rs. {props.Bookdetail.sellprice}/-</strong> */}
+                <strong className="text-danger" style={{fontSize:"16px"}}><span style={{color:"black"}}>Price : </span>Rs. {Math.round(props.Bookdetail.price - (props.Bookdetail.price * props.Bookdetail.discount/100))}/-</strong>
+                <strong style={{marginLeft:"15px",textDecorationLine: 'line-through'}}>Rs. {props.Bookdetail.price}</strong>
                 <br></br>
 
                 {/* <strong style={{fontSize:"14px"}}>
                   <span>You Save:</span>
                   <span className="text-primary font-weight-bold"><i className="fas fa-rupee-sign"></i> Rs. 4000/-</span>
                 </strong> */}
-                <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({this.state.bookdetails.discount}% Discount)</strong>
+                <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({props.Bookdetail.discount}% Discount)</strong>
                 <div style={{marginTop:"10px"}}>
                   <strong >Available Offers</strong>
                   <br></br>
@@ -85,7 +98,7 @@ if(!this.props.Email){
                 </div>
                 <strong style={{fontSize:"14px",fontWeight:"normal"}}>Delivery - <span style={{fontWeight:"bold"}}>Expected within 5 working days</span> </strong>
                 <br></br>
-                <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available >0 ? "Available" : "Not Available"}</strong>
+                <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{props.Bookdetail.available >0 ? "Available" : "Not Available"}</strong>
                 <br></br>
                 {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong> */}
               </div>
@@ -93,25 +106,25 @@ if(!this.props.Email){
 
               <div className="row">
                 <div className="col-3 col-md-3">
-                  <img src={fiction2} width="35" height="35" className="rounded" alt="" />
+                  <img src={props.Bookdetail.image} width="35" height="35" className="rounded" alt="" />
                   <br></br>
                   <a href="#">No contact delivery</a>
                 </div>
                 <div className="col-3 col-md-3">
-                  <img src={fiction2} width="35" height="35" className="rounded" alt="" />
+                  <img src={props.Bookdetail.image} width="35" height="35" className="rounded" alt="" />
                   <br></br>
                   <a href="#">7 Day Replacement</a>
                 </div>
                 <div className="col-3 col-md-3">
-                  <img src={fiction2} width="35" height="35" className="rounded" alt="" />
+                  <img src={props.Bookdetail.image} width="35" height="35" className="rounded" alt="" />
                   <br></br>
-                  <a href="#">Amazon Delivered</a>
+                  <a href="#">Bookstore Delivered</a>
                 </div>
-                <div className="col-3 col-md-3">
+                {/* <div className="col-3 col-md-3">
                   <img src={fiction2} width="35" height="35" className="rounded" alt="" />
                   <br></br>
                   <a href="#">1 Year Waranty</a>
-                </div>
+                </div> */}
               </div>
             </div>
                                       {/*card starts*/}
@@ -121,16 +134,16 @@ if(!this.props.Email){
                 <div className="form-group">
                   <strong> 
                     <span>M.R.P : </span>
-                    <span style={{fontSize:"16px",textDecorationLine: 'line-through'}}>Rs.{this.state.bookdetails.price}/-</span>
+                    <span style={{fontSize:"16px",textDecorationLine: 'line-through'}}>Rs.{props.Bookdetail.price}/-</span>
                   </strong>
-                  {/* <strong style={{marginLeft:"5px",textDecorationLine: 'line-through'}}>Rs. {this.state.bookdetails.price}</strong> */}
+                  {/* <strong style={{marginLeft:"5px",textDecorationLine: 'line-through'}}>Rs. {props.Bookdetail.price}</strong> */}
                   <br></br>
                   <strong>
                     <span>Price : </span>
-                    <span className="text-danger font-weight-bold"><i className="fas fa-rupee-sign"></i> Rs. {Math.round(this.state.bookdetails.price - (this.state.bookdetails.price * this.state.bookdetails.discount/100))}</span>
+                    <span className="text-danger font-weight-bold"><i className="fas fa-rupee-sign"></i> Rs. {Math.round(props.Bookdetail.price - (props.Bookdetail.price * props.Bookdetail.discount/100))}</span>
                   </strong>
                   <br></br>
-                  <strong style={{fontWeight:"normal"}}>Discount - ({this.state.bookdetails.discount}%)</strong>
+                  <strong style={{fontWeight:"normal"}}>Discount - ({props.Bookdetail.discount}%)</strong>
                   <br></br>
                   {/* <strong>
                     <span>You Save:</span>
@@ -140,7 +153,7 @@ if(!this.props.Email){
                   {/* <br></br> */}
                   <strong style={{fontWeight:"normal"}}>Inclusive of all taxes</strong>
                   <br></br>
-                  <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.available >0 ? "Available" : "Not Available"}</strong>
+                  <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{props.Bookdetail.available >0 ? "Available" : "Not Available"}</strong>
                   {/* <br></br> */}
                   {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
                   <br></br>
@@ -157,14 +170,14 @@ if(!this.props.Email){
                 {/* <a href="#" > */}
                   {/* <Link to = {'/login'}> */}
                 <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                  <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidecartlist.bind(this,this.state.bookdetails._id)}><FaCartPlus/>    Add to Cart</i>
+                  <i className="text-white " style={{fontSize:"20px"}} onClick={decidecartlist(bookid)}><FaCartPlus/>    Add to Cart</i>
                 </button>  
                 {/* </Link> */}
                 {/* </a> */}
                 {/* <a href="#" > */}
                 {/* <Link to = {'/login'}> */}
                   <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                    <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidewishlist.bind(this,this.state.bookdetails._id)}><FaHeart/>     Add to Wishlist</i>
+                    <i className="text-white " style={{fontSize:"20px"}} onClick={decidewishlist(bookid)}><FaHeart/>     Add to Wishlist</i>
                   </button>  
                   {/* </Link> */}
                 {/* </a> */}
@@ -186,7 +199,7 @@ if(!this.props.Email){
           <div className="row border-bottom mt-3">
             <div className="col-md-12 my-3">
               <h6 className="font-weight-bold">Product description</h6>
-                <p className="ml-3">{this.state.bookdetails.desc}</p>
+                <p className="ml-3"> </p>
             </div>
           </div>
           <div className="row border-bottom mt-3" style={{fontSize:"15px"}}>
@@ -204,114 +217,18 @@ if(!this.props.Email){
               </ul>
             </div>
           </div>
-          {/* <div style={{marginLeft:"5px"}}>
-            <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{this.state.bookdetails.stock}</strong>
-            <br></br>
-            <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
-
-          </div>    */}
-
         </div>
-          
-        {/* <div className="col-md-8" style={{marginLeft:"60px"}}> */}
-        {/* <div className="col-md-8">
-          <p className="text-capitalize font-weight-bold">Top reviews from India</p>
-          <div className="row" >
-            <div className="col-md-12">
-              <a href="#" className="text-dark"><img src={userpic} width="34" height="34" className="rounded-circle mr-2"/> User1</a>
-              <p className="font-weight-bold mt-2">
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                Coimbatore
-              </p>
-              <p>
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-              </p>
-            </div>
-          </div>
-            
-          <div className="row">
-            <div className="col-md-12">
-              <a href="#" className="text-dark"><img src={userpic} width="34" height="34" className="rounded-circle mr-2"/> user2</a>
-              <p className="font-weight-bold mt-2">
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                Coimbatore
-              </p>
-              <p>
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-              </p>
-            </div>
-          </div>
-            
-          <div className="row">
-            <div className="col-md-12">
-              <a href="#" className="text-dark"><img src={userpic} width="34" height="34" className="rounded-circle mr-2"/> user3</a>
-              <p className="font-weight-bold mt-2">
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                <i className="text-warning"><FaStar/></i>
-                Coimbatore
-              </p>
-              <p>
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-              </p>
-            </div>
-          </div>
-            
-          <div className="row">
-            <div className="col-md-12">
-              <a href="#" className="text-dark"><img src={userpic} width="34" height="34" className="rounded-circle mr-2"/> user4</a>
-                <p className="font-weight-bold mt-2">
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  <i className="text-warning"><FaStar/></i>
-                  Coimbatore
-                </p>
-                <p>
-                  hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                  hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                  hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                  hjkd sahdskahdjks hkdjhsjkfhsdkjfhk jdhfjkhjkf dhfs
-                </p>
-              </div>
-            </div>
-             */}
-          {/* <div className="dropdown-divider mt-3"></div>
-          <a href="#" className="font-weight-bold">See all reviews <i className="fas fa-caret-right"></i></a>
-           */}
-        {/* </div>        */}
-
-        <ReviewPage props={this.state.bookdetails}/>
+        <ReviewPage props={props.Bookdetail}/>
      </div> 
         
 );
-}
 }
 
 const mapStateToProps = (state) => {
   console.log('Inside Component ', state);
   return {
-      Email : state.userLogin.userInfo
+      Email : state.userLogin.userInfo,
+      Bookdetail : state.BookReducer.bookdetail
   }
 }
 
@@ -319,6 +236,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
       onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
       onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+      onFetchBookDescription : (bookid) => dispatch(actions.FetchBookDescription(bookid))
   }
 }
 

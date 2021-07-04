@@ -1,28 +1,14 @@
-// import React, { Component } from 'react'
 import {Card} from 'react-bootstrap' 
-import nonfic2  from "../../../images/nonfic2.JPG"
-import SearchPage from '../../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
 import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import * as actions from '../../../action/action'
 import {connect} from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from "react-router";
-// class Headersearch extends Component {
-//     constructor(props){
-//         super(props);
-//     }
 
 function Headersearch(props){
-
-
-    // componentDidMount(){
-    //     const { match: { params } } = this.props;
-    //     console.log(this.props,params.searchelement);
-    //     this.props.onFetchheadersearchresults(params.searchelement);
-    // }
 
     const { match: { params } } = props;
     useEffect(() => {
@@ -36,44 +22,8 @@ function Headersearch(props){
         console.log("decide function")
         alert("Please Login!")
         history.push('/login');
-        // props.history.push('/login')
     }
 
-    // changenext(){
-    //     var cur = this.state.current;
-    //     if(!this.state.paginate.next){
-    //         console.log("no next page")
-    //     }else{
-    //         this.setState({current: this.state.current+1})
-    //         cur=cur+1
-    //         fetch(`http://localhost:4000/books/CommonSearch/?page=${cur}&limit=12`,{
-    //             headers:{'content-type': 'application/json'},
-    //         })
-    //         .then(res=>res.json())
-    //         .then(data=>{
-    //             this.setState({allbooks : data.data, paginate : data.pagination})
-    //         });
-    //     }
-    // }
-
-    // changeprev(){
-    //     var cur = this.state.current;
-    //     if(!this.state.paginate.prev){
-    //         console.log("no prev page")
-    //     }else{
-    //         this.setState({current: this.state.current-1})
-    //         cur = cur-1
-    //         fetch(`http://localhost:4000/books/CommonSearch/?page=${cur}&limit=12`,{
-    //             headers:{'content-type': 'application/json'},
-    //         })
-    //         .then(res=>res.json())
-    //         .then(data=>{
-    //             this.setState({allbooks : data.data, paginate : data.pagination})
-    //         });
-    //     }
-    // }
-
-    // render() {
     console.log("this.props.Books headersearch",props.Books)
        if(props.Books.message){
         var newsearchresultslist = (
@@ -88,7 +38,7 @@ function Headersearch(props){
                     <Card className="card-top border-0 mb-5 card shadow rounded Cardshover">
                         
                         <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header headersearchimg bg-white " src={nonfic2} variant="top" />
+                            <Card.Img className="card-header headersearchimg bg-white " src={books.image} variant="top" />
                         </Link>
                         
                         <Card.Body className="card-body change-font text-dark" >
@@ -97,7 +47,7 @@ function Headersearch(props){
                                 <div className="text-dark">
                                     <strong >{books.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books.authors}</strong>
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
@@ -134,13 +84,7 @@ function Headersearch(props){
 
         return (
             <div className="Main">
-            {/* <div className="row"> */}
             <div className = "row">
-                    {/* <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
-                        <div className="search-option-catagory card shadow rounded">
-                            <SearchPage/>
-                        </div>
-                    </div> */}
 
                     <div className="col-12 col-sm-12 col-md-12 col-xl-12 col-ls-12">
                         <div className="search-sidecontent">
@@ -153,24 +97,9 @@ function Headersearch(props){
                        </div>
                     </div>
                 </div>
-            {/* <div className="float-right m-3">
-                    <ul class="pagination pagination-lg">
-                        <li class="page-item">
-                            <a class="page-link" onClick={this.changeprev.bind(this)} disabled={this.state.showprev}>Prev</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" >{this.state.current}</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" onClick={this.changenext.bind(this)} disabled={this.state.shownext}>Next</a>
-                        </li>
-                    </ul>
-
-            </div> */}
         </div>   
         )
     }
-// }
 const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {

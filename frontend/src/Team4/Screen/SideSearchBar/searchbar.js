@@ -11,18 +11,29 @@ class Searchbar extends Component {
     constructor(props){
         super(props);
             this.state = {popularbooks:[],ratingsall:"sort=-ratings",
-                          childrenteen : "&category=Children_Teens", music : "&category=music", lifestyle : "&category=Lifestyle", travelholiday : "&category=Travel_Holiday",
+
+                          horror : "&category=horror", comedy : "&category=comedy", adeventure : "&category=adeventure", fiction : "&category=fiction",
+                          ancient : "&category=ancient", sciencefiction : "&category=sciencefiction", thriller : "&category=thriller", spritual : "&category=spritual", classic : "&category=classic",
+
                           below_500 : "&price[lt]=500",AboveEqual_500:"&price[gte]=500",AboveEqual_1000:"&price[gte]=1000",
+                        
                           dis50andAbove : "&discount[gte]=50", dis30andAbove : "&discount[gte]=30", dis10andAbove : "&discount[gte]=10",
+
                           rating5: "&ratings=5",rating4: "&ratings=4",rating3: "&ratings=3",rating2: "&ratings=2",rating1: "&ratings=1",
+
                           sortpriceLtoH : "&sort=price", sortpriceHtoL : "&sort=-price", sortdiscountLtoH : "&sort=discount", sortdiscounHtoL : "&sort=-discount",sortratingLtoH : "&sort=ratings",sortratingHtoL : "&sort=-ratings"   
                         }
     }
 
-    childrenAndTeen(querycondition){ this.props.onFetchChildrenAndTeen(querycondition) }
-    travelandholiday(querycondition){ this.props.onFetchTravelandHoliday(querycondition) }
-    LifeStyle(querycondition){ this.props.onFetchLifetyle(querycondition) }
-    Music(querycondition){ this.props.onFetchMusic(querycondition) }
+    horror(querycondition){ this.props.onFetchhorror(querycondition) }
+    comedy(querycondition){ this.props.onFetchcomedy(querycondition) }
+    adeventure(querycondition){ this.props.onFetchadeventure(querycondition) }
+    fiction(querycondition){ this.props.onFetchfiction(querycondition) }
+    ancient(querycondition){ this.props.onFetchhorror(querycondition) }
+    sciencefiction(querycondition){ this.props.onFetchcomedy(querycondition) }
+    thriller(querycondition){ this.props.onFetchadeventure(querycondition) }
+    spritual(querycondition){ this.props.onFetchfiction(querycondition) }
+    classic(querycondition){ this.props.onFetchfiction(querycondition) }
 
     below500(querycondition) {this.props.onFetchPricebelow500(querycondition) }
     aboveand500(querycondition) { this.props.onFetchPrice500andabove(querycondition) }
@@ -32,11 +43,11 @@ class Searchbar extends Component {
     discount30andabove(querycondition) { this.props.onFetchDiscount30andabove(querycondition) }
     discount10andabove(querycondition) { this.props.onFetchDiscount10andabove(querycondition) }
 
-    ratings5(querycondition){ this.props.onFetchRatings5(querycondition) }
-    ratings4(querycondition){ this.props.onFetchRatings4(querycondition) }
-    ratings3(querycondition){ this.props.onFetchRatings3(querycondition) }
-    ratings2(querycondition){ this.props.onFetchRatings2(querycondition) }
-    ratings1(querycondition){ this.props.onFetchRatings1(querycondition) }
+    // ratings5(querycondition){ this.props.onFetchRatings5(querycondition) }
+    // ratings4(querycondition){ this.props.onFetchRatings4(querycondition) }
+    // ratings3(querycondition){ this.props.onFetchRatings3(querycondition) }
+    // ratings2(querycondition){ this.props.onFetchRatings2(querycondition) }
+    // ratings1(querycondition){ this.props.onFetchRatings1(querycondition) }
 
     sortpricelowtohigh(querycondition){ this.props.onFetchSortpricelowtohigh(querycondition) }
     sortpricehightolow(querycondition){ this.props.onFetchSortpricehightolow(querycondition) }
@@ -61,10 +72,16 @@ class Searchbar extends Component {
                                 <input type="checkbox" id="A"/>
                                 <img src={arrow} class="arrow"/><label className="text-primary" for="A">Categories</label>
                                 <ul className="ml-0">
-                                    <li onClick={this.childrenAndTeen.bind(this,this.state.childrenteen)}>Childrens & Teens</li>
-                                    <li onClick={this.Music.bind(this,this.state.music)}>Music</li>
-                                    <li onClick={this.travelandholiday.bind(this,this.state.travelholiday)}>Travel & Holiday</li>
-                                    <li onClick={this.LifeStyle.bind(this,this.state.lifestyle)}>Lifestyle</li>
+                                    <li onClick={this.horror.bind(this,this.state.horror)}>Horror</li>
+                                    <li onClick={this.fiction.bind(this,this.state.fiction)}>Fiction</li>
+                                    <li onClick={this.comedy.bind(this,this.state.comedy)}>Comedy</li>
+                                    <li onClick={this.adeventure.bind(this,this.state.adeventure)}>Adventure</li>
+                                    <li onClick={this.ancient.bind(this,this.state.ancient)}>Ancient</li>
+                                    <li onClick={this.sciencefiction.bind(this,this.state.sciencefiction)}>Sciencefiction</li>
+                                    <li onClick={this.thriller.bind(this,this.state.thriller)}>Thriller</li>
+                                    <li onClick={this.spritual.bind(this,this.state.spritual)}>Spritual</li>
+                                    <li onClick={this.classic.bind(this,this.state.classic)}>Classic</li>
+
                                 </ul> 
                             </div>
                             
@@ -88,7 +105,7 @@ class Searchbar extends Component {
                                 </ul>
                             </div>
 
-                            <div class="item">
+                            {/* <div class="item">
                                 <input type="checkbox" id="G"/>
                                 <img src={arrow} class="arrow"/><label className="text-primary" for="G">Rating</label>
                                 <ul>
@@ -118,7 +135,7 @@ class Searchbar extends Component {
                                         <i className="text-warning"><FaStar/></i>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> */}
 
                             <h4 className="text-info">Sort By</h4>
 
@@ -166,10 +183,10 @@ class Searchbar extends Component {
 
   const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchChildrenAndTeen : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchTravelandHoliday : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchLifetyle : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),  
-        onFetchMusic : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        onFetchhorror : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        onFetchcomedy : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        onFetchadeventure : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),  
+        onFetchfiction : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
       
         onFetchPricebelow500 : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchPrice500andabove : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
@@ -179,11 +196,11 @@ class Searchbar extends Component {
         onFetchDiscount30andabove : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchDiscount10andabove : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         
-        onFetchRatings5 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchRatings4 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchRatings3 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchRatings2 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchRatings1 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchRatings5 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchRatings4 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchRatings3 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchRatings2 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchRatings1 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
 
         onFetchSortpricelowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchSortpricehightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),

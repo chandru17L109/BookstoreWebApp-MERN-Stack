@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Card,Carousel,Button} from 'react-bootstrap' 
-import fiction2  from "../../images/fiction1.JPG"
+// import fiction2  from "../../images/fiction1.JPG"
 import {Link} from "react-router-dom";
 import SearchPage from '../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
@@ -24,25 +24,25 @@ import {connect} from 'react-redux';
     }
 
     componentDidMount() {
-        this.props.onFetchAllbooks(this.state.current);
+        this.props.onFetchAverageReview();
       }
   
      nextpage(){
       this.props.history.push('/description')
      }
   
-     changenext(){
-      var cur = this.state.current;
-      this.setState({current: this.state.current+1})
-      cur=cur+1
-      this.props.onFetchAllbooks(cur)
-    }
-     changeprev(){
-      var cur = this.state.current;
-      this.setState({current: this.state.current-1})
-      cur=cur-1
-      this.props.onFetchAllbooks(cur)
-    }
+    //  changenext(){
+    //   var cur = this.state.current;
+    //   this.setState({current: this.state.current+1})
+    //   cur=cur+1
+    //   this.props.onFetchAllbooks(cur)
+    // }
+    //  changeprev(){
+    //   var cur = this.state.current;
+    //   this.setState({current: this.state.current-1})
+    //   cur=cur-1
+    //   this.props.onFetchAllbooks(cur)
+    // }
   
     decidecartlist(bookid){
         if(!this.props.Email){
@@ -100,20 +100,20 @@ import {connect} from 'react-redux';
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
                         <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header bg-white " src={fiction2} variant="top" />
+                            <Card.Img className="card-header bg-white " src={books._id.image} variant="top" />
                         </Link>
                         
                         <Card.Body className="card-body change-font text-dark" >
                             <Card.Text as="div" className="cardtext">
 
                                 <div className="text-dark">
-                                    <strong >{books.title}</strong>
+                                    <strong >{books._id.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books._id.authors}</strong>
                                 </div>
                                    
-                                <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
-                                <strong style={{marginLeft:"7px",color:"red"}}>Rs.{Math.round(books.price - (books.price * books.discount/100))}</strong>
+                                <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books._id.price}</strong>
+                                <strong style={{marginLeft:"7px",color:"red"}}>Rs.{Math.round(books._id.price - (books._id.price * books._id.discount/100))}</strong>
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
@@ -123,14 +123,14 @@ import {connect} from 'react-redux';
                                         <i className="text-warning"><FaStar/></i>
                                         <i className="text-warning"><FaStar/></i>
                                     </strong>
-                                    <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
+                                    <strong style={{marginLeft:"10px"}}>({books._id.discount}%)</strong>
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id)}>
+                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id._id)}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidewishlist.bind(this,books._id)}>
+                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidewishlist.bind(this,books._id._id)}>
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
@@ -196,7 +196,7 @@ import {connect} from 'react-redux';
                                 </div>
                             </div>
                        </div>
-                       <div className="row">
+                       {/* <div className="row">
                             <ul className="justify-content-center align-items-center pagination pagination-lg">
                                 <li class="page-item list-unstyled">
                                     <Button class="page-link mr-1" onClick={this.changeprev.bind(this)} disabled={showprevbutton}>Prev</Button>
@@ -209,7 +209,7 @@ import {connect} from 'react-redux';
                                 </li>
                             </ul>
 
-                         </div>
+                         </div> */}
                     </div>
                 </div>
 
@@ -238,14 +238,14 @@ import {connect} from 'react-redux';
   const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {
-        Books: state.BookReducer.books,
+        Books: state.BookReducer.avgreview,
         Email : state.userLogin.userInfo
     }
   }
   
   const mapDispatchToProps = (dispatch) => {
     return {
-        onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
+        onFetchAverageReview: ()=>dispatch(actions.FetchAverageReview()),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
     }

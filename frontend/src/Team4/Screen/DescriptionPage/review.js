@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { FaHeart, FaStar } from "react-icons/fa";
-import { Navbar, Nav, FormControl, Form, Button } from 'react-bootstrap';
-import { FaCartPlus } from "react-icons/fa";
+// import { FaHeart, FaStar } from "react-icons/fa";
+import { FormControl, Form} from 'react-bootstrap';
+// import { FaCartPlus } from "react-icons/fa";
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
 import CustomizedSnackbars from '../../alert_notify/alert';

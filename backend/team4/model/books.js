@@ -4,7 +4,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const BooksSchema = new Schema({
+const BookSchema = new Schema({
     title: {
         type: String,
         unique: false,
@@ -27,7 +27,7 @@ const BooksSchema = new Schema({
     isbn: {
         type: Number,
         required: [true, 'Please provide a ISBN'],
-    
+        unique: true
     },
     price: {
         type: Number,
@@ -56,15 +56,14 @@ const BooksSchema = new Schema({
         type: Number,
         default:0
     },
-      image : {
-        type : String
-      }
-  });
+    image: {
+        type: String,
+        required: true
+    }
+});
+BookSchema.index({title: 'text', category: 'text', authors: 'text'});
 
 
-BooksSchema.index({title: "text",category: 'text', authors: "text"})
 
-// 3. Model from Schema (object from schema)
-const Books = mongoose.model('HomepageBookData', BooksSchema);
-
-module.exports = Books;
+const Book = new mongoose.model('book', BookSchema);
+module.exports = Book;

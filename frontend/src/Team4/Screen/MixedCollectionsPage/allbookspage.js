@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Card,Button} from 'react-bootstrap' 
-import nonfic2  from "../../images/nonfic2.JPG"
+// import nonfic2  from "../../images/nonfic2.JPG"
 import SearchPage from '../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
@@ -93,7 +93,7 @@ class AllBooksPage extends Component {
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
                         <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header bg-white " src={nonfic2} variant="top" />
+                            <Card.Img className="card-header bg-white " src={books.image} variant="top" />
                         </Link>
                         
                         <Card.Body className="card-body change-font text-dark" >
@@ -102,7 +102,7 @@ class AllBooksPage extends Component {
                                 <div className="text-dark">
                                     <strong >{books.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books.authors}</strong>
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>

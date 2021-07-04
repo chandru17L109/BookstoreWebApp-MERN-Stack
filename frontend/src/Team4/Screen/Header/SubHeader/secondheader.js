@@ -12,7 +12,7 @@ export default class SecondHeader extends Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost:8080'+'/books',{
+        fetch('http://localhost:8080'+'/books?limit=40',{
             headers:{'content-type': 'application/json'},
         })
         .then(res=>res.json())
@@ -24,7 +24,6 @@ export default class SecondHeader extends Component {
 
     render() {
         console.log("Search Data: ",this.state.booksData);   
-
         const handleFilter = (event) => {
             const searchWord = event.target.value;
             this.setState({wordEntered : searchWord});
@@ -59,9 +58,6 @@ export default class SecondHeader extends Component {
                             <Link to={"/popularpage"}><Button variant="outline-primary border-0 my-1">Popular Books</Button></Link>
                             </div>
 
-                           
-                        
-
                             <div className="search ml-1">
                                 <div className="searchInputs">
                                 <Form inline>
@@ -73,9 +69,10 @@ export default class SecondHeader extends Component {
                                         <i id="clearBtn" class="fa fa-close searchIcon" onClick={clearInput}></i>
                                     )}
                                 </div>
+                                
                                 {this.state.filterData.length != 0 && (
                                     <div className="dataResult">
-                                        {this.state.filterData.map((value, key) => {
+                                        {this.state.filterData.slice(0,4).map((value, key) => {
                                             return (
                                                 <Link to= {{pathname : '/description', query : value}}>
                                                     <p onClick={clearInput}>{value.title} </p>
@@ -86,11 +83,6 @@ export default class SecondHeader extends Component {
                                 )}
                             </div>
                             </div>
-
-                        
-                           
-                        
-
                         </ul>
                     </div>
                 </nav>
@@ -102,6 +94,3 @@ export default class SecondHeader extends Component {
         )
     }
 }
-
-                                    {/* <Link to={"/headersearchresults/"+this.state.searchelement}><Button className="headerSearchButton"><i class="fa fa-search"></i></Button></Link> */}
-                                    {/* <input type="text" placeholder="Search by book name" value={this.state.wordEntered} onChange={handleFilter}/> */}

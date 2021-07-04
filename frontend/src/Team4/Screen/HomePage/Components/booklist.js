@@ -70,16 +70,16 @@ decidewishlist(bookid){
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
                         <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header  leftpaddingcard bg-white" src={nonfic2} variant="top" />
+                            <Card.Img className="card-header  leftpaddingcard bg-white" src={books.image} variant="top" />
                         </Link>
                         
-                        <Card.Body className="card-body change-font text-dark" >
+                        <Card.Body className="card-body  leftpaddingcarddata change-font text-dark" >
                             <Card.Text as="div" className="cardtext">
 
                                 <div className="text-dark">
                                     <strong >{books.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books.authors}</strong>
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
@@ -121,9 +121,9 @@ decidewishlist(bookid){
             <div className="Main">
          
                 <p className="visibility">{"Chandru & co"}</p>
-                <div className="w-100">
+                <div className="w-100 ">
                       <span className="heading_">Mixed Collections</span>
-                      <Link to = {'/allbookspage'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                      <Link to = {'/allbookspage'}> <a className="viewmore">View more ..</a> </Link>
                 </div>
                 <div className="row">
                     {allbookslist} 
@@ -172,7 +172,7 @@ decidewishlist(bookid){
 
                 <div className="w-100">
                       <span className="heading_"> Today Deals</span>
-                      <Link to = {'/todaydealspage'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                      <Link to = {'/todaydealspage'}> <a className="viewmore">View more ..</a> </Link>
                 </div>
                
                 <div className="row">
@@ -181,7 +181,7 @@ decidewishlist(bookid){
 
                 <div className="w-100">
                       <span className="heading_"> New Releases</span>
-                      <Link to = {'/newrelease'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                      <Link to = {'/newrelease'}> <a className="viewmore">View more ..</a> </Link>
                 </div>
 
                 <div className="row">
@@ -224,7 +224,7 @@ decidewishlist(bookid){
                 </div> */}
                 <div className="w-100">
                       <span className="heading_">Popular Books</span>
-                      <Link to = {'/popularpage'}> <a className="viewmore mt-3">View more ..</a> </Link>
+                      <Link to = {'/popularpage'}> <a className="viewmore">View more ..</a> </Link>
                 </div>
                 <div className="row">
                     <PopularBookPage props={this.props.props}/>

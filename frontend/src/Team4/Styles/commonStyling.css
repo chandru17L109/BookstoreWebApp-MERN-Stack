@@ -14,7 +14,7 @@
 
 .viewmore{
     float: right;
-    margin: 0px 20px;
+    margin: 0px 10px;
     cursor: pointer;
     color: rgb(31, 117, 187) !important;
 }
@@ -103,15 +103,15 @@
 
 @media only screen and (max-width: 1220px){
     .card-header {
-        width: 80% !important;
-        height: 80% !important;
+        width: 90% !important;
+        height: 145px !important;
         margin: 0px;
-        margin-left: 10%;
+        margin-left: 3%;
     }
     .change-font{
         font-size: 12px !important;
         margin: 0px !important;
-        margin-top: -25% !important;
+        margin-top: -8% !important;
         margin-left: 2% !important;
        }
 
@@ -149,15 +149,15 @@
 @media only screen and (max-width: 900px){
     .card-header {
         width: 90% !important;
-        height: 80% !important;
+        height: 120px !important;
         margin: 0px;
         margin-left: 5%;
     }
     .change-font{
         font-size: 10px !important;
         margin: 0px !important;
-        margin-top: -25% !important;
-        margin-left: 0% !important;
+        margin-top: -10% !important;
+        margin-left: -1% !important;
        }
 
     .card-top {
@@ -184,12 +184,13 @@
 @media only screen and (max-width: 768px){
     .card-header {
         width: 90% !important;
+        height: 130px !important;
         margin-left: 7%;
     }
     .change-font{
         font-size: 10px !important;
         margin: 0px !important;
-        margin-top: -30% !important;
+        margin-top: -8% !important;
         margin-left: 1% !important;
        }
     
@@ -222,9 +223,16 @@
 
 
 @media only screen and (max-width: 480px){
+    .viewmore{
+        margin: 0px 10px 0px 10px;
+    }
+    .heading_{
+        font-size: 25px;
+        padding: 20px 0px 20px 10px !important;
+    }
     .card-header {
         width: 120px !important;
-        height: 100px !important;
+        height: 120px !important;
         margin: 0px;
     }
     .change-font{
@@ -235,7 +243,7 @@
 
     .card-top {
         width: 130px;
-        height: 212px;
+        height: 230px;
         margin: 0px !important;
     }
 

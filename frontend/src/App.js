@@ -42,11 +42,9 @@ function App() {
                 <Route path="/description" component={ProductDetailspage}></Route>
                 <Route path="/newrelease" component={NewRelease}></Route>
                 <Route path="/headersearchresults/:searchelement" component={Headersearch}></Route>
-                <Route path="/description" component={ProductDetailspage}></Route>
+                <Route path="/description/:id" component={ProductDetailspage}></Route>
                 <Route path="/wishlist" component={WishPage}></Route>
                 {/* <Route path="/cartlist" component={CartPage}></Route> * */}
-
-
 
                 <Route path='/login' component={LoginScreen}></Route>
                 <Route path='/register' component={RegisterScreen}></Route>

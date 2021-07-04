@@ -2,16 +2,3 @@
     max-width: 1700px;
     margin: auto;
 }
-
-/* booknow(Gallerydata){
-    if(AuthService.findrole() === "user"){
-        console.log("gallerydate = > ",Gallerydata)
-        // this.addTourBookingDB(Gallerydata)
-        this.props.history.push("/tourbeforeconfirmpage/"+Gallerydata)
-    }else if(AuthService.findrole() === "admin"){
-        alert("Admin can't Book tours")
-    }else{
-        alert("Please Login to Book ! 😊")
-        this.props.history.push("/login")
-    }
-} */

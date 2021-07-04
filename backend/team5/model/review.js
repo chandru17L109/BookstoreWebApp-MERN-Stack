@@ -16,21 +16,18 @@ const reviewSchema = new Schema(
         type: String,
         required: true
       },
-      avgRating :{
-         type:Number,
-      },
      reviewDate : {
        type : Date,
        Default : Date.now
      },
      user: {
          type: String,
+         ref : 'User',
          required: true,
-         unique:true
       },
       book: {
          type : mongoose.Schema.Types.ObjectId,
-          ref : 'HomepageBookData',
+          ref : 'book',
           required: true,
        }
     }

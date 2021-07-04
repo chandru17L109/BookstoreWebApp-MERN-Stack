@@ -26,13 +26,35 @@ const AverageRating = asyncHandler(async (req, res) => {
             $group: {
                 _id: "$book",
                 average_ : {$avg : "$rating"},
-                // roundoff : round({$avg : "$rating"},2)
                 },
         },
-        {$sort: {reviewDate: -1}}
+        {$sort: {average_: 1}}
     ]
-  )
-  res.status(201).json(avgReview)
+  ).exec(function(err, doc) {
+    Books.populate(doc, {path: '_id'}, function(err, populatedTransactions) {
+      console.log("populatedTransactions",populatedTransactions)
+      res.status(201).json(populatedTransactions)
+    });
+  });
 })
 
+
+
 module.exports = {createProductReview, findAllreview,AverageRating};
+
+
+
+// const AverageRating = asyncHandler(async (req, res) => {
+//   let avgReview = await Reviews.aggregate(
+//     [
+//         {
+//             $group: {
+//                 _id: "$book",
+//                 average_ : {$avg : "$rating"},
+//                 },
+//         },
+//         {$sort: {reviewDate: -1}}
+//     ]
+//   )
+//   res.status(201).json(avgReview)
+// })

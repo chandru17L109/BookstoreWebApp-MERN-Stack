@@ -25,7 +25,7 @@ const loggerMiddleware = storeAPI => next => action => {
   return result
 }
 
-const middleware = [thunk]
+const middleware = [loggerMiddleware,thunk]
 
 // const store = createStore(
 //   reducer,

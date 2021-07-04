@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {Card,Button} from 'react-bootstrap' ;
-import fiction2  from "../../images/nonfic3.JPG"
+// import fiction2  from "../../images/nonfic3.JPG"
 import SearchPage from '../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import {Link} from "react-router-dom";
 import '../../Styles/commonStyling.css';
 import '../../Styles/newRelease.css';
@@ -13,6 +13,8 @@ import NewreleasebottomCardImage from '../../images/NewreleasebottomCardImage.jp
 
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
+
+import AvgRating from '../AvgRating/AvgRating'
 
 
 class NewReleasePage extends Component {
@@ -23,6 +25,7 @@ class NewReleasePage extends Component {
     }
     componentDidMount(){
         this.props.onFetchAllbooks(this.state.current);
+        this.props.OnAvgreview();
       }
   
       changenext(){
@@ -88,13 +91,24 @@ class NewReleasePage extends Component {
             }
 
             var newreleaselist = this.props.Books.map((books, i)=>{
-            return(
+
+                var booksreview = this.props.AvgReview;
+                console.log("booksreview",booksreview);
+                var Reviewfound = booksreview.findIndex(function(post, index) {
+                    if(post._id._id === books._id)
+                        return true;
+                })
+                
+                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+                console.log(Reviewfound)
+                
+                return(
                 <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
                     
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
-                        <Link to= {{pathname : '/description', query : books}}>
-                            <Card.Img className="card-header bg-white " src={fiction2} variant="top" />
+                        <Link to= {'/description/'+books._id}>
+                            <Card.Img className="card-header bg-white " src={books.image} variant="top" />
                         </Link>
                         
                         <Card.Body className="card-body change-font text-dark" >
@@ -103,7 +117,7 @@ class NewReleasePage extends Component {
                                 <div className="text-dark">
                                     <strong >{books.title}</strong>
                                     <br></br>
-                                    <strong style={{fontWeight:"normal"}}>{books.author}</strong>
+                                    <strong style={{fontWeight:"normal"}}>{books.authors}</strong>
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
@@ -111,11 +125,9 @@ class NewReleasePage extends Component {
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
-                                        {/* <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i> */}
+                                        {/* <Rating rating={product.rating} numReviews={product.numReviews}></Rating> */}
+                                        <AvgRating rating={Math.round(RatingValue)}></AvgRating>
+
                                     </strong>
                                     <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
                                 </div>
@@ -206,7 +218,9 @@ const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {
         Books: state.BookReducer.books,
-        Email : state.userLogin.userInfo
+        Email : state.userLogin.userInfo,
+        AvgReview : state.BookReducer.avgreview,
+
     }
   }
   
@@ -215,6 +229,7 @@ const mapStateToProps = (state) => {
         onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+        OnAvgreview : () => dispatch(actions.FetchAverageReview())
     }
   }
   

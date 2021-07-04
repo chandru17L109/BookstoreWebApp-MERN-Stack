@@ -17,7 +17,7 @@ const CartListBooksSchema = new Schema({
                 },
                 bookid:{
                     type : mongoose.Schema.Types.ObjectId,
-                    ref : 'HomepageBookData',
+                    ref : 'book',
                 }
             }
     ],

@@ -5,7 +5,7 @@ const {findAlldata,insertdata,findDataBasedOnSearchItem, findDataBasedOnBookid} 
 const { createProductReview, findAllreview,AverageRating}  =  require('../../team5/controllers/review')
 const Reviews  = require('../../team5/model/review')
 
-const Books = require('../model/books');
+const Book = require('../model/books');
 
 
 router.route('/review')
@@ -13,16 +13,16 @@ router.route('/review')
  .post(createProductReview)
 
 router.route('/review/avgrating')
- .get(AverageRating)
+ .get(query_find(Reviews),AverageRating)
 
 router.route('/')
- .get(query_find(Books),findAlldata)
+ .get(query_find(Book),findAlldata)
  .post(insertdata)
 
 router.route('/CommonSearch/:searchitem')
  .get(findDataBasedOnSearchItem)
 
-// router.route('/:id')
-// .get(findDataBasedOnSearchItem)
+router.route('/:id')
+.get(findDataBasedOnBookid)
 
 module.exports = router
