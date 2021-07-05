@@ -16,12 +16,13 @@ import {connect} from 'react-redux';
 
 import AvgRating from '../AvgRating/AvgRating'
 
+import CustomizedSnackbars from '../../alert_notify/alert';
 
 class NewReleasePage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {current:1}
+        this.state = {current:1,notify: null}
     }
     componentDidMount(){
         this.props.onFetchAllbooks(this.state.current);
@@ -43,23 +44,34 @@ class NewReleasePage extends Component {
       }
 
       decidecartlist(bookid){
-          if(!this.props.Email){
-            // alert("Please Login!")
-            this.props.history.push('/login')
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+          //   this.props.props.history.push('/login')
           }else{
-            console.log("this.props.Email and bookid",this.props.Email.email, bookid)
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            setTimeout(()=>{
+              this.setState({notify:null})
+            },2000)
             this.props.onAddcartlist(this.props.Email.email, bookid);
-          }  
+          }   
       }
 
       decidewishlist(bookid){
         if(!this.props.Email){
-            // alert("Please Login!")
-            this.props.history.push('/login')
-          }else{
-            console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-            this.props.onAddwishlist(this.props.Email.email, bookid);
-          }
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+              setTimeout(()=>{
+                  this.setState({notify:null})
+              },2000)
+            }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+              setTimeout(()=>{
+                this.setState({notify:null})
+              },2000)
+              this.props.onAddwishlist(this.props.Email.email, bookid);
+            }
     }
     
     render() {
@@ -93,16 +105,17 @@ class NewReleasePage extends Component {
             var newreleaselist = this.props.Books.map((books, i)=>{
 
                 var booksreview = this.props.AvgReview;
-                console.log("booksreview",booksreview);
+                // console.log("booksreview",booksreview);
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
                 })
                 
                 var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-                console.log(Reviewfound)
+                // console.log(Reviewfound)
                 
                 return(
+                    
                 <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
                     
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
@@ -150,7 +163,7 @@ class NewReleasePage extends Component {
     }
         return (
             <>
-
+ {this.state.notify}
             <div className="newReleasePageCard">
                 <Card>
                     <Card.Img className="newReleasePageCardImage" src={NewReleasePageCardImage} alt="Card image"  />
@@ -164,7 +177,7 @@ class NewReleasePage extends Component {
               <div className = "row">
                     <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
                         <div className="search-option-catagory card shadow rounded">
-                            <SearchPage/>
+                        <SearchPage childprops={this.props}/>
                         </div>
                     </div>
 

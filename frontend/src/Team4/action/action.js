@@ -14,6 +14,7 @@ export const GET_BOOK_FOR_DESCRIPTION = "GET_BOOK_FOR_DESCRIPTION"
 const API = "http://localhost:8080"
 var FETCHQUERY = ""
 var templist =[]
+var currentpage =""
 
 var FINDURL = () => {
     var url = window.location.href.split("/");
@@ -23,14 +24,23 @@ var FINDURL = () => {
 
     if(findurl === "allbookspage"){
         FETCHQUERY = "/"
+        currentpage = "/"
+
     }else if(findurl === "newrelease"){
-        FETCHQUERY = "&sort=-date"
-    }else if(findurl === "popularpage"){
-        FETCHQUERY = "&sort=-ratings"
-    }else if(findurl === "todaydealspage"){
+        FETCHQUERY = "&sort=-publishDate"
+        currentpage = "&sort=-publishDate"
+    }
+    // }else if(findurl === "popularpage"){
+    //     FETCHQUERY = "&sort=-ratings"
+    //     currentpage = "&sort=-ratings"
+
+    else if(findurl === "todaydealspage"){
         FETCHQUERY = "&sort=-discount"
+        currentpage = "&sort=-discount"
+
     }else{
         FETCHQUERY = "/?"
+        currentpage = "/?"
     }
     return FETCHQUERY
 }
@@ -48,20 +58,31 @@ var CONDITION = (givencondition) =>{
 var PAGE_NO = (cur_page,query,condition) => {
     var fetch = []
     fetch.push([cur_page,query,condition])
-    console.log("templist",templist)
-    if(condition !== ""){
+    console.log("fetch array",fetch)
+    console.log("templist before",templist, currentpage)
+    if((condition !== "")){
         templist.pop()
         templist.push([cur_page,query,condition])
     }
     if(condition === ""){
         if(templist.length >= 1){
             if(templist[templist.length - 1] !== ""){
-                var fetchlist = []
-                fetchlist.push([cur_page,templist[templist.length - 1][1],templist[templist.length - 1][2]])
-                return fetchlist
+                if(templist[templist.length - 1][1] !== currentpage){
+                    var fetchlist = []
+                    fetchlist.push([cur_page,  templist[templist.length - 1][1], ""])
+                    console.log("fetchlist inside", fetchlist)
+                    return fetchlist
+                }
+                else{
+                    var fetchlist = []
+                    fetchlist.push([cur_page,  templist[templist.length - 1][1], templist[templist.length - 1][2]])
+                    console.log("fetchlist inside", fetchlist)
+                    return fetchlist
+                }
             }
         }
     }
+    console.log("templist after",templist, currentpage)
     return fetch
 }
 
@@ -74,12 +95,10 @@ export const fetchbooksbyquery = (cur_page,givencondition) => {
     var current_page = PAGE_NO(cur_page,query,condition)
 
     console.log("current_page",current_page)
-    
 
-
-    console.log("currentpage[0]",current_page[0][0])
-    console.log("currentpage[1]",current_page[0][1])
-    console.log("currentpage[2]",current_page[0][2])
+    // console.log("currentpage[0]",current_page[0][0])
+    // console.log("currentpage[1]",current_page[0][1])
+    // console.log("currentpage[2]",current_page[0][2])
 
     var pageno_   = current_page[0][0]
     var sort_ = current_page[0][1]

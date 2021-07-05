@@ -7,7 +7,7 @@ const fetchAllAddressesUser = asyncHandler(async (req, res, next) => {
         email: req.params.email,
     };
     let docfetch = await AddressUser.find(query);
-    console.log('docfetch',docfetch[0])
+    console.log('docfetch', docfetch[0])
     let name = docfetch[0].name;
     let phone = docfetch[0].phone;
     let result = docfetch[0].addresses;
@@ -19,38 +19,71 @@ const fetchAllAddressesUser = asyncHandler(async (req, res, next) => {
     res.status(201).json({ message: "success", res: response });
 });
 
+
+
+
+
+
 const addAddressesUser = asyncHandler(async (req, res, next) => {
     query = { email: req.body.email }; //req.body
     let finduser = await AddressUser.find(query)
-    if(finduser.length !== 0){
-        let docadd = await AddressUser.find(query)
-        .then((item) => {
-            let index = item[0].addresses.length;
 
-            item[0].addresses[index] = req.body.addresses;
-            item[0].push(req.body)
-            console.log("item",item)
+    if (finduser.length !== 0) {
+        console.log(req.body);
+        try {
+            const AddressRes = await AddressUser.updateMany({ email: req.body.email },
+                {
+                    $push: {
+                        addresses: req.body.addresses
+                    }
+                }, { new: true })
 
-            item[0].save();
-            res.status(201).json({ message: "success", res: item[0].addresses });
-        });
-    }else{
-        let item = await AddressUser.findOneAndUpdate({email: req.body.email},{$addToSet:{name:req.body.name, phone:req.body.phone, addresses : [req.body.addresses]}},{
-            new: true,
-            runValidators: true
-        })
-        res.json({message :true, res : item});
-        // let docadd = await AddressUser.find(query)
-        // .then((item) => {
-        //     item[0] = req.body.addresses;
-        //     item[0] = req.body 
-        //     console.log("item",item)
-        //     item[""].save();
-        //     res.status(201).json({ message: "success", res: item });
-        // });
+
+            console.log(AddressRes)
+            res.status(200).send(AddressRes)
+        } catch (err) {
+            console.log(err);
+        }
+
+    } else {
+        let item = await AddressUser.create(req.body)
+        res.json({ message: true, res: item });
+
     }
-    // console.log("docadd", docadd);
+
 });
+// const addAddressesUser = asyncHandler(async (req, res, next) => {
+//     query = { email: req.body.email }; //req.body
+//     let finduser = await AddressUser.find(query)
+//     if (finduser.length !== 0) {
+//         let docadd = await AddressUser.find(query)
+//             .then((item) => {
+//                 let index = item[0].addresses.length;
+
+//                 item[0].addresses[index] = req.body.addresses;
+//                 item[0].push(req.body)
+//                 console.log("item", item)
+
+//                 item[0].save();
+//                 res.status(201).json({ message: "success", res: item[0].addresses });
+//             });
+//     } else {
+//         let item = await AddressUser.findOneAndUpdate({ email: req.body.email }, { $addToSet: { name: req.body.name, phone: req.body.phone, addresses: [req.body.addresses] } }, {
+//             new: true,
+//             runValidators: true
+//         })
+//         res.json({ message: true, res: item });
+//         // let docadd = await AddressUser.find(query)
+//         // .then((item) => {
+//         //     item[0] = req.body.addresses;
+//         //     item[0] = req.body 
+//         //     console.log("item",item)
+//         //     item[""].save();
+//         //     res.status(201).json({ message: "success", res: item });
+//         // });
+//     }
+//     // console.log("docadd", docadd);
+// });
 
 const delAddressesUser = asyncHandler(async (req, res, next) => {
     let id = req.body.id; //req.body.

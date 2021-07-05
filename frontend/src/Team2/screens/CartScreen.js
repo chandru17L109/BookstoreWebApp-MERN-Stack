@@ -19,6 +19,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 import OrderSummary from "../components/OrderSummary";
+import Coupon from "../components/Coupon";
 
 const CartScreen = (props) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -31,11 +32,11 @@ const CartScreen = (props) => {
   }, []);
 
   const deleteCartItem = (_id) => {
-    props.onDeleteItem(_id,props.userdetail.email);
+    props.onDeleteItem(_id, props.userdetail.email);
   };
 
   const moveToWishlist = (_id) => {
-    props.onMoveItem(_id,props.userdetail.email);
+    props.onMoveItem(_id, props.userdetail.email);
   };
 
   // const number = props.Books.length;
@@ -65,7 +66,7 @@ const CartScreen = (props) => {
             <Card>
               <ListGroup variant="flush">
                 <ListGroupItem>
-                  <FormControl
+                  {/* <FormControl
                     className="form-control me-sm-2"
                     type="text"
                     placeholder="Apply Coupon"
@@ -79,11 +80,12 @@ const CartScreen = (props) => {
                     type="submit"
                   >
                     Apply Coupon
-                  </Button>
+                  </Button> */}
+                  <Coupon />
                 </ListGroupItem>
 
                 <ListGroupItem>
-                  <OrderSummary />
+                  {/* <OrderSummary /> */}
                 </ListGroupItem>
                 <Link to="/address">
                   <Button type="button" className="btn-block">
@@ -98,9 +100,9 @@ const CartScreen = (props) => {
         <EmptyCart></EmptyCart>
       )}
       <div className="row">
-          <h6>Books You May Like</h6>
-        <TodayDealsPage props={props.props}/>
-          </div>
+        <h6>Books You May Like</h6>
+        <TodayDealsPage props={props.props} />
+      </div>
     </div>
   );
 };
@@ -109,7 +111,7 @@ const mapStateToProps = (state) => {
   console.log("Inside", state);
   return {
     Books: state.BookReducerCart.cart,
-    userdetail : state.userLogin.userInfo
+    userdetail: state.userLogin.userInfo
   };
 };
 
@@ -117,9 +119,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onCartLoad: (useremail) => dispatch(actions.onCartLoadAction(useremail)),
 
-    onDeleteItem: (_id,useremail) => dispatch(actions.onDeleteItemAction(_id,useremail)),
+    onDeleteItem: (_id, useremail) => dispatch(actions.onDeleteItemAction(_id, useremail)),
 
-    onMoveItem: (_id,useremail) => dispatch(actions.onMoveItemAction(_id,useremail)),
+    onMoveItem: (_id, useremail) => dispatch(actions.onMoveItemAction(_id, useremail)),
   };
 };
 

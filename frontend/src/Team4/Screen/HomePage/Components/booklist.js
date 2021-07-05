@@ -16,8 +16,8 @@ import BooklistCard2Image from '../../../images/booklistCard2Image.png'
 import * as actions from '../../../action/action'
 import {connect} from 'react-redux';
 import CustomizedSnackbars from '../../../alert_notify/alert';
+import AvgRating from '../../AvgRating/AvgRating'
 
-// import SellingPrice from './BookListComponents/calculateprice'
 
 class AllBooksPage extends Component {
 
@@ -28,6 +28,7 @@ class AllBooksPage extends Component {
 
     componentDidMount(){
        this.props.onFetchBooklistBooks();
+       this.props.OnAvgreview();
    }
 
    decidecartlist(bookid){
@@ -63,13 +64,20 @@ decidewishlist(bookid){
 
     render() {
         var allbookslist = this.props.Books.map((books, i)=>{
-            // if(i < 4){
+                var booksreview = this.props.AvgReview;
+                console.log("booksreview",booksreview);
+                var Reviewfound = booksreview.findIndex(function(post, index) {
+                    if(post._id._id === books._id)
+                        return true;
+                })
+                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+                console.log(Reviewfound)
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
-                        <Link to= {{pathname : '/description', query : books}}>
+                    <Link to= {'/description/'+books._id}>
                             <Card.Img className="card-header  leftpaddingcard bg-white" src={books.image} variant="top" />
                         </Link>
                         
@@ -89,11 +97,7 @@ decidewishlist(bookid){
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
+                                    <AvgRating rating={Math.round(RatingValue)}></AvgRating>
                                     </strong>
                                     <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
                                 </div>
@@ -129,7 +133,6 @@ decidewishlist(bookid){
                     {allbookslist} 
                 </div>
             
-
                 <div className="homePageCarousal2">
                     <Carousel fade>
                         <Carousel.Item interval={500}>
@@ -239,7 +242,8 @@ decidewishlist(bookid){
     console.log('Inside Component ', state);
     return {
         Books: state.BookReducer.books,
-        Email : state.userLogin.userInfo
+        Email : state.userLogin.userInfo,
+        AvgReview : state.BookReducer.avgreview,
 
     }
   }
@@ -249,6 +253,7 @@ decidewishlist(bookid){
         onFetchBooklistBooks: ()=>dispatch(actions.fetchbooksbyquery()),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+        OnAvgreview : () => dispatch(actions.FetchAverageReview())
     }
   }
   

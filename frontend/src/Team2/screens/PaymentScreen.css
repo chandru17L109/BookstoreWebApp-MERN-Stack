@@ -1,0 +1,48 @@
+.main-container{
+    display: flex;
+    flex-direction: row;
+    margin: 40px 0px;
+  
+  }
+  
+  .left-container{
+    width: 20%;
+    border: solid 0.1px lightgrey;
+  }
+  
+  .right-container{
+    width: 50%;
+    border: solid 0.1px lightgrey;
+  }
+  
+  .order-container{
+    padding:20px 30px;
+    width: 23%;
+    border: solid 0.1px lightgrey;
+  
+  }
+  .payment-toggle{
+    width: 100%;
+    text-align: center;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    color:black;
+    text-transform: uppercase;
+    font-weight:600;
+    transition: .2s;
+   
+  }
+  
+  .payment-toggle:hover{
+    cursor: pointer;
+  }
+  
+  .payment-active{
+    background-color: white;
+    color: red;
+    border-left: solid 5px red;
+  }
+  

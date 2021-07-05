@@ -18,6 +18,7 @@ import {
 function AddressScreen(props) {
   const [arr, Setarr] = useState([]);
   const [radio, setRadio] = useState();
+  const [add, Setadd] = useState(true);
 
   // form state for edit option
   const [name, setName] = useState("");
@@ -71,6 +72,7 @@ function AddressScreen(props) {
     setState(arr.state);
     SetId(id);
     SetAddress(arr);
+    Setadd(false)
     console.log("Set id", id);
   };
 
@@ -81,6 +83,7 @@ function AddressScreen(props) {
       props.userdetail.email
     );
     resetform();
+    // Setadd(false);
   };
 
   const resetform = () => {
@@ -100,14 +103,14 @@ function AddressScreen(props) {
   }, []);
 
   const deleteAddress = (_id) => {
-    props.onDeleteAddress(_id,props.userdetail.email);
+    props.onDeleteAddress(_id, props.userdetail.email);
   };
 
   return (
-    
+
     <div className="address">
-      <h2>Select a delivery adress</h2>
-      {props.Books ? (props.Books.map((element) => {
+      <h2>Select a delivery address</h2>
+      {props.address ? (props.address.map((element) => {
         return (
           <AddressItem
             key={element._id}
@@ -116,10 +119,11 @@ function AddressScreen(props) {
             setRadio={setRadio}
             delete={deleteAddress}
             editaddress={editaddress}
+            Setadd={Setadd}
           ></AddressItem>
         );
       }
-      )):<br></br>}
+      )) : <br></br>}
       <div className="new-address">
         <br></br>
         <div className="form">
@@ -147,7 +151,7 @@ function AddressScreen(props) {
             onChange={(e) => {
               setflatno(e.target.value);
             }}
-            placeholder="Flat, House no, Building, Comapany, Apartment"
+            placeholder="House Number"
           ></input>
           <input
             value={locality}
@@ -202,20 +206,23 @@ function AddressScreen(props) {
             <option value="Uttarakhand">Uttarakhand</option>
             <option value="West Bengal">West Bengal</option>
           </select>
-          <button
-            onClick={addAddress}
-            type="button"
-            className="btn btn-warning"
-          >
-            Add Address
-          </button>
-          <button
-            onClick={updateaddress}
-            type="button"
-            className="btn btn-info"
-          >
-            Update Address
-          </button>
+          {add ? (
+            <button
+              onClick={addAddress}
+              type="button"
+              className="btn btn-warning"
+            >
+              Add Address
+            </button>
+          ) : (
+            <button
+              onClick={updateaddress}
+              type="button"
+              className="btn btn-info"
+            >
+              Update Address
+            </button>
+          )}
         </div>
         <Col md={5}>
           <Card>
@@ -226,13 +233,13 @@ function AddressScreen(props) {
                   return (
                     <>
                       <Row>
-                        <Col md={1}>
-                          <Image src={item.imageUrl} fluid rounded />
+                        <Col md={2}>
+                          <Image src={item.image} fluid rounded />
                         </Col>
-                        <Col md={4}>
+                        <Col md={3}>
                           <p>{item.title}</p>
                         </Col>
-                        <Col md={4}>
+                        <Col md={3}>
                           <p>Rs {item.price}</p>
                         </Col>
                         <Col md={3}>
@@ -247,6 +254,7 @@ function AddressScreen(props) {
 
               <ListGroupItem>
                 <OrderSummary />
+                <h5 className="text-primary">Cart Total Rs.{props.amount}</h5>
               </ListGroupItem>
             </ListGroup>
           </Card>
@@ -259,9 +267,11 @@ function AddressScreen(props) {
 const mapStateToProps = (state) => {
   console.log("Inside", state);
   return {
-    Books: state.BookReducerCart.books,
+    address: state.BookReducerCart.address,
     cartItems: state.BookReducerCart.cart,
-    userdetail : state.userLogin.userInfo
+    userdetail: state.userLogin.userInfo,
+    amount: state.BookReducerCart.amount,
+
   };
 };
 
@@ -269,11 +279,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAddressLoad: (useremail) => dispatch(actions.onAddressLoadAction(useremail)),
     onCartLoad: (useremail) => dispatch(actions.onCartLoadAction(useremail)),
-    onDeleteAddress: (_id,useremail) => dispatch(actions.onDeleteAddressAction(_id,useremail)),
+    onDeleteAddress: (_id, useremail) => dispatch(actions.onDeleteAddressAction(_id, useremail)),
 
-    onAddAddress: (obj,useremail,username,userphone) => dispatch(actions.onAddAddressAction(obj,useremail,username,userphone)),
-    OnEditAddress: (id, elem,useremail) =>
-      dispatch(actions.OnEditAddressAction(id, elem,useremail)),
+    onAddAddress: (obj, useremail, username, userphone) => dispatch(actions.onAddAddressAction(obj, useremail, username, userphone)),
+    OnEditAddress: (id, elem, useremail) =>
+      dispatch(actions.OnEditAddressAction(id, elem, useremail)),
   };
 };
 

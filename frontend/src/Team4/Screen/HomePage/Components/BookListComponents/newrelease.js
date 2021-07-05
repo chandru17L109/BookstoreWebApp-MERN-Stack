@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {Button,Card,Row,Container} from 'react-bootstrap' 
-import fiction2  from "../../../../images/nonfic3.JPG"
+import {Card} from 'react-bootstrap' 
+// import fiction2  from "../../../../images/nonfic3.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
 import { FaStar } from "react-icons/fa"
@@ -12,47 +12,71 @@ import * as actions from '../../../../action/action'
 // import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
 
+import CustomizedSnackbars from '../../../../alert_notify/alert';
+import AvgRating from '../../../AvgRating/AvgRating'
+
+
+
 class NewRelease extends Component {
 
     constructor(props){
         super(props);
-        this.state = {newrelease : [], newreleasequery:"sort=-date&limit=6"}
+        this.state = {newrelease : [], newreleasequery:"sort=-date&limit=6",notify: null}
     }
 
 
     componentDidMount(){
         this.props.onFetchNewReleaseBooks(this.state.newreleasequery);
+        this.props.OnAvgreview();
     }
 
     decidecartlist(bookid){
         if(!this.props.Email){
-          // alert("Please Login!")
-          this.props.props.history.push('/login')
-        }else{
-          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-          this.props.onAddcartlist(this.props.Email.email, bookid);
-        }  
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+          //   this.props.props.history.push('/login')
+          }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            setTimeout(()=>{
+              this.setState({notify:null})
+            },2000)
+            this.props.onAddcartlist(this.props.Email.email, bookid);
+          }  
     }
 
     decidewishlist(bookid){
-      if(!this.props.Email){
-          // alert("Please Login!")
-          this.props.props.history.push('/login')
-        }else{
-          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-          this.props.onAddwishlist(this.props.Email.email, bookid);
-        }
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+              setTimeout(()=>{
+                  this.setState({notify:null})
+              },2000)
+            }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+              setTimeout(()=>{
+                this.setState({notify:null})
+              },2000)
+              this.props.onAddwishlist(this.props.Email.email, bookid);
+            }
   }
 
     render() {
         var newreleaselist = this.props.newreleaseBooks.map((books, i)=>{
+            var booksreview = this.props.AvgReview;
+            console.log("booksreview",booksreview);
+            var Reviewfound = booksreview.findIndex(function(post, index) {
+                if(post._id._id === books._id)
+                    return true;
+            })
+            var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+            console.log(Reviewfound)
             return(
-
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
-                        <Link to = {'/description'+books._id}>
+                        <Link to = {'/description/'+books._id}>
                             <Card.Img className="card-header leftpaddingcard bg-white" src={books.image} variant="top" />
                         </Link>
                         
@@ -70,11 +94,7 @@ class NewRelease extends Component {
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
+                                    <AvgRating rating={Math.round(RatingValue)}></AvgRating>
                                     </strong>
                                     <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
                                 </div>
@@ -97,6 +117,7 @@ class NewRelease extends Component {
         
         return (
             <>
+            {this.state.notify}
                 {newreleaselist}    
             </>
         )
@@ -108,8 +129,8 @@ class NewRelease extends Component {
     console.log('Inside Component ', state);
     return {
         newreleaseBooks: state.BookReducer.homepagenewrelease,
-        Email : state.userLogin.userInfo
-
+        Email : state.userLogin.userInfo,
+        AvgReview : state.BookReducer.avgreview,
     }
   }
   
@@ -118,6 +139,7 @@ class NewRelease extends Component {
         onFetchNewReleaseBooks: (condition_popular)=> dispatch(actions.fetchbooksHomepagenewrelease(condition_popular)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+        OnAvgreview : () => dispatch(actions.FetchAverageReview())
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(NewRelease);

@@ -8,48 +8,74 @@ import {Link} from "react-router-dom";
 import '../../../../Styles/design.css';
 import * as actions from '../../../../action/action'
 import {connect} from 'react-redux';
+import CustomizedSnackbars from '../../../../alert_notify/alert';
+import AvgRating from '../../../AvgRating/AvgRating'
 
 class TodayDealsPage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {todaydealslist : [], discountquery : "sort=-discount&limit=6"}
+        this.state = {todaydealslist : [], discountquery : "sort=-discount&limit=6",notify: null}
     }
 
 
     componentDidMount(){
         this.props.onFetchTodaydealsBooks(this.state.discountquery);
+        this.props.OnAvgreview();
+
     }
 
     decidecartlist(bookid){
         if(!this.props.Email){
-          // alert("Please Login!")
-          this.props.history.push('/login')
-        }else{
-          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-          this.props.onAddcartlist(this.props.Email.email, bookid);
-        }  
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+          //   this.props.props.history.push('/login')
+          }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            setTimeout(()=>{
+              this.setState({notify:null})
+            },2000)
+            this.props.onAddcartlist(this.props.Email.email, bookid);
+          }  
     }
 
     decidewishlist(bookid){
-      if(!this.props.Email){
-          // alert("Please Login!")
-          this.props.history.push('/login')
-        }else{
-          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-          this.props.onAddwishlist(this.props.Email.email, bookid);
-        }
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+              setTimeout(()=>{
+                  this.setState({notify:null})
+              },2000)
+            }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+              setTimeout(()=>{
+                this.setState({notify:null})
+              },2000)
+              this.props.onAddwishlist(this.props.Email.email, bookid);
+            }
   }
 
     render() {
         console.log("this.props.todaydealsBooks",this.props.todaydealsBooks)
         var DealsBooklist = this.props.todaydealsBooks.map((books, i)=>{
+
+            var booksreview = this.props.AvgReview;
+            console.log("booksreview",booksreview);
+            var Reviewfound = booksreview.findIndex(function(post, index) {
+                if(post._id._id === books._id)
+                    return true;
+            })
+            var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+            console.log(Reviewfound)
+
+
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     
                 <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                     
-                    <Link to= {{pathname : '/description', query : books}}>
+                <Link to = {'/description/'+books._id}>
                         <Card.Img className="card-header leftpaddingcard bg-white" src={books.image} variant="top" />
                     </Link>
                     
@@ -67,12 +93,7 @@ class TodayDealsPage extends Component {
 
                             <div>
                                 <strong style={{float:"left"}} variant="link">
-                                    <i className="text-warning"><FaStar/></i>
-                                    <i className="text-warning"><FaStar/></i>
-                                    <i className="text-warning"><FaStar/></i>
-                                    <i className="text-warning"><FaStar/></i>
-                                    <i className="text-warning"><FaStar/></i>
-                                </strong>
+                                <AvgRating rating={Math.round(RatingValue)}></AvgRating>                               </strong>
                                 <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
                             </div>
 
@@ -95,6 +116,7 @@ class TodayDealsPage extends Component {
         
         return (
             <>
+            {this.state.notify}
                 {DealsBooklist} 
             </>
         )
@@ -105,7 +127,8 @@ class TodayDealsPage extends Component {
     console.log('Inside Component ', state);
     return {
         todaydealsBooks: state.BookReducer.homepagetodaydeals,
-        Email : state.userLogin.userInfo
+        Email : state.userLogin.userInfo,
+        AvgReview : state.BookReducer.avgreview,
     }
   }
   
@@ -114,6 +137,8 @@ class TodayDealsPage extends Component {
         onFetchTodaydealsBooks: (condition_popular)=>dispatch(actions.fetchbooksHomepagetodaydeals(condition_popular)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+        OnAvgreview : () => dispatch(actions.FetchAverageReview())
+
     }
   }
   

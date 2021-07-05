@@ -18,15 +18,20 @@ import {
 
 const Item = (props) => {
 
-    const [input, setInput] = useState(props.item.quantity)
+    const [price, setPrice] = useState(0)
 
+    const xyz = (props.item.price) * (1 - (props.item.discount / 100))
+    // const onChangeHandler = (e) => {
+    //     setInput(e.target.value);
+    //     props.adjustQty(props.item._id, e.target.value, props.userdetail.email);
+    // };
 
-    const onChangeHandler = (e) => {
-        setInput(e.target.value);
-        props.adjustQty(props.item._id, e.target.value, props.userdetail.email);
-    };
-
-
+    const onAdd = (event) => {
+        props.onQuantityChange(props.item._id, props.userdetail.email, "add", props.item.available)
+    }
+    const onMinus = (event) => {
+        props.onQuantityChange(props.item._id, props.userdetail.email, "minus", props.item.available)
+    }
 
     const move = (event) => {
         props.moveTo(props.item._id);
@@ -44,31 +49,30 @@ const Item = (props) => {
                     <Row>
 
                         <Col md={1} >
-                            {/* <Link to={`/`}>
-                                <Image src={props.item.imageUrl} fluid rounded />
-                            </Link> */}
-                        </Col>
-
-                        <Col md={3} >
-                            <Link to={`/`}>{props.item.title}   </Link>
-                        </Col>
-
-                        <Col md={2}>Rs {props.item.price}</Col>
-
-                        <Col md={2}>
-                            <input
-                                min="1"
-                                max={props.item.available}
-                                type="number"
-                                id="qty"
-                                name="qty"
-                                value={input}
-                                onChange={onChangeHandler}
-                            />
+                            <Link to={`/`}>
+                                <Image src={props.item.image} fluid rounded />
+                            </Link>
                         </Col>
 
                         <Col md={2} >
-                            <Button onClick={move} type="button" className="btn btn-primary">
+                            <Link to={`/`}>{props.item.title}   </Link>
+                        </Col>
+
+                        <Col md={2}>Rs.{Math.round(xyz)}</Col>
+
+                        <Col md={1}>
+
+                            <Button onClick={onMinus}>-</Button>
+                        </Col>
+                        <Col md={1}>
+                            <p>{props.item.quantity}</p>
+                        </Col>
+                        <Col md={1}>
+                            <Button onClick={onAdd}>+</Button>
+                        </Col>
+
+                        <Col md={2} >
+                            <Button onClick={move} type="button" className="btn btn-primary mr-5">
                                 Move To Wishlist
                             </Button>
                         </Col>
@@ -94,12 +98,14 @@ const Item = (props) => {
 const mapStateToProps = (state) => {
     console.log('Inside', state);
     return {
-        userdetail : state.userLogin.userInfo
+        userdetail: state.userLogin.userInfo
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        adjustQty: (_id, value, useremail) => dispatch(actions.adjustItemQty(_id, value, useremail)),
+        // adjustQty: (_id, value, useremail) => dispatch(actions.adjustItemQty(_id, value, useremail)),
+        onQuantityChange: (_id, useremail, QuantityChange, max) => dispatch(actions.onQuantityChangeAction(_id, useremail, QuantityChange, max)),
+
     };
 };
 

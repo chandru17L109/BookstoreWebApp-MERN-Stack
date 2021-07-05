@@ -29,11 +29,11 @@ function LastScreen(props) {
       {props.cartItems.map(function (item) {
         return (
           <>
-            <Row>
+            <Row className="ml-5 pl-5 ">
               <Col md={1}>
-                <Image src={item.imageUrl} fluid rounded />
+                <Image src={item.image} fluid rounded />
               </Col>
-              <Col md={4}>
+              <Col md={2}>
                 <p>{item.title}</p>
               </Col>
               <Col md={2}>
@@ -55,7 +55,7 @@ const mapStateToProps = (state) => {
     cartItems: state.BookReducerCart.cart,
     address: state.BookReducerCart.address,
     amount: state.BookReducerCart.amount,
-    userdetail : state.userLogin.userInfo
+    userdetail: state.userLogin.userInfo
   };
 };
 const mapDispatchToProps = (dispatch) => {

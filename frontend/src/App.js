@@ -40,7 +40,7 @@ function App() {
 					<Route path='/allbookspage' component={AllBooksPage}></Route>
 					<Route path='/todaydealspage' component={TodayDealsPage}></Route>
 					<Route path='/popularpage' component={PopularPage}></Route>
-					<Route path='/description' component={ProductDetailspage}></Route>
+					{/* <Route path='/description' component={ProductDetailspage}></Route> */}
 					<Route path='/newrelease' component={NewRelease}></Route>
 					<Route
 						path='/headersearchresults/:searchelement'

@@ -1,20 +1,26 @@
 import React, { Component } from 'react'
-import {Card,Carousel,Button} from 'react-bootstrap' 
+import {Card,Carousel} from 'react-bootstrap' 
 // import fiction2  from "../../images/fiction1.JPG"
 import {Link} from "react-router-dom";
 import SearchPage from '../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import '../../Styles/commonStyling.css';
 import '../../Styles/popularPage.css';
 import popularPageCarouselImage1 from '../../images/popularPageCarouselImage1.jpg'
 import popularPageCarouselImage2 from '../../images/popularPageCarouselImage2.jpg'
 import popularPageCarouselImage3 from '../../images/popularPageCarouselImage3.jpg'
 import popularPageCarouselImage4 from '../../images/popularPageCarouselImage4.jpg'
+import popularPageBottomimage from '../../images/popularPageBottomimage.jpg'
+
 import * as actions from '../../action/action'
 // import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
+import CustomizedSnackbars from '../../alert_notify/alert';
+
+import TodayDealsPage from '../HomePage/Components/BookListComponents/todaydeals';
+
 
 import AvgRating from '../AvgRating/AvgRating'
 
@@ -22,7 +28,7 @@ import AvgRating from '../AvgRating/AvgRating'
 
     constructor(props){
         super(props);
-        this.state = {current:1}
+        this.state = {current:1,notify: null}
     }
 
     componentDidMount() {
@@ -48,22 +54,33 @@ import AvgRating from '../AvgRating/AvgRating'
   
     decidecartlist(bookid){
         if(!this.props.Email){
-          // alert("Please Login!")
-          this.props.history.push('/login')
-        }else{
-          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-          this.props.onAddcartlist(this.props.Email.email, bookid);
-        }  
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+          //   this.props.props.history.push('/login')
+          }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            setTimeout(()=>{
+              this.setState({notify:null})
+            },2000)
+            this.props.onAddcartlist(this.props.Email.email, bookid);
+          }  
     }
 
     decidewishlist(bookid){
-      if(!this.props.Email){
-          // alert("Please Login!")
-          this.props.history.push('/login')
-        }else{
-          console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-          this.props.onAddwishlist(this.props.Email.email, bookid);
-        }
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+              setTimeout(()=>{
+                  this.setState({notify:null})
+              },2000)
+            }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+              setTimeout(()=>{
+                this.setState({notify:null})
+              },2000)
+              this.props.onAddwishlist(this.props.Email.email, bookid);
+            }
   }
 
     render() {
@@ -97,26 +114,25 @@ import AvgRating from '../AvgRating/AvgRating'
             var popularbookslist = this.props.Books.map((books, i)=>{
 
                 var booksreview = this.props.AvgReview;
-                console.log("booksreview",booksreview);
+                // console.log("booksreview",booksreview);
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id === books._id)
                         return true;
                 })
                 
                 var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-                console.log(Reviewfound)
+                // console.log(Reviewfound)
              
             // if(i < 4){
             return(
-                <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
-                    
+                <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
                     <Link to= {'/description/'+books._id._id}>
-                            <Card.Img className="card-header bg-white " src={books._id.image} variant="top" />
+                            <Card.Img className="card-header leftpaddingcard bg-white " src={books._id.image} variant="top" />
                         </Link>
                         
-                        <Card.Body className="card-body change-font text-dark" >
+                        <Card.Body className="card-body leftpaddingcarddata change-font text-dark" >
                             <Card.Text as="div" className="cardtext">
 
                                 <div className="text-dark">
@@ -137,13 +153,13 @@ import AvgRating from '../AvgRating/AvgRating'
                                 </div>
 
                                 <div className="aligncartwishlist">
-                                    <button class="btn btn-light border-0 cartbutton"  >
+                                    <button class="btn btn-light border-0 cartbutton"  onClick={this.decidecartlist.bind(this,books._id)}>
                                         <i className="text-primary "><FaCartPlus/></i>
                                     </button>
-                                    <button class="btn btn-light border-0 wishlistbutton" >
+                                    <button class="btn btn-light border-0 wishlistbutton"   onClick={this.decidewishlist.bind(this,books._id)}>
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
-                                </div>                               
+                                </div>                             
 
                             </Card.Text>
                         </Card.Body>
@@ -155,6 +171,7 @@ import AvgRating from '../AvgRating/AvgRating'
         
         return (
             <>
+ {this.state.notify}
 
             <div className="popularPageCarousel">
                 <Carousel fade>
@@ -191,21 +208,22 @@ import AvgRating from '../AvgRating/AvgRating'
 
             <div className="Main">
             <div className = "row">
-                    <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
+                    {/* <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
                         <div className="search-option-catagory card shadow rounded">
-                            <SearchPage/>
+                        <SearchPage childprops={this.props}/>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="col-8 col-sm-9 col-md-9 col-xl-9 col-ls-9">
+                    {/* <div className="col-8 col-sm-9 col-md-9 col-xl-9 col-ls-9">
                         <div className="search-sidecontent">
                             <div className="row">
-                            <h2  className="headingpage">Popular Books</h2>
-                                <div className="row">
+                            <h2  className="headingpage">Popular Books</h2> */}
+                            <div className="row"> 
+                        <h2  className="headingpage">Top Rated Books</h2> 
                                 {popularbookslist} 
-                                </div>
-                            </div>
-                       </div>
+                                 </div>
+                            {/* </div>
+                       </div>  */}
                        {/* <div className="row">
                             <ul className="justify-content-center align-items-center pagination pagination-lg">
                                 <li class="page-item list-unstyled">
@@ -221,7 +239,7 @@ import AvgRating from '../AvgRating/AvgRating'
 
                          </div> */}
                     </div>
-                </div>
+                {/* </div> */}
 
                 <div className="row">
                     
@@ -238,6 +256,18 @@ import AvgRating from '../AvgRating/AvgRating'
     </div>
 
                 </div>
+
+                <div className="row">
+                <h2  className="headingpage">Books you may like</h2>
+                    <TodayDealsPage/>
+                </div>
+
+                <div className="bottomCard">
+                    <Card>
+                        <Card.Img className="bottomCardImage" src={popularPageBottomimage}/>
+                    </Card>
+                </div>
+
             </div>
             
             </>
@@ -260,7 +290,6 @@ import AvgRating from '../AvgRating/AvgRating'
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
         OnAvgreview : () => dispatch(actions.FetchAverageReview())
-
     }
   }
   

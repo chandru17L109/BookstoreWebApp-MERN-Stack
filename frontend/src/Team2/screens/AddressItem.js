@@ -18,6 +18,7 @@ import {
 function Item1(props) {
     const editaddress = () => {
         props.editaddress(props.arr._id, props.arr);
+        props.Setadd(false);
     };
 
     const deladdress = (event) => {

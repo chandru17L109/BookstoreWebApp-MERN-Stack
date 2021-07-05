@@ -20,6 +20,7 @@ export const DELIVERY_ADDRESS = " DELIVERY_ADDRESS";
 
 export const ON_CONFIRM_PAYMENT = " ON_CONFIRM_PAYMENT";
 export const ON_AMOUNT = " ON_AMOUNT";
+export const ON_APPLY_COUPON = "ON_APPLY_COUPON"
 
 export const onOpenLoadAction = () => {
     return (dispatch) => {
@@ -86,7 +87,7 @@ export const onCartLoadAction = (useremail) => {
     };
 };
 
-export const onDeleteItemAction = (_id,useremail) => {
+export const onDeleteItemAction = (_id, useremail) => {
     console.log("ProductId", _id);
     return (dispatch) => {
         return fetch(
@@ -121,7 +122,7 @@ export const onDeleteItemAction = (_id,useremail) => {
     };
 };
 
-export const onMoveItemAction = (_id,useremail) => {
+export const onMoveItemAction = (_id, useremail) => {
     return (dispatch) => {
         return fetch(
             `http://localhost:8080/api/v1/cartItems/${useremail}`,
@@ -223,7 +224,7 @@ export const onAddressLoadAction = (useremail) => {
     };
 };
 
-export const onDeleteAddressAction = (_id,useremail) => {
+export const onDeleteAddressAction = (_id, useremail) => {
     console.log("ProductId", _id);
     return (dispatch) => {
         return fetch("http://localhost:8080/api/v1/adr/", {
@@ -254,7 +255,7 @@ export const onDeleteAddressAction = (_id,useremail) => {
     };
 };
 
-export const onAddAddressAction = (obj,useremail,username,userphone) => {
+export const onAddAddressAction = (obj, useremail, username, userphone) => {
     return (dispatch) => {
         console.log("object", obj);
         return fetch("http://localhost:8080/api/v1/adr/", {
@@ -264,7 +265,7 @@ export const onAddAddressAction = (obj,useremail,username,userphone) => {
                 "Content-type": "application/json",
             },
 
-            body: JSON.stringify({ email: useremail, addresses : obj, name : username, phone : 8887871212 }),
+            body: JSON.stringify({ email: useremail, addresses: obj, name: username, phone: 8887871212 }),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -286,7 +287,7 @@ export const onAddAddressAction = (obj,useremail,username,userphone) => {
     };
 };
 
-export const OnEditAddressAction = (id, elem,useremail) => {
+export const OnEditAddressAction = (id, elem, useremail) => {
     return (dispatch) => {
         return fetch("http://localhost:8080/api/v1/adr/", {
             headers: {
@@ -294,7 +295,7 @@ export const OnEditAddressAction = (id, elem,useremail) => {
                 "Content-type": "application/json",
             },
             method: "PATCH",
-            body: JSON.stringify({ email: useremail , id: id, address: elem }),
+            body: JSON.stringify({ email: useremail, id: id, address: elem }),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -316,18 +317,20 @@ export const OnEditAddressAction = (id, elem,useremail) => {
     };
 };
 
-export const adjustItemQty = (_id, value,useremail) => {
+
+
+export const onQuantityChangeAction = (_id, useremail, QuantityChange, max) => {
     return (dispatch) => {
         return fetch(
-            `http://localhost:8080/api/v1/cartItems/${useremail}`,{
-                headers: {
-                    Accept: "application/json",
-                    "Content-type": "application/json",
-                },
-                method: "PATCH",
+            `http://localhost:8080/api/v1/cartItems/${useremail}`, {
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+            },
+            method: "PATCH",
 
-                body: JSON.stringify({ quantity: value, bookid: _id }),
-            }
+            body: JSON.stringify({ bookid: _id, QuantityChange: QuantityChange, max: max }),
+        }
         )
             .then((res) => res.json())
             .then((data) => {
@@ -347,7 +350,9 @@ export const adjustItemQty = (_id, value,useremail) => {
                     });
             });
     };
-};
+}
+
+
 
 export const OrderSummaryAction = (
     totalPrice,
@@ -401,8 +406,8 @@ export const OnconfirmPaymentAction = (cartItems, address, amount, useremail) =>
     };
 };
 
-export const amountAction = (cartTotal,useremail) => {
-    console.log("cartTotal and email", cartTotal,useremail);
+export const amountAction = (cartTotal, useremail) => {
+    console.log("cartTotal and email", cartTotal, useremail);
     return (dispatch) => {
         return fetch(
             `http://localhost:8080/api/v1/cartItems/${useremail}/amount`,
@@ -426,3 +431,29 @@ export const amountAction = (cartTotal,useremail) => {
             });
     };
 };
+
+export const onApplycouponAction = (code) => {
+
+    return dispatch => {
+        console.log("couponcode", code);
+        return fetch('http://localhost:8080/api/v1/coupons/compare/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ couponcode: code }),
+
+        })
+
+            .then((res) => res.json())
+            .then((data) => {
+                dispatch({
+                    type: ON_APPLY_COUPON,
+                    payload: data.result
+                });
+
+            });
+
+    }
+}

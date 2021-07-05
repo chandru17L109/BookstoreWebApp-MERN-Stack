@@ -9,11 +9,11 @@ import CustomizedSnackbars from '../../alert_notify/alert';
 class ReviewPage extends Component {
   constructor(props){
     super(props);
-    this.state = {bookdetails : props, comment:"",rating:"",notify: null}
+    this.state = {comment:"",rating:"",notify: null}
    }   
 
    componentDidMount(){
-    this.props.onFetchBookReviews(this.state.bookdetails.props._id);
+        this.props.onFetchBookReviews(this.props.BookID);
   }
 
   Comment(event) {
@@ -37,14 +37,17 @@ class ReviewPage extends Component {
           setTimeout(()=>{
             this.setState({notify:null})
           },2000)
-          this.props.onAddReview(this.state.rating, this.state.comment, this.props.User.name, this.state.bookdetails.props._id);
+          this.props.onAddReview(this.state.rating, this.state.comment, this.props.User.name, this.props.BookID);
           this.setState({notify: <CustomizedSnackbars open={true} message={"Review Added !"}/>})
+          this.props.onFetchBookReviews(this.props.BookID);
+          this.props.OnAvgreview()
+          console.log(this.props.AvgReview)
           this.setState({rating:"",comment:""})
-          this.props.onFetchBookReviews(this.state.bookdetails.props._id);
         }  
     }
         
     render() {
+      console.log("********bookid*******",this.props.BookID)
       console.log("this.props.Bookreview",this.props.Bookreview)
       var BookreviewData = this.props.Bookreview
       if(BookreviewData.length === 0){
@@ -101,7 +104,7 @@ class ReviewPage extends Component {
             
                 <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
                   <i className="text-white " style={{fontSize:"15px"}} onClick={this.AddReview.bind(this)}>  Add Review</i>
-                  {/* <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidecartlist.bind(this,this.state.bookdetails._id)}><FaCartPlus/>    Add to Cart</i> */}
+                  {/* <i className="text-white " style={{fontSize:"20px"}} onClick={this.decidecartlist.bind(this,this.state.bookID._id)}><FaCartPlus/>    Add to Cart</i> */}
                 </button>            
                </div>  
             
@@ -118,12 +121,14 @@ const mapStateToProps = (state) => {
   return {
       User : state.userLogin.userInfo,
       Bookreview : state.BookReducer.review,
+      AvgReview : state.BookReducer.avgreview,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
       onAddReview : (rating,comment,username,bookid) =>  dispatch(actions.AddReview(rating,comment,username,bookid)),
+      OnAvgreview : () => dispatch(actions.FetchAverageReview()),
       onFetchBookReviews : (bookid) => dispatch(actions.FetchReview(bookid))
   }
 }

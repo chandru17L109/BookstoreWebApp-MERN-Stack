@@ -1,0 +1,38 @@
+.Main-container{
+    margin: 30px 30px;
+}
+.bank-vector-container{
+    width:130px;
+    margin: 20px 0px;
+    height: 90px;
+    display: inline-block;
+    text-align: center;
+    transition: 0.1s;
+
+}
+
+h5,h3{
+    margin: 0px 0px;
+}
+
+.bank-selection{
+    padding: 40px;
+}
+
+
+
+
+.active-bank{
+    border: 2px solid  rgba(231, 157, 73, 0.932);
+    border-radius: 10px;
+    transform: translateY(5px);
+
+}
+
+.bank-vector-container:hover{
+    border: solid 2px  rgba(231, 157, 73, 0.932); 
+    transform: translateY(5px);
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 10px;
+}

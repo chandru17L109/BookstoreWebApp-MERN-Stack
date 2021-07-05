@@ -6,43 +6,59 @@ import {connect} from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router";
 import AvgRating from '../AvgRating/AvgRating'
+import {useParams} from "react-router-dom";
+
+import CustomizedSnackbars from '../../alert_notify/alert';
 
 function ProductDetailspage(props) {
 
+  const { id } = useParams();
+  console.log("use params for id",id)
   const { match: { params } } = props;
 
-  const [bookid, setBookid] = useState("")
+  const [bookid, setBookid] = useState(id)
+  const [notify, setNotify] = useState(null)
 
   useEffect(() => {
-      console.log("props",props.location.pathname);
-      var findurl_bookid = (props.location.pathname).split('/')
-      var book_id = findurl_bookid[findurl_bookid.length - 1]
-      setBookid(book_id)
-      props.onFetchBookDescription(book_id);
+      // console.log("props",props.location.pathname);
+      // var findurl_bookid = (props.location.pathname).split('/')
+      // var book_id = findurl_bookid[findurl_bookid.length - 1]
+      setBookid(id)
+      props.onFetchBookDescription(id);
+      props.onFetchBookReviews(id);
   },[props.location.pathname]);
 
 
 const history = useHistory();
 
-const decidecartlist = (bookid) =>{
+const decidecartlist = () =>{
   if(!props.Email){
-        // alert("Please Login!")
-        // history.push('/login');
-        console.log("please login")
+    setNotify(<CustomizedSnackbars open={true} message={"Please Login to continue !"}/>)
+    setTimeout(()=>{
+      setNotify(null)
+    },2000)
+  //   this.props.props.history.push('/login')
   }else{
-    console.log("props.Email and bookid",props.Email.email, bookid)
-    // props.onAddcartlist(props.Email.email, bookid);
-  }  
+    setNotify(<CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>)
+    setTimeout(()=>{
+    },2000)
+    props.onAddcartlist(props.Email.email, bookid);
+  } 
+  
 }
 
-const decidewishlist = (bookid) => {
+const decidewishlist = () => {
 if(!props.Email){
-    // alert("Please Login!")
-    // history.push('/login')
-    console.log("please login")
+  setNotify(<CustomizedSnackbars open={true} message={"Please Login to continue !"}/>)
+  setTimeout(()=>{
+    setNotify(null)
+  },2000)
   }else{
-    console.log("this.props.Email and bookid",props.Email.email, bookid)
-    // props.onAddwishlist(props.Email.email, bookid);
+    setNotify(<CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>)
+    setTimeout(()=>{
+      setNotify(null)
+    },2000)
+    props.onAddwishlist(props.Email.email, bookid);
   }
 }
   var booksreview = props.AvgReview;
@@ -57,6 +73,7 @@ if(!props.Email){
     return (
 
       <div style={{color:"black"}}>
+        {notify}
          { console.log("props bookdetail",props.Bookdetail)}
 
         <div className="container mb-0" >
@@ -74,6 +91,7 @@ if(!props.Email){
                 <strong style={{fontWeight:"normal"}}>{props.Bookdetail.authors} (Author)</strong>
                 <br></br>
                 <strong>
+                  {RatingValue}
                 <AvgRating rating={Math.round(RatingValue)}></AvgRating>
                 </strong>
                 {/* <strong style={{marginLeft:"5px",fontWeight:"normal"}}>({props.Bookdetail.ratings} Ratings)</strong> */}
@@ -174,14 +192,14 @@ if(!props.Email){
                 {/* <a href="#" > */}
                   {/* <Link to = {'/login'}> */}
                 <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                  <i className="text-white " style={{fontSize:"20px"}} onClick={decidecartlist(bookid)}><FaCartPlus/>    Add to Cart</i>
+                  <i className="text-white " style={{fontSize:"20px"}} onClick={()=>{decidecartlist()}}><FaCartPlus/>    Add to Cart</i>
                 </button>  
                 {/* </Link> */}
                 {/* </a> */}
                 {/* <a href="#" > */}
                 {/* <Link to = {'/login'}> */}
                   <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
-                    <i className="text-white " style={{fontSize:"20px"}} onClick={decidewishlist(bookid)}><FaHeart/>     Add to Wishlist</i>
+                    <i className="text-white " style={{fontSize:"20px"}} onClick={()=>{decidewishlist()}}><FaHeart/>     Add to Wishlist</i>
                   </button>  
                   {/* </Link> */}
                 {/* </a> */}
@@ -222,7 +240,7 @@ if(!props.Email){
             </div>
           </div>
         </div>
-        <ReviewPage props={props.Bookdetail}/>
+        <ReviewPage BookID={id}/>
      </div> 
         
 );
@@ -243,8 +261,8 @@ const mapDispatchToProps = (dispatch) => {
       onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
       onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
       onFetchBookDescription : (bookid) => dispatch(actions.FetchBookDescription(bookid)),
-      OnAvgreview : () => dispatch(actions.FetchAverageReview())
-
+      OnAvgreview : () => dispatch(actions.FetchAverageReview()),
+      onFetchBookReviews : (bookid) => dispatch(actions.FetchReview(bookid))
   }
 }
 

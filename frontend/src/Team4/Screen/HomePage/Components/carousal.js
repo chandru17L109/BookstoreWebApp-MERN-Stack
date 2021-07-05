@@ -33,7 +33,7 @@ class Carousalslide extends React.Component{
                         <div className = "row">
                            <div className = "col-sm-12 mt-3">
                               <h1 className = "banner_taital">One-Stop <br/>Destination </h1>
-                              <div className = "buynow_bt"><a href="#">Buy Now</a></div>
+                              <div className = "buynow_bt"><small>Buy Now</small></div>
                            </div>
                         </div>
                      </div>

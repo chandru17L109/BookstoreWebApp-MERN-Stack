@@ -30,6 +30,7 @@ const wishItemRoutes = require('./team2/routes/wishItem')
 const addressUser = require('./team2/routes/addressUser')
 const orderRoutes = require('./team2/routes/order')
 
+const couponRoutes = require('./team2/routes/coupon')
 // const reviewRoutes = require('./team5/routes/review')
 
 // const fileupload = require('express-fileupload')
@@ -51,11 +52,10 @@ app.use('/books', searchpageRoute)
 app.use('/api/wishlist', wishlistRoute)
 app.use('/api/cartlist', cartlistRoute)
 
-// app.use('/api/v1/products', productRoutes)
 app.use('/api/v1/cartItems', cartItemRoutes)
 app.use('/api/v1/wishItems', wishItemRoutes)
 app.use("/api/v1/adr", addressUser)
-// app.use('/api/v1/addresses', addressRoutes)
+app.use('/api/v1/coupons', couponRoutes)
 app.use('/api/v1/orders', orderRoutes)
 
 app.use(errorHandler)

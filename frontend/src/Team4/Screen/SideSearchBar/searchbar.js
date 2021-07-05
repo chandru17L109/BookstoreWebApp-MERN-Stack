@@ -12,7 +12,7 @@ class Searchbar extends Component {
         super(props);
             this.state = {popularbooks:[],ratingsall:"sort=-ratings",
 
-                          horror : "&category=horror", comedy : "&category=comedy", adeventure : "&category=adeventure", fiction : "&category=fiction",
+                          allbookcategory: '&', horror : "&category=horror", comedy : "&category=comedy", adeventure : "&category=adeventure", fiction : "&category=fiction",
                           ancient : "&category=ancient", sciencefiction : "&category=sciencefiction", thriller : "&category=thriller", spritual : "&category=spritual", classic : "&category=classic",
 
                           below_500 : "&price[lt]=500",AboveEqual_500:"&price[gte]=500",AboveEqual_1000:"&price[gte]=1000",
@@ -24,7 +24,7 @@ class Searchbar extends Component {
                           sortpriceLtoH : "&sort=price", sortpriceHtoL : "&sort=-price", sortdiscountLtoH : "&sort=discount", sortdiscounHtoL : "&sort=-discount",sortratingLtoH : "&sort=ratings",sortratingHtoL : "&sort=-ratings"   
                         }
     }
-
+    allbook(querycondition){ this.props.onFetchallbook(querycondition) }
     horror(querycondition){ this.props.onFetchhorror(querycondition) }
     comedy(querycondition){ this.props.onFetchcomedy(querycondition) }
     adeventure(querycondition){ this.props.onFetchadeventure(querycondition) }
@@ -55,23 +55,26 @@ class Searchbar extends Component {
     sortdiscountlowtohigh(querycondition){ this.props.onFetchSortdiscountlowtohigh(querycondition) }
     sortdiscounthightolow(querycondition){ this.props.onFetchSortdiscounthightolow(querycondition) }
 
-    sortratingslowtohigh(querycondition){ this.props.onFetchSortratingslowtohigh(querycondition) }
-    sortratingshightolow(querycondition){ this.props.onFetchSortratingshightolow(querycondition) }
+    // sortratingslowtohigh(querycondition){ this.props.onFetchSortratingslowtohigh(querycondition) }
+    // sortratingshightolow(querycondition){ this.props.onFetchSortratingshightolow(querycondition) }
 
     render() {
+        console.log("props location from searchbar",this.props.childprops.location.pathname)
         console.log("popularbooks",this.state.popularbooks)
         return (
             <div className="pt-2" >
                 <div className="search1 mt-2" >
                     <h4 className="text-info">Search By</h4>
+                    {/* <li onClick={this.allbook.bind(this,this.state.allbookcategory)}>All</li> */}
                     <div class="nav">
                     
                         <div class="multi-level ml-0">
                             
                             <div class="item">
                                 <input type="checkbox" id="A"/>
-                                <img src={arrow} class="arrow"/><label className="text-primary" for="A">Categories</label>
+                                <img src={arrow} alt="arrow" class="arrow"/><label className="text-primary" for="A">Categories</label>
                                 <ul className="ml-0">
+                                    <li onClick={this.allbook.bind(this,this.state.allbookcategory)}>All Books</li>
                                     <li onClick={this.horror.bind(this,this.state.horror)}>Horror</li>
                                     <li onClick={this.fiction.bind(this,this.state.fiction)}>Fiction</li>
                                     <li onClick={this.comedy.bind(this,this.state.comedy)}>Comedy</li>
@@ -81,13 +84,12 @@ class Searchbar extends Component {
                                     <li onClick={this.thriller.bind(this,this.state.thriller)}>Thriller</li>
                                     <li onClick={this.spritual.bind(this,this.state.spritual)}>Spritual</li>
                                     <li onClick={this.classic.bind(this,this.state.classic)}>Classic</li>
-
                                 </ul> 
                             </div>
                             
                             <div class="item">
                                 <input type="checkbox" id="B"/>
-                                <img src={arrow} class="arrow"/><label className="text-primary" for="B">Price</label>
+                                <img src={arrow} alt="arrow" class="arrow"/><label className="text-primary" for="B">Price</label>
                                 <ul>
                                     <li onClick={this.below500.bind(this,this.state.below_500)}>Below 500</li>
                                     <li onClick={this.aboveand500.bind(this,this.state.AboveEqual_500)}>500 and Above</li>
@@ -97,7 +99,7 @@ class Searchbar extends Component {
 
                             <div class="item">
                                 <input type="checkbox" id="C"/>
-                                <img src={arrow} class="arrow"/><label className="text-primary" for="C">Discount</label>
+                                <img src={arrow} alt="arrow" class="arrow"/><label className="text-primary" for="C">Discount</label>
                                 <ul>
                                     <li onClick={this.discount50andabove.bind(this,this.state.dis50andAbove)}>50% and Above</li>
                                     <li onClick={this.discount30andabove.bind(this,this.state.dis30andAbove)}>30% and Above</li>
@@ -136,12 +138,12 @@ class Searchbar extends Component {
                                     </li>
                                 </ul>
                             </div> */}
-
-                            <h4 className="text-info">Sort By</h4>
+                        {this.props.childprops.location.pathname === '/allbookspage' ?
+                            <><h4 className="text-info">Sort By</h4>
 
                             <div class="item">
                                 <input type="checkbox" id="D"/>
-                                <img src={arrow} class="arrow"/><label className="text-primary" for="D">Price</label>
+                                <img src={arrow} alt="arrow" class="arrow"/><label className="text-primary" for="D">Price</label>
                                 <ul>
                                     <li onClick={this.sortpricelowtohigh.bind(this,this.state.sortpriceLtoH)}>Low to High</li>
                                     <li onClick={this.sortpricehightolow.bind(this,this.state.sortpriceHtoL)}>High to Low</li>
@@ -150,15 +152,16 @@ class Searchbar extends Component {
 
                             <div class="item">
                                 <input type="checkbox" id="E"/>
-                                <img src={arrow} class="arrow"/><label className="text-primary" for="E">Discount</label>
+                                <img src={arrow} alt="arrow" class="arrow"/><label className="text-primary" for="E">Discount</label>
                                 
                                 <ul>
                                     <li onClick={this.sortdiscountlowtohigh.bind(this,this.state.sortdiscountLtoH)}>Low to High</li>
                                     <li onClick={this.sortdiscounthightolow.bind(this,this.state.sortdiscounHtoL)}>High to Low</li>
                                 </ul>
-                            </div>
+                            </div></> :null
+                        }
 
-                            <div class="item">
+                            {/* <div class="item">
                                 <input type="checkbox" id="F"/>
                                 <img src={arrow} class="arrow"/><label className="text-primary" for="F">Rating</label>
                                 
@@ -166,7 +169,7 @@ class Searchbar extends Component {
                                     <li onClick={this.sortratingslowtohigh.bind(this,this.state.sortratingLtoH)}>Low to High</li>
                                     <li onClick={this.sortratingshightolow.bind(this,this.state.sortratingHtoL)}>High to Low</li>
                                 </ul>
-                            </div>
+                            </div> */}
 
                         </div>
                     </div>
@@ -183,6 +186,7 @@ class Searchbar extends Component {
 
   const mapDispatchToProps = (dispatch) => {
     return {
+        onFetchallbook : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchhorror : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchcomedy : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchadeventure : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),  
@@ -208,8 +212,8 @@ class Searchbar extends Component {
         onFetchSortdiscountlowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchSortdiscounthightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
 
-        onFetchSortratingslowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        onFetchSortratingshightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchSortratingslowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        // onFetchSortratingshightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
 
     }
   }
@@ -243,10 +247,3 @@ class Searchbar extends Component {
 // onFetchPricebelow500 : () => dispatch(actions.fetchbooksbypricebelow500()),
 // onFetchPrice500andabove : () => dispatch(actions.fetchbooksbyprice500andabove()),
 // onFetchPrice1000andabove : (querycondition)=> dispatch(actions.fetchbooksbyprice1000andabove(querycondition)),
-
-{/* <li>All</li> */}
-{/* <li onClick={this.price.bind(this,this.state.below_500)}>Below 500</li> */}
-{/* <li onClick={this.price.bind(this,this.state.AboveEqual_500)}>500 and Above</li>
-<li onClick={this.price.bind(this,this.state.AboveEqual_1000)}>1000 and Above</li> */}
-{/* <li onClick={this.props.onFetchPricebelow500()}>Below 500</li> */}
-{/* <li onClick={this.props.onFetchPricebelow500()}>Below 500</li> */}

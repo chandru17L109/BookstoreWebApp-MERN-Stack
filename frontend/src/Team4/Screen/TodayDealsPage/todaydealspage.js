@@ -4,7 +4,7 @@ import {Button,Card,Row,Container} from 'react-bootstrap'
 import SearchPage from '../SideSearchBar/searchbar';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-import { FaStar } from "react-icons/fa"
+// import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import '../../Styles/commonStyling.css';
 import '../../Styles/todayDealsPage.css';
@@ -13,16 +13,19 @@ import TodayDealsbottomCardImage from '../../images/todayDealsbottomCardImage.jp
 import * as actions from '../../action/action'
 // import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
+import CustomizedSnackbars from '../../alert_notify/alert';
+import AvgRating from '../AvgRating/AvgRating'
 
 class TodayDealsPage extends Component {
 
     constructor(props){
         super(props);
-        this.state = {current:1}
+        this.state = {current:1,notify: null}
     }
 
     componentDidMount(){
         this.props.onFetchAllbooks(this.state.current);
+        this.props.OnAvgreview();
       }
   
           changenext(){
@@ -40,22 +43,33 @@ class TodayDealsPage extends Component {
   
           decidecartlist(bookid){
             if(!this.props.Email){
-              // alert("Please Login!")
-              this.props.history.push('/login')
-            }else{
-              console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-              this.props.onAddcartlist(this.props.Email.email, bookid);
-            }  
+                this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+                setTimeout(()=>{
+                    this.setState({notify:null})
+                },2000)
+              //   this.props.props.history.push('/login')
+              }else{
+                this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+                setTimeout(()=>{
+                  this.setState({notify:null})
+                },2000)
+                this.props.onAddcartlist(this.props.Email.email, bookid);
+              }   
         }
   
         decidewishlist(bookid){
-          if(!this.props.Email){
-              // alert("Please Login!")
-              this.props.history.push('/login')
-            }else{
-              console.log("this.props.Email and bookid",this.props.Email.email, bookid)
-              this.props.onAddwishlist(this.props.Email.email, bookid);
-            }
+            if(!this.props.Email){
+                this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+                  setTimeout(()=>{
+                      this.setState({notify:null})
+                  },2000)
+                }else{
+                this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+                  setTimeout(()=>{
+                    this.setState({notify:null})
+                  },2000)
+                  this.props.onAddwishlist(this.props.Email.email, bookid);
+                }
       }
 
     render() {
@@ -87,13 +101,23 @@ class TodayDealsPage extends Component {
             }
 
            var DealsBooklist = this.props.Books.map((books, i)=>{
-           // if(i < 4){
+
+            var booksreview = this.props.AvgReview;
+                // console.log("booksreview",booksreview);
+                var Reviewfound = booksreview.findIndex(function(post, index) {
+                    if(post._id._id === books._id)
+                        return true;
+                })
+                
+                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+                // console.log(Reviewfound)
+
             return(
                 <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
                     
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                         
-                        <Link to= {{pathname : '/description', query : books}}>
+                    <Link to= {'/description/'+books._id}>
                             <Card.Img className="card-header bg-white " src={books.image} variant="top" />
                         </Link>
                         
@@ -111,11 +135,7 @@ class TodayDealsPage extends Component {
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
-                                        <i className="text-warning"><FaStar/></i>
+                                    <AvgRating rating={Math.round(RatingValue)}></AvgRating>
                                     </strong>
                                     <strong style={{marginLeft:"10px"}}>({books.discount}%)</strong>
                                 </div>
@@ -141,6 +161,7 @@ class TodayDealsPage extends Component {
         
         return (
             <>
+            {this.state.notify}
 
             <div className="todayDealsCarousal">
                 <Card>
@@ -158,7 +179,7 @@ class TodayDealsPage extends Component {
             <div className = "row">
                     <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
                         <div className="search-option-catagory card shadow rounded">
-                            <SearchPage/>
+                        <SearchPage childprops={this.props}/>
                         </div>
                     </div>
 
@@ -212,7 +233,8 @@ const mapStateToProps = (state) => {
     console.log('Inside Component ', state);
     return {
         Books: state.BookReducer.books,
-        Email : state.userLogin.userInfo
+        Email : state.userLogin.userInfo,
+        AvgReview : state.BookReducer.avgreview,
 
     }
   }
@@ -222,6 +244,8 @@ const mapStateToProps = (state) => {
         onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
+        OnAvgreview : () => dispatch(actions.FetchAverageReview())
+
     }
   }
       

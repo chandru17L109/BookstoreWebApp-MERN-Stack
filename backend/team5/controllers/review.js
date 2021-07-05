@@ -28,7 +28,9 @@ const AverageRating = asyncHandler(async (req, res) => {
                 average_ : {$avg : "$rating"},
                 },
         },
-        {$sort: {average_: -1}}
+        {$sort: {average_: -1}},
+        { $limit: 12 }
+
     ]
   ).exec(function(err, doc) {
     Books.populate(doc, {path: '_id'}, function(err, populatedTransactions) {
