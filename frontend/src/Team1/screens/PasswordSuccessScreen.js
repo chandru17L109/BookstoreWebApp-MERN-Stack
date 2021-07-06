@@ -6,9 +6,9 @@ const PasswordSuccessScreen = () => {
 		<div>
 			<Message variant='success'>PASSWORD CHANGED SUCCESSFULLY</Message>
 			<center>
-				<h1>
+				<p>
 					Click here to <Link to='/login'>LOGIN</Link>
-				</h1>
+				</p>
 			</center>
 		</div>
 	)
