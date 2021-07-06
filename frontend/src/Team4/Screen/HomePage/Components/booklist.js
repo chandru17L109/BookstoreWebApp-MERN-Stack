@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import {Carousel,Card,Container, Row, Col} from 'react-bootstrap' 
-import nonfic2  from "../../../images/nonfic2.JPG"
+import {Carousel,Card, Row, Col} from 'react-bootstrap' 
+// import nonfic2  from "../../../images/nonfic2.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-import { FaStar } from "react-icons/fa"
+// import { FaStar } from "react-icons/fa"
 import TodayDealsPage from './BookListComponents/todaydeals';
 import NewRelease from './BookListComponents/newrelease';
 import PopularBookPage from './BookListComponents/popularbook';
@@ -127,7 +127,7 @@ decidewishlist(bookid){
                 <p className="visibility">{"Chandru & co"}</p>
                 <div className="w-100 ">
                       <span className="heading_">Mixed Collections</span>
-                      <Link to = {'/allbookspage'}> <a className="viewmore">View more ..</a> </Link>
+                      <Link to = {'/allbookspage'}> <a href = "/" className="viewmore">View more ..</a> </Link>
                 </div>
                 <div className="row">
                     {allbookslist} 
@@ -175,7 +175,7 @@ decidewishlist(bookid){
 
                 <div className="w-100">
                       <span className="heading_"> Today Deals</span>
-                      <Link to = {'/todaydealspage'}> <a className="viewmore">View more ..</a> </Link>
+                      <Link to = {'/todaydealspage'}> <a href = "/" className="viewmore">View more ..</a> </Link>
                 </div>
                
                 <div className="row">
@@ -184,7 +184,7 @@ decidewishlist(bookid){
 
                 <div className="w-100">
                       <span className="heading_"> New Releases</span>
-                      <Link to = {'/newrelease'}> <a className="viewmore">View more ..</a> </Link>
+                      <Link to = {'/newrelease'}> <a href = "/" className="viewmore">View more ..</a> </Link>
                 </div>
 
                 <div className="row">
@@ -227,7 +227,7 @@ decidewishlist(bookid){
                 </div> */}
                 <div className="w-100">
                       <span className="heading_">Popular Books</span>
-                      <Link to = {'/popularpage'}> <a className="viewmore">View more ..</a> </Link>
+                      <Link to = {'/popularpage'}> <a href = "/" className="viewmore">View more ..</a> </Link>
                 </div>
                 <div className="row">
                     <PopularBookPage props={this.props.props}/>

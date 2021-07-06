@@ -12,7 +12,7 @@ export default class SecondHeader extends Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost:8080'+'/books?limit=40',{
+        fetch('http://localhost:8080/books?limit=40',{
             headers:{'content-type': 'application/json'},
         })
         .then(res=>res.json())
@@ -70,7 +70,7 @@ export default class SecondHeader extends Component {
                                     )}
                                 </div>
                                 
-                                {this.state.filterData.length != 0 && (
+                                {this.state.filterData.length !== 0 && (
                                     <div className="dataResult">
                                         {this.state.filterData.slice(0,4).map((value, key) => {
                                             return (

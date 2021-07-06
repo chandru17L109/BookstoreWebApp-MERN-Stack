@@ -18,8 +18,8 @@ function Alert(props) {
 
 export default function CustomizedSnackbars(props) {
   const [open, setOpen] = React.useState(props.open);
-  const [message, setMessage] = React.useState(props.message);
-   const [state, setState] = React.useState({
+  const [message,] = React.useState(props.message);
+   const [state, ] = React.useState({
     vertical: 'top',
     horizontal: 'center',
   });

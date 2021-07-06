@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import {Button,Card,Row,Container} from 'react-bootstrap' 
 import '../../Styles/searchbar.css';
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.css';
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
@@ -24,24 +24,24 @@ class Searchbar extends Component {
                           sortpriceLtoH : "&sort=price", sortpriceHtoL : "&sort=-price", sortdiscountLtoH : "&sort=discount", sortdiscounHtoL : "&sort=-discount",sortratingLtoH : "&sort=ratings",sortratingHtoL : "&sort=-ratings"   
                         }
     }
-    allbook(querycondition){ this.props.onFetchallbook(querycondition) }
-    horror(querycondition){ this.props.onFetchhorror(querycondition) }
-    comedy(querycondition){ this.props.onFetchcomedy(querycondition) }
-    adeventure(querycondition){ this.props.onFetchadeventure(querycondition) }
-    fiction(querycondition){ this.props.onFetchfiction(querycondition) }
-    ancient(querycondition){ this.props.onFetchhorror(querycondition) }
-    sciencefiction(querycondition){ this.props.onFetchcomedy(querycondition) }
-    thriller(querycondition){ this.props.onFetchadeventure(querycondition) }
-    spritual(querycondition){ this.props.onFetchfiction(querycondition) }
-    classic(querycondition){ this.props.onFetchfiction(querycondition) }
+    allbook(querycondition){ this.props.onFetchallbook(querycondition);this.props.onSetPageNo(1) }
+    horror(querycondition){ this.props.onFetchhorror(querycondition) ;this.props.onSetPageNo(1)}
+    comedy(querycondition){ this.props.onFetchcomedy(querycondition);this.props.onSetPageNo(1) }
+    adeventure(querycondition){ this.props.onFetchadeventure(querycondition);this.props.onSetPageNo(1) }
+    fiction(querycondition){ this.props.onFetchfiction(querycondition);this.props.onSetPageNo(1) }
+    ancient(querycondition){ this.props.onFetchhorror(querycondition);this.props.onSetPageNo(1) }
+    sciencefiction(querycondition){ this.props.onFetchcomedy(querycondition) ;this.props.onSetPageNo(1)}
+    thriller(querycondition){ this.props.onFetchadeventure(querycondition);this.props.onSetPageNo(1) }
+    spritual(querycondition){ this.props.onFetchfiction(querycondition);this.props.onSetPageNo(1) }
+    classic(querycondition){ this.props.onFetchfiction(querycondition) ;this.props.onSetPageNo(1)}
 
-    below500(querycondition) {this.props.onFetchPricebelow500(querycondition) }
-    aboveand500(querycondition) { this.props.onFetchPrice500andabove(querycondition) }
-    aboveand1000(querycondition) { this.props.onFetchPrice1000andabove(querycondition) }
+    below500(querycondition) {this.props.onFetchPricebelow500(querycondition);this.props.onSetPageNo(1) }
+    aboveand500(querycondition) { this.props.onFetchPrice500andabove(querycondition);this.props.onSetPageNo(1) }
+    aboveand1000(querycondition) { this.props.onFetchPrice1000andabove(querycondition);this.props.onSetPageNo(1) }
 
-    discount50andabove(querycondition) { this.props.onFetchDiscount50andabove(querycondition) }
-    discount30andabove(querycondition) { this.props.onFetchDiscount30andabove(querycondition) }
-    discount10andabove(querycondition) { this.props.onFetchDiscount10andabove(querycondition) }
+    discount50andabove(querycondition) { this.props.onFetchDiscount50andabove(querycondition);this.props.onSetPageNo(1) }
+    discount30andabove(querycondition) { this.props.onFetchDiscount30andabove(querycondition);this.props.onSetPageNo(1) }
+    discount10andabove(querycondition) { this.props.onFetchDiscount10andabove(querycondition);this.props.onSetPageNo(1) }
 
     // ratings5(querycondition){ this.props.onFetchRatings5(querycondition) }
     // ratings4(querycondition){ this.props.onFetchRatings4(querycondition) }
@@ -49,11 +49,11 @@ class Searchbar extends Component {
     // ratings2(querycondition){ this.props.onFetchRatings2(querycondition) }
     // ratings1(querycondition){ this.props.onFetchRatings1(querycondition) }
 
-    sortpricelowtohigh(querycondition){ this.props.onFetchSortpricelowtohigh(querycondition) }
-    sortpricehightolow(querycondition){ this.props.onFetchSortpricehightolow(querycondition) }
+    sortpricelowtohigh(querycondition){ this.props.onFetchSortpricelowtohigh(querycondition);this.props.onSetPageNo(1) }
+    sortpricehightolow(querycondition){ this.props.onFetchSortpricehightolow(querycondition);this.props.onSetPageNo(1) }
 
-    sortdiscountlowtohigh(querycondition){ this.props.onFetchSortdiscountlowtohigh(querycondition) }
-    sortdiscounthightolow(querycondition){ this.props.onFetchSortdiscounthightolow(querycondition) }
+    sortdiscountlowtohigh(querycondition){ this.props.onFetchSortdiscountlowtohigh(querycondition);this.props.onSetPageNo(1) }
+    sortdiscounthightolow(querycondition){ this.props.onFetchSortdiscounthightolow(querycondition);this.props.onSetPageNo(1) }
 
     // sortratingslowtohigh(querycondition){ this.props.onFetchSortratingslowtohigh(querycondition) }
     // sortratingshightolow(querycondition){ this.props.onFetchSortratingshightolow(querycondition) }
@@ -176,10 +176,6 @@ class Searchbar extends Component {
                 
                 </div>
             </div>
-               
-
-                                
-            
         )
     }
 }
@@ -214,6 +210,7 @@ class Searchbar extends Component {
 
         // onFetchSortratingslowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         // onFetchSortratingshightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
+        onSetPageNo :(num)=>dispatch({type:actions.SET_PAGE,payload:num})
 
     }
   }

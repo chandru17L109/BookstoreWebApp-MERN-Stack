@@ -17,7 +17,7 @@ class Carousalslide extends React.Component{
                         <div className = "row">
                            <div className = "col-sm-12 mt-3">
                               <h1 className = "banner_taital">Best sellers <br/>On Your Fingertips</h1>
-                              <div className = "buynow_bt"><a href="#">Buy Now</a></div>
+                              <div className = "buynow_bt"><a href="/">Buy Now</a></div>
                            </div>
                         </div>
                      </div>
@@ -25,7 +25,7 @@ class Carousalslide extends React.Component{
                         <div className = "row">
                            <div className = "col-sm-12 mt-3">
                               <h1 className = "banner_taital">Best Books <br/>At Reasonable Prices</h1>
-                              <div className = "buynow_bt"><a href="#">Buy Now</a></div>
+                              <div className = "buynow_bt"><a href="/">Buy Now</a></div>
                            </div>
                         </div>
                      </div>

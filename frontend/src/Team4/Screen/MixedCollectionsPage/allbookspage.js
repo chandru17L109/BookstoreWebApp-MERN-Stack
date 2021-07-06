@@ -26,19 +26,20 @@ class AllBooksPage extends Component {
    componentDidMount(){
       this.props.onFetchAllbooks(this.state.current);
       this.props.OnAvgreview();
+      this.props.onSetPageNo(1)
    }
 
    changenext(){
-    var cur = this.state.current;
-    this.setState({current: this.state.current+1})
+    var cur = this.props.pagenum;
     cur=cur+1
+    this.props.onSetPageNo(cur)
     this.props.onFetchAllbooks(cur)
     }
     changeprev(){
-        var cur = this.state.current;
-        this.setState({current: this.state.current-1})
-        cur=cur-1
-        this.props.onFetchAllbooks(cur)
+            var cur = this.props.pagenum;
+            cur=cur-1
+            this.props.onSetPageNo(cur)
+            this.props.onFetchAllbooks(cur)
     }
 
     decidecartlist(bookid){
@@ -75,9 +76,10 @@ class AllBooksPage extends Component {
     render() {
         var showprevbutton = true
         var shownextbutton = true
+        var allbookslist;
         console.log("this.props.Books",this.props.Books)
 
-        if(this.state.current !== 1){
+        if(this.props.pagenum !== 1){
             showprevbutton = false
         }
 
@@ -85,7 +87,7 @@ class AllBooksPage extends Component {
             shownextbutton = true
 
             if(this.props.Books.length === 0){
-                var allbookslist = (
+                allbookslist = (
                     <div className="alert alert-dismissible alert-info m-3">
                         <strong>No Data Available !</strong>
                         <p>Click <b>Prev</b> to move to before page</p>
@@ -100,7 +102,7 @@ class AllBooksPage extends Component {
                 shownextbutton = false
             }
 
-            var allbookslist = this.props.Books.map((books, i)=>{
+             allbookslist = this.props.Books.map((books, i)=>{
 
                 var booksreview = this.props.AvgReview;
                 // console.log("booksreview",booksreview);
@@ -202,7 +204,7 @@ class AllBooksPage extends Component {
                                     <Button class="page-link mr-1" onClick={this.changeprev.bind(this)} disabled={showprevbutton}>Prev</Button>
                                 </li>
                                 <li class="page-item list-unstyled">
-                                    <Button class="page-link mr-1" >{this.state.current}</Button>
+                                    <Button class="page-link mr-1" >{this.props.pagenum}</Button>
                                 </li>
                                 <li class="page-item list-unstyled">
                                     <Button class="page-link mr-1" onClick={this.changenext.bind(this)} disabled={shownextbutton}>Next</Button>
@@ -243,11 +245,12 @@ class AllBooksPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('Inside Component ', state);
+    console.log('Inside Component ', state.BookReducer.pageNo);
     return {
         Books: state.BookReducer.books,
         Email : state.userLogin.userInfo,
         AvgReview : state.BookReducer.avgreview,
+        pagenum : state.BookReducer.pageNo
 
     }
   }
@@ -257,8 +260,8 @@ const mapStateToProps = (state) => {
         onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
-        OnAvgreview : () => dispatch(actions.FetchAverageReview())
-
+        OnAvgreview : () => dispatch(actions.FetchAverageReview()),
+        onSetPageNo :(num)=>dispatch({type:actions.SET_PAGE,payload:num})
     }
   }
   

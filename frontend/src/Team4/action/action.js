@@ -10,6 +10,8 @@ export const ADD_REVIEW = "ADD_REVIEW"
 export const GET_BOOKS_BY_REVIEWS = "GET_BOOKS_BY_REVIEWS"
 export const GET_BOOKS_BY_AVERAGE_REVIEWS = "GET_BOOKS_BY_AVERAGE_REVIEWS"
 export const GET_BOOK_FOR_DESCRIPTION = "GET_BOOK_FOR_DESCRIPTION"
+export const SET_PAGE = "SET_PAGE"
+
 
 const API = "http://localhost:8080"
 var FETCHQUERY = ""
@@ -27,16 +29,16 @@ var FINDURL = () => {
         currentpage = "/"
 
     }else if(findurl === "newrelease"){
-        FETCHQUERY = "&sort=-publishDate"
-        currentpage = "&sort=-publishDate"
+        FETCHQUERY = '&sort=-publishDate'
+        currentpage = '&sort=-publishDate'
     }
     // }else if(findurl === "popularpage"){
     //     FETCHQUERY = "&sort=-ratings"
     //     currentpage = "&sort=-ratings"
 
     else if(findurl === "todaydealspage"){
-        FETCHQUERY = "&sort=-discount"
-        currentpage = "&sort=-discount"
+        FETCHQUERY = '&sort=-discount'
+        currentpage = '&sort=-discount'
 
     }else{
         FETCHQUERY = "/?"
@@ -66,21 +68,19 @@ var PAGE_NO = (cur_page,query,condition) => {
     }
     if(condition === ""){
         if(templist.length >= 1){
-            if(templist[templist.length - 1] !== ""){
                 if(templist[templist.length - 1][1] !== currentpage){
                     var fetchlist = []
-                    fetchlist.push([cur_page,  templist[templist.length - 1][1], ""])
+                    fetchlist.push([cur_page,  currentpage , ""])
                     console.log("fetchlist inside", fetchlist)
                     return fetchlist
                 }
                 else{
-                    var fetchlist = []
+                    fetchlist = []
                     fetchlist.push([cur_page,  templist[templist.length - 1][1], templist[templist.length - 1][2]])
                     console.log("fetchlist inside", fetchlist)
                     return fetchlist
                 }
             }
-        }
     }
     console.log("templist after",templist, currentpage)
     return fetch

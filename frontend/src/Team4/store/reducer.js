@@ -8,7 +8,8 @@ let initialState = {
     booksPagination : [],
     review : [],
     avgreview:[],
-    bookdetail : []
+    bookdetail : [],
+    pageNo : 1
 }
 
 const BookReducer = (state = initialState, action) =>{
@@ -23,6 +24,7 @@ const BookReducer = (state = initialState, action) =>{
         case actions.GET_BOOKS_BY_REVIEWS : return {...state, review : action.payload } 
         case actions.GET_BOOKS_BY_AVERAGE_REVIEWS : return {...state, avgreview : action.payload } 
         case actions.GET_BOOK_FOR_DESCRIPTION : return {...state, bookdetail : action.payload } 
+        case actions.SET_PAGE : return {...state, pageNo : action.payload}
         default : return {...state}
     }
 }

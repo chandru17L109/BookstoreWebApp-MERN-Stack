@@ -13,7 +13,7 @@ export default class Home extends Component {
                 <Carousalslide/>
                 <Booklist props={this.props}/>
                 <HomeContentCards/>
-                <Author/>
+                {/* <Author/> */}
                 <Frequentques/>
             </>
         )

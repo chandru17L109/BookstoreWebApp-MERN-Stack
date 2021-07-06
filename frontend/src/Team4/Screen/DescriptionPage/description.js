@@ -1,10 +1,10 @@
-import { FaHeart, FaStar } from "react-icons/fa";
+import { FaHeart} from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import ReviewPage from './review'
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 import AvgRating from '../AvgRating/AvgRating'
 import {useParams} from "react-router-dom";
 
@@ -14,7 +14,7 @@ function ProductDetailspage(props) {
 
   const { id } = useParams();
   console.log("use params for id",id)
-  const { match: { params } } = props;
+  // const { match: { params } } = props;
 
   const [bookid, setBookid] = useState(id)
   const [notify, setNotify] = useState(null)
@@ -29,7 +29,7 @@ function ProductDetailspage(props) {
   },[props.location.pathname]);
 
 
-const history = useHistory();
+// const history = useHistory();
 
 const decidecartlist = () =>{
   if(!props.Email){
@@ -68,7 +68,7 @@ if(!props.Email){
           })
           
           var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-          console.log(Reviewfound)
+          // console.log(Reviewfound)
 
     return (
 
@@ -80,7 +80,7 @@ if(!props.Email){
           <div className="row" >
 
             <div className="col-6 col-sm-6 col-md-2 col-lg-2 col-xl-2"> 
-              <img className="card shadow rounded" src={props.Bookdetail.image} className="img-fluid" alt="product image"/>
+              <img className="card shadow rounded" src={props.Bookdetail.image} className="img-fluid" alt="product"/>
             </div> 
 
             {/* <div className="col-md-7"> */}
@@ -122,7 +122,7 @@ if(!props.Email){
                 <br></br>
                 <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{props.Bookdetail.available >0 ? "Available" : "Not Available"}</strong>
                 <br></br>
-                {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong> */}
+                {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="/"> abc Seller</a></strong> */}
               </div>
               <br></br>
 
@@ -130,22 +130,22 @@ if(!props.Email){
                 <div className="col-3 col-md-3">
                   <img src={props.Bookdetail.image} width="35" height="35" className="rounded" alt="" />
                   <br></br>
-                  <a href="#">No contact delivery</a>
+                  <a href="/">No contact delivery</a>
                 </div>
                 <div className="col-3 col-md-3">
                   <img src={props.Bookdetail.image} width="35" height="35" className="rounded" alt="" />
                   <br></br>
-                  <a href="#">7 Day Replacement</a>
+                  <a href="/">7 Day Replacement</a>
                 </div>
                 <div className="col-3 col-md-3">
                   <img src={props.Bookdetail.image} width="35" height="35" className="rounded" alt="" />
                   <br></br>
-                  <a href="#">Bookstore Delivered</a>
+                  <a href="/">Bookstore Delivered</a>
                 </div>
                 {/* <div className="col-3 col-md-3">
                   <img src={fiction2} width="35" height="35" className="rounded" alt="" />
                   <br></br>
-                  <a href="#">1 Year Waranty</a>
+                  <a href="/">1 Year Waranty</a>
                 </div> */}
               </div>
             </div>
@@ -177,7 +177,7 @@ if(!props.Email){
                   <br></br>
                   <strong className="text-danger font-weight-bold"><span style={{color:"black"}}>Stock - </span>{props.Bookdetail.available >0 ? "Available" : "Not Available"}</strong>
                   {/* <br></br> */}
-                  {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="#"> abc Seller</a></strong>
+                  {/* <strong style={{fontSize:"15px"}}>Sold by:<a href="/"> abc Seller</a></strong>
                   <br></br>
                   <label for="quantity">Quantity:</label>
                   <select className="form-control form-control-sm d-inline ml-2" style={{width: "50px"}} id="quantity">
@@ -189,14 +189,14 @@ if(!props.Email){
                     <option>10</option>
                   </select> */}
                 </div>
-                {/* <a href="#" > */}
+                {/* <a href="/" > */}
                   {/* <Link to = {'/login'}> */}
                 <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
                   <i className="text-white " style={{fontSize:"20px"}} onClick={()=>{decidecartlist()}}><FaCartPlus/>    Add to Cart</i>
                 </button>  
                 {/* </Link> */}
                 {/* </a> */}
-                {/* <a href="#" > */}
+                {/* <a href="/" > */}
                 {/* <Link to = {'/login'}> */}
                   <button class="btn btn-primary btn-sm btn-block mt-3 border-0" >
                     <i className="text-white " style={{fontSize:"20px"}} onClick={()=>{decidewishlist()}}><FaHeart/>     Add to Wishlist</i>
@@ -205,7 +205,7 @@ if(!props.Email){
                 {/* </a> */}
           
                 <div className="dropdown-divider"></div>
-                {/* <a href="#">
+                {/* <a href="/">
                   <i className="fas fa-map-marker-alt text-dark"></i>
                     Select Delivery Location
                 </a> */}

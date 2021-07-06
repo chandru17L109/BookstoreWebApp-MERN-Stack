@@ -3,7 +3,7 @@ import {Card} from 'react-bootstrap'
 // import fiction2  from "../../../../images/nonfic3.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-import { FaStar } from "react-icons/fa"
+// import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import '../../../../Styles/design.css';
 import '../../../../Styles/commonStyling.css'

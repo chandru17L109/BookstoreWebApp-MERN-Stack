@@ -29,7 +29,7 @@ const Author = () => {
                 </div>
                 <div className="gallery">
                     <div style={{padding: 8}}>
-                        <img className="authorImage" src={Author3} />
+                        <img className="authorImage" src={Author3} alt="author"/>
                     </div>
                 </div>
                 <div className="gallery">

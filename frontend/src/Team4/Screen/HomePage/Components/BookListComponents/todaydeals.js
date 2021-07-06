@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap' 
-import fiction2  from "../../../../images/fiction1.JPG"
+// import fiction2  from "../../../../images/fiction1.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-import { FaStar } from "react-icons/fa"
+// import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import '../../../../Styles/design.css';
 import * as actions from '../../../../action/action'
