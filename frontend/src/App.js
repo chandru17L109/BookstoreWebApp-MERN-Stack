@@ -28,6 +28,7 @@ import PaymentScreen from './Team2/screens/PaymentScreen'
 import LastScreen from './Team2/screens/LastScreen'
 import PasswordSuccessScreen from './Team1/screens/PasswordSuccessScreen'
 import SentScreen from './Team1/screens/SentScreen'
+import OrderScreen from './Team1/screens/OrderScreen'
 
 function App() {
 	return (
@@ -53,6 +54,7 @@ function App() {
 					<Route path='/login' component={LoginScreen}></Route>
 					<Route path='/register' component={RegisterScreen}></Route>
 					<Route path='/profile' component={ProfileScreen} />
+					<Route path='/myorders' component={OrderScreen}></Route>
 					<Route
 						path='/forgotPassword'
 						component={ForgotPasswordScreen}
