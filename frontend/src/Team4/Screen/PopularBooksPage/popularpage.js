@@ -244,16 +244,18 @@ import AvgRating from '../AvgRating/AvgRating'
                 <div className="row">
                     
 
-                        <div className="container-fluid mb-5" >
-    {/* <div className="row">
-      <div className="col-md-12 p-5 text-white text-center" style={{backgroundColor: "#008577"}}>
-        <h1>"Advertising solutions for books"</h1>
-        <p> <em>Attract readers. Build Fans.</em> Sell Books</p>
-        <a href="your_seller_account.html" className="btn btn-warning rounded-pill">Get started</a>
-        <p>It only takes 15 minutes to setup your account.</p>
-      </div>
-    </div> */}
-    </div>
+                        {/* <div className="container-fluid mb-5" > */}
+                        <div className="bottomCard">
+                <Card>
+                    <Card.Img className="bottomCardImage" src="https://europeanmovement.eu/wp-content/uploads/2017/09/education-1024x422.jpg" alt="Card image" />
+                    <Card.ImgOverlay>
+                        <Card.Title ><h1><b className="bottomCardContent">“Reading is essential for those </b></h1></Card.Title>
+ <Card.Title ><h1><b className="bottomCardContent">who seek to rise above the ordinary.” - Jim Rohn </b></h1></Card.Title>
+                        
+                    </Card.ImgOverlay>
+                </Card>
+            </div>
+    {/* </div> */}
 
                 </div>
 

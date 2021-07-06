@@ -12,17 +12,13 @@ const fetchAllAddressesUser = asyncHandler(async (req, res, next) => {
     let phone = docfetch[0].phone;
     let result = docfetch[0].addresses;
     let response = [];
-
+    console.log("hello");
     for (let index = 0; index < result.length; index++) {
+        console.log(result[index]);
         response.push({ ...result[index]._doc, name: name, phone: phone });
     }
     res.status(201).json({ message: "success", res: response });
 });
-
-
-
-
-
 
 const addAddressesUser = asyncHandler(async (req, res, next) => {
     query = { email: req.body.email }; //req.body
@@ -46,7 +42,16 @@ const addAddressesUser = asyncHandler(async (req, res, next) => {
         }
 
     } else {
-        let item = await AddressUser.create(req.body)
+        const address={
+            pinCode:req.body.addresses.pinCode,houseNumber:req.body.addresses.houseNumber,locality:req.body.addresses.locality,city:req.body.addresses.city,state:req.body.addresses.state
+        }
+        let item = await AddressUser.create({
+            email:req.body.email,
+            addresses:[address],
+            name:req.body.name,
+            phone:req.body.phone
+        }
+            )
         res.json({ message: true, res: item });
 
     }

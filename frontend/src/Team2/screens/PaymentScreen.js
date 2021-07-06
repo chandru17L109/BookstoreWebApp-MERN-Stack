@@ -121,6 +121,7 @@ function PaymentScreen(props) {
   );
 }
 const mapStateToProps = (state) => {
+  console.log("selected address",state.BookReducerCart.selectedAddress)
   return {
     address: state.BookReducerCart.selectedAddress,
     cartItems: state.BookReducerCart.cart,
@@ -128,6 +129,7 @@ const mapStateToProps = (state) => {
     userdetail: state.userLogin.userInfo
 
   };
+
 };
 
 const mapDispatchToProps = (dispatch) => {

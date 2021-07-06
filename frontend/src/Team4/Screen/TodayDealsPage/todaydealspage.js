@@ -249,8 +249,6 @@ const mapStateToProps = (state) => {
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
         OnAvgreview : () => dispatch(actions.FetchAverageReview()),
         onSetPageNo :(num)=>dispatch({type:actions.SET_PAGE,payload:num})
-
-
     }
   }
       

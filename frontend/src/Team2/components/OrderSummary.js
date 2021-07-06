@@ -17,6 +17,8 @@ function OrderSummary(props) {
         let charge = 0;
         let cart = 0;
         let discountAmount = 0
+        var coup = 0;
+        coup =localStorage.getItem('couponvalue');
         props.Books.forEach((item) => {
             console.log("quantity of each change", item.quantity);
             items += item.quantity * 1;
@@ -31,7 +33,7 @@ function OrderSummary(props) {
         setTotalDiscount(discountAmount);
         setCharges(charge);
         setCarttotal(cart);
-        props.amount(Math.round(totalPrice + charges), props.userdetail.email)
+        props.amount(Math.round(totalPrice + charges -coup), props.userdetail.email)
         console.log("amount", props.amount)
     }, [
         props.Books,

@@ -29,6 +29,7 @@ const CartScreen = (props) => {
 
   useEffect(() => {
     props.onCartLoad(props.userdetail.email);
+    localStorage.setItem('couponvalue',0);
   }, []);
 
   const deleteCartItem = (_id) => {
@@ -43,7 +44,7 @@ const CartScreen = (props) => {
 
   return (
     <div>
-      {props.Books ? (
+      {props.Books.length ? (
         <Row>
           <h1>
             <span> Shopping Cart </span>

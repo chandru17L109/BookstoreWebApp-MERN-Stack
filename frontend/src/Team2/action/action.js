@@ -257,6 +257,7 @@ export const onDeleteAddressAction = (_id, useremail) => {
 
 export const onAddAddressAction = (obj, useremail, username, userphone) => {
     return (dispatch) => {
+        console.log("phone",userphone)
         console.log("object", obj);
         return fetch("http://localhost:8080/api/v1/adr/", {
             method: "POST",
@@ -265,7 +266,7 @@ export const onAddAddressAction = (obj, useremail, username, userphone) => {
                 "Content-type": "application/json",
             },
 
-            body: JSON.stringify({ email: useremail, addresses: obj, name: username, phone: 8887871212 }),
+            body: JSON.stringify({ email: useremail, addresses: obj, name: username, phone: userphone }),
         })
             .then((res) => res.json())
             .then((data) => {
@@ -278,6 +279,7 @@ export const onAddAddressAction = (obj, useremail, username, userphone) => {
                 })
                     .then((res) => res.json())
                     .then((data) => {
+                        console.log("ADDRESS is" + data);
                         dispatch({
                             type: ON_ADD_ADDRESS,
                             payload: data.res,
@@ -371,10 +373,10 @@ export const OrderSummaryAction = (
     };
 };
 
-export const OndeliverToAddressAction = (id, arr) => {
+export const OndeliverToAddressAction = (id,arr) => {
     return {
         type: DELIVERY_ADDRESS,
-        payload: arr,
+        payload: arr
     };
 };
 

@@ -38,15 +38,17 @@ const Button = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    address: state.BookReducer.address,
-    cartItems: state.BookReducer.cart,
+    address: state.BookReducerCart.selectedAddress,
+    cartItems: state.BookReducerCart.cart,
+    amount:state.BookReducerCart.amount,
+    useremail:state.userLogin.userInfo.email
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    OnconfirmPayment: (cartItems, address) =>
-      dispatch(actions.OnconfirmPaymentAction(cartItems, address)),
+    OnconfirmPayment: (cartItems, address,amount,useremail) =>
+      dispatch(actions.OnconfirmPaymentAction(cartItems, address,amount,useremail)),
   };
 };
 

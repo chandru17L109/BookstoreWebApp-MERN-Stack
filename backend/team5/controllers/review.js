@@ -29,7 +29,6 @@ const AverageRating = asyncHandler(async (req, res) => {
                 },
         },
         {$sort: {average_: -1}},
-        { $limit: 12 }
 
     ]
   ).exec(function(err, doc) {

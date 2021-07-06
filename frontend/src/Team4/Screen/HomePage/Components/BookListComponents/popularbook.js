@@ -21,7 +21,6 @@ class PopularBookPage extends Component {
 
     componentDidMount(){
         this.props.onFetchAverageReview();
-
     }
 
     nextpage(){

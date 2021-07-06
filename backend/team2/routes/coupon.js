@@ -25,4 +25,21 @@ router.post('/compare', (req, res, next) => {
 
 })
 
+router.delete('', (req, res, next) => {
+    Coupon.deleteOne({ couponcode: req.body.couponcode })
+        .then(result => {
+            res.status(201).json({
+                message: 'succeeeeeess',
+                result: result
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            })
+        })
+
+})
+
+
 module.exports = router

@@ -48,11 +48,12 @@ function Coupon(props) {
 
     if (valid == true) {
         if (tot >= minreq) {
-            showcoupon = true;
+            
             couponvalue = Math.round((percent) * tot / 100);
-
+            showcoupon = true;
+            localStorage.setItem('couponvalue',couponvalue);
             // props.couponAmount(tot - couponvalue, props.userdetail.email);
-            console.log("status", showcoupon)
+            
         }
         else {
             showms = true;
@@ -74,6 +75,7 @@ function Coupon(props) {
             console.log("code entered", cc);
             showms = false;
             setDisable(false);
+            localStorage.setItem('finalvalue',props.amount);
             props.onApplycoupon(cc);
 
         }

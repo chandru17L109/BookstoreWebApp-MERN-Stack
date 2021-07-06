@@ -23,15 +23,15 @@ function Headersearch(props){
         alert("Please Login!")
         history.push('/login');
     }
-    var newsearchresultslist;
+
     console.log("this.props.Books headersearch",props.Books)
        if(props.Books.message){
-        newsearchresultslist = (
+        var newsearchresultslist = (
             <div className="alert alert-dismissible alert-info">
                 <strong className="m-5">No Search Results Found !</strong>
            </div>)
        }else{
-        newsearchresultslist = props.Books.map((books, i)=>{
+        var newsearchresultslist = props.Books.map((books, i)=>{
             return(
                 <div className="ml-5 col-4 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
                     

@@ -9,19 +9,19 @@ const fetchAllCartItems = asyncHandler(async (req, res, next) => {
   try {
     const cartItems = await CartItem.find({ email: req.params.email }).select("books ");
 
-    console.log("cartItems", cartItems)
+    // console.log("cartItems", cartItems)
 
     var prod = new Array();
     for (let index = 0; index < cartItems[0].books.length; index++) {
       const element = cartItems[0].books[index].bookid;
-      console.log("element", element)
+      // console.log("element", element)
       let doc = await Product.findOne({ _id: element })
-      console.log("doc", doc)
+      // console.log("doc", doc)
       let arr = { ...doc._doc, quantity: cartItems[0].books[index].quantity }
-      console.log("quantity", doc.quantity)
-      console.log("arr", arr)
+      // console.log("quantity", doc.quantity)
+      // console.log("arr", arr)
       prod.push(arr)
-      console.log("prod", prod)
+      // console.log("prod", prod)
     }
     if (!cartItems) {
       return res.status(400).json({
