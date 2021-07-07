@@ -163,14 +163,14 @@ const forgotPassword = asyncHandler(async (req, res) => {
 	await user.save({ validateBeforesave: false })
 	const message =
 		`You are receiving this because you have requested the reset of the password from your account.\n\n` +
-		`Please click on the following link or paste this into your browser to complete the process within 10 minutes of receiving it:\n\n` +
-		`http://localhost:3000/resetPassword/${resetToken}\n\n` +
+		`Please copy the below TOKEN to complete the process within 10 minutes of receiving it:\n\n` +
+		`Token:  ${resetToken}\n\n` +
 		`If you did not request this, please ignore this mail and your password will remain unchanged`
 
 	try {
 		await sendEmail({
 			email: user.email,
-			subject: 'Your password reset token(valid for 10 min)',
+			subject: 'Your password reset token is valid for 10 min',
 			message,
 		})
 		res.status(200).json({
