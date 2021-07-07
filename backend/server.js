@@ -23,6 +23,8 @@ const cartlistRoute = require('./team4/routes/cart')
 
 const userRoutes = require('./team1/routes/userRoutes')
 const orderRoutesTeam1 = require('./team1/routes/orderRoutes')
+// import wishlistRoutes from './routes/wishlistRoutes.js'
+const wishlistRoutes = require('./team1/routes/wishlistRoutes')
 
 // const productRoutes = require('./team2/routes/product')
 const cartItemRoutes = require('./team2/routes/cartItem')
@@ -59,6 +61,7 @@ app.use("/api/v1/adr", addressUser)
 app.use('/api/v1/coupons', couponRoutes)
 app.use('/api/v1/cart_orders', orderRoutes)
 app.use('/api/orders', orderRoutesTeam1)
+app.use('/api/wishlists', wishlistRoutes)
 
 app.use(errorHandler)
 

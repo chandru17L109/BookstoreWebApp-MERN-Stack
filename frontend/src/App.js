@@ -29,6 +29,7 @@ import LastScreen from './Team2/screens/LastScreen'
 import PasswordSuccessScreen from './Team1/screens/PasswordSuccessScreen'
 import SentScreen from './Team1/screens/SentScreen'
 import OrderScreen from './Team1/screens/OrderScreen'
+import WishlistScreen from './Team1/screens/WishlistScreen'
 
 function App() {
 	return (
@@ -48,13 +49,14 @@ function App() {
 						component={Headersearch}
 					></Route>
 					<Route path='/description/:id' component={ProductDetailspage}></Route>
-					<Route path='/wishlist' component={WishPage}></Route>
+					{/* <Route path='/wishlist' component={WishPage}></Route> */}
 					{/* <Route path="/cartlist" component={CartPage}></Route> * */}
 
 					<Route path='/login' component={LoginScreen}></Route>
 					<Route path='/register' component={RegisterScreen}></Route>
 					<Route path='/profile' component={ProfileScreen} />
 					<Route path='/myorders' component={OrderScreen}></Route>
+					<Route path='/mywishlist' component={WishlistScreen}></Route>
 					<Route
 						path='/forgotPassword'
 						component={ForgotPasswordScreen}
