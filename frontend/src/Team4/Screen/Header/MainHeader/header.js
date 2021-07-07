@@ -32,7 +32,7 @@ export default class Header extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
                         <Form inline>
-                            <FormControl type="text" onChange={this.SearchElement.bind(this)} placeholder="Search" className="headerSearchBar" />
+                            <FormControl type="text" onChange={this.SearchElement.bind(this)} placeholder="By author/title/category" className="headerSearchBar" />
                             <Link to={"/headersearchresults/"+this.state.searchelement}><Button className="headerSearchButton"><i class="fa fa-search"></i></Button></Link>
                         </Form>
                     </Navbar.Collapse>

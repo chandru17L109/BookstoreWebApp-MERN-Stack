@@ -11,7 +11,6 @@ import NewRelease from './Team4/Screen/NewReleasesPage/newrelease.js'
 import Headersearch from './Team4/Screen/Header/MainHeader/headersearch.js'
 // import Login from "./Team4/Screen/LoginPage/login";
 // ---------------------------------------------------------------------------------
-import { Container } from 'react-bootstrap'
 import LoginScreen from './Team1/screens/LoginScreen'
 import RegisterScreen from './Team1/screens/RegisterScreen'
 import ProfileScreen from './Team1/screens/ProfileScreen'
@@ -19,10 +18,8 @@ import ProfileScreen from './Team1/screens/ProfileScreen'
 import ForgotPasswordScreen from './Team1/screens/ForgotPasswordScreen'
 import NewPasswordScreen from './Team1/screens/NewPasswordScreen'
 // import CartPage from "./Team4/Screen/cartlist/cartlist";
-import WishPage from './Team4/Screen/wishlist/wishlist'
 
 import CartScreen from './Team2/screens/CartScreen'
-import WishScreen from './Team2/screens/WishScreen'
 import AddressScreen from './Team2/screens/AddressScreen'
 import PaymentScreen from './Team2/screens/PaymentScreen'
 import LastScreen from './Team2/screens/LastScreen'

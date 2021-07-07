@@ -37,9 +37,9 @@
 .card-header {
     margin-top: 5px;
     background-color: white;
-    width: 170px !important;
-    height: 160px !important;
-    margin-left: 23px;
+    width: 90% !important;
+    height: 170px !important;
+    margin-left: 15px;
 }
 .cartbutton,.wishlistbutton{
     width: 55px;
@@ -62,8 +62,10 @@
 
 .bottomCard{
     width: 100%;
-    margin:30px auto;
+    margin: 15px 0px;
+    padding:30px 10px;
     text-align: center;
+    background-color: rgb(227, 248, 252) !important;
 }
 
 .bottomCardImage{
@@ -74,7 +76,8 @@
 .bottomCardContent{
     color: rgb(112, 45, 45) !important;
     font-weight: 600;
-    font-family: Trebuchet MS, Helvetica, sans-serif !important; 
+    font-family:cursive;
+   
 }
 
 .patterns {

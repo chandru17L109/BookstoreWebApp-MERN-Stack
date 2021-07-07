@@ -221,7 +221,12 @@ if(!props.Email){
           <div className="row border-bottom mt-3">
             <div className="col-md-12 my-3">
               <h6 className="font-weight-bold">Product description</h6>
-                <p className="ml-3"> </p>
+                <div className="ml-3">
+                <strong>Publisher : </strong> <small>Anamika Classics</small><br></br>
+                  <strong>Language : </strong> <small>English</small><br></br>
+                  <strong>ISBN-13 : </strong> <small>{props.Bookdetail.isbn}</small><br></br>
+                  <strong>Generic Name : </strong> <small>Books</small><br></br>
+                </div>
             </div>
           </div>
           <div className="row border-bottom mt-3" style={{fontSize:"15px"}}>

@@ -8,7 +8,7 @@ export default class Footer extends Component {
         <div>
             <div className="container-fluid bg-primary px-0">
                 {/* <Link to =  {'/'} className="btn btn-dark btn-block mb-5">Back to Top</Link> */}
-                <a href = "/"  className="btn btn-light btn-block mb-5">Back to Top </a> 
+                <a href = "#"  className="btn btn-light btn-block mb-5">Back to Top </a> 
 
  
                 <div className="container">
@@ -69,7 +69,7 @@ export default class Footer extends Component {
                     <div className="row pt-5 text-white">
 
                     <div className="col-md-3">
-                        <h6 className="text-white" >AbeBooks</h6>
+                        <h6 >AbeBooks</h6>
                         <a href="/" className="text-white">Books, art</a> <br />
                         <a href="/" className="text-white">and collections</a> <br />
                     

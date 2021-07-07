@@ -58,3 +58,9 @@
         font-size: 1px !important;
     }
 }
+
+@media only screen and (max-width: 480px){
+    .newReleasePageCardContent{
+        top: 10%;
+    }
+}

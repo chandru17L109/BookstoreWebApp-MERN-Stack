@@ -9,12 +9,13 @@ import {Link} from "react-router-dom";
 import '../../Styles/commonStyling.css';
 import '../../Styles/todayDealsPage.css';
 import TodayDealsCarousalImage from '../../images/todayDealsCarousalImage.jpg'
-import TodayDealsbottomCardImage from '../../images/todayDealsbottomCardImage.jpg'
+// import TodayDealsbottomCardImage from '../../images/todayDealsbottomCardImage.jpg'
 import * as actions from '../../action/action'
 // import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
 import CustomizedSnackbars from '../../alert_notify/alert';
 import AvgRating from '../AvgRating/AvgRating'
+import PopularBookPage from '../HomePage/Components/BookListComponents/popularbook';
 
 class TodayDealsPage extends Component {
 
@@ -106,6 +107,7 @@ class TodayDealsPage extends Component {
 
             var booksreview = this.props.AvgReview;
                 // console.log("booksreview",booksreview);
+                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
@@ -214,16 +216,21 @@ class TodayDealsPage extends Component {
             </div>
 
             <div className="bottomCard">
-                    <Card>
-                        <Card.Img className="bottomCardImage" src={TodayDealsbottomCardImage} width="400px" height="200px" />
-                        <Card.ImgOverlay>
+                    {/* <Card> */}
+                        {/* <Card.Img className="bottomCardImage" src={TodayDealsbottomCardImage} width="400px" height="200px" /> */}
+                        {/* <Card.ImgOverlay> */}
                             <Card.Title><h1><b className="bottomCardContent">Best Buys, Maximum Savings..!</b></h1></Card.Title>
                             <Card.Text><h3  className="bottomCardContent">
                                 Find Customers favourite books and gift those books to your loved ones</h3>
                             </Card.Text>
                             <Card.Text><h3  className="bottomCardContent">Find todays deals and order now</h3></Card.Text>
-                        </Card.ImgOverlay>
-                    </Card>
+                        {/* </Card.ImgOverlay> */}
+                    {/* </Card> */}
+                </div>
+
+                <div className="row">
+                <h2  className="headingpage">Books you may like</h2>
+                    <PopularBookPage/>
                 </div>
             
             </>
