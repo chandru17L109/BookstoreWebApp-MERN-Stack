@@ -14,6 +14,7 @@ import {
   ListGroupItem,
   FormControl,
 } from "react-bootstrap";
+import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 
 function AddressScreen(props) {
   const [arr, Setarr] = useState([]);
@@ -21,8 +22,6 @@ function AddressScreen(props) {
   const [add, Setadd] = useState(true);
 
   // form state for edit option
-  const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
   const [pinCode, setPincode] = useState("");
   const [houseNumber, setflatno] = useState("");
   const [locality, setArea] = useState("");
@@ -32,8 +31,13 @@ function AddressScreen(props) {
   const [address, SetAddress] = useState("");
 
   //Form Validations
-  const pincodereg = new RegExp("[0-9]{6}");
-  const [pinstyle, setPinstyle] = useState({ borderColor: "transparent" });
+  const [pinError, Setpinerror] = useState(false);
+  const [houseNumberError, SethouseNumbererror] = useState(false);
+  const [localityError, Setlocalityerror] = useState(false);
+  const [cityError, Setcityerror] = useState(false);
+  const [addresserror, SetAddresserror] = useState(false);
+  const [notify, setNotify] = useState(null)
+
 
   class sendaddress {
     constructor(pinCode, houseNumber, locality, city, state) {
@@ -46,24 +50,44 @@ function AddressScreen(props) {
   }
 
   const addAddress = () => {
-    props.onAddAddress(
-      new sendaddress(
-        pinCode,
-        houseNumber,
-        locality,
 
-        city,
-        state
-      ),
-      props.userdetail.email,
-      props.userdetail.name,
-      props.userdetail.phone
-    );
+    if (!(pinError || houseNumberError || localityError || cityError) && (pinCode && houseNumber && locality && city && state)) {
+
+      props.onAddAddress(
+        new sendaddress(
+          pinCode,
+          houseNumber,
+          locality,
+          city,
+          state
+        ),
+        props.userdetail.email,
+        props.userdetail.name,
+        props.userdetail.phone
+      );
+      setNotify(<CustomizedSnackbars open={true} message={"Address added successfully"} />)
+
+      setTimeout(() => {
+        setNotify(null)
+      }, 2000)
+
+
+    }
+    else {
+      setNotify(<CustomizedSnackbars open={true} message={"Enter valid address"} />)
+
+      setTimeout(() => {
+        setNotify(null)
+      }, 2000)
+      SetAddresserror(true);
+    }
+
 
     resetform();
   };
 
   const editaddress = (id, arr) => {
+
     console.log("id", id);
     setArea(arr.locality);
     setPincode(arr.pinCode);
@@ -77,20 +101,38 @@ function AddressScreen(props) {
   };
 
   const updateaddress = () => {
-    props.OnEditAddress(
-      id,
-      new sendaddress(pinCode, houseNumber, locality, city, state),
-      props.userdetail.email
-    );
+    if (!(pinError || houseNumberError || localityError || cityError) && (pinCode && houseNumber && locality && city && state)) {
+
+      props.OnEditAddress(
+        id,
+        new sendaddress(pinCode, houseNumber, locality, city, state),
+        props.userdetail.email
+      );
+      setNotify(<CustomizedSnackbars open={true} message={"Address updated "} />)
+
+      setTimeout(() => {
+        setNotify(null)
+      }, 2000)
+
+    }
+    else {
+      setNotify(<CustomizedSnackbars open={true} message={"Enter valid address"} />)
+
+      setTimeout(() => {
+        setNotify(null)
+      }, 2000)
+      SetAddresserror(true);
+    }
+
+
     resetform();
-    // Setadd(false);
+    Setadd(true);
   };
 
   const resetform = () => {
-    setName("");
+
     setArea("");
     setCity("");
-    setMobile("");
     setPincode("");
     setState("");
     setflatno("");
@@ -103,12 +145,70 @@ function AddressScreen(props) {
   }, []);
 
   const deleteAddress = (_id) => {
+    setNotify(<CustomizedSnackbars open={true} message={"Address delted"} />)
+
+    setTimeout(() => {
+      setNotify(null)
+    }, 2000)
+
     props.onDeleteAddress(_id, props.userdetail.email);
   };
+
+  const pinCodeValid = (e) => {
+    const expression = new RegExp('^[0-9]{6}$')
+    let pinValue = e.target.value;
+    if (!expression.test(pinValue)) {
+      setPincode(pinValue);
+      Setpinerror(true)
+    } else {
+      setPincode(pinValue);
+      Setpinerror(false)
+    }
+
+  }
+  const houseNumberValid = (e) => {
+    const expression = new RegExp('^[0-9]')
+    let houseNumberValue = e.target.value;
+    if (!expression.test(houseNumberValue)) {
+      setflatno(houseNumberValue);
+      SethouseNumbererror(true)
+    } else {
+      setflatno(houseNumberValue);
+      SethouseNumbererror(false)
+    }
+
+  }
+
+  const localityValid = (e) => {
+    const expression = new RegExp('[a-zA-Z]')
+    let localityValue = e.target.value;
+    if (!expression.test(localityValue)) {
+      setArea(localityValue);
+      Setlocalityerror(true)
+    } else {
+      setArea(localityValue);
+      Setlocalityerror(false)
+    }
+
+  }
+
+  const cityValid = (e) => {
+    const expression = new RegExp('[a-zA-Z]')
+    let cityValue = e.target.value;
+    if (!expression.test(cityValue)) {
+      setCity(cityValue);
+      Setcityerror(true)
+    } else {
+      setCity(cityValue);
+      Setcityerror(false)
+    }
+
+  }
 
   return (
 
     <div className="address">
+      {notify}
       <h2>Select a delivery address</h2>
       {props.address ? (props.address.map((element) => {
         return (
@@ -128,46 +228,35 @@ function AddressScreen(props) {
         <br></br>
         <div className="form">
           <h2> Address Form</h2>
-
+          {addresserror ? <p>Enter valid Address</p> : <span></span>}
           <input
-            style={pinstyle}
             value={pinCode}
-            onChange={(e) => {
-              setPincode(e.target.value);
-            }}
-            onBlur={(e) => {
-              var pinbool = pincodereg.test(e.target.value);
-              if (!pinbool) {
-                setPinstyle({ borderColor: "red" });
-              } else {
-                setPinstyle({ borderColor: "transparent" });
-              }
-            }}
+            onChange={pinCodeValid}
             placeholder="Pincode"
             maxlength="6"
           ></input>
+          {pinError ? (<p>Enter valid pincode</p>) : (<span></span>)}
           <input
             value={houseNumber}
-            onChange={(e) => {
-              setflatno(e.target.value);
-            }}
+            onChange={houseNumberValid}
             placeholder="House Number"
           ></input>
+          {houseNumberError ? (<p>Enter valid House Number</p>) : (<span></span>)}
           <input
             value={locality}
-            onChange={(e) => {
-              setArea(e.target.value);
-            }}
+            onChange={localityValid}
             placeholder="Area /Colony/Street"
           ></input>
+          {localityError ? (<p>Enter valid Locality</p>) : (<span></span>)}
 
           <input
             value={city}
-            onChange={(e) => {
-              setCity(e.target.value);
-            }}
+            onChange={cityValid}
             placeholder="Town/City"
           ></input>
+          {cityError ? (<p>Enter valid City</p>) : (<span></span>)}
+
+
           <select
             value={state}
             onChange={(e) => {
@@ -209,11 +298,13 @@ function AddressScreen(props) {
           {add ? (
             <button
               onClick={addAddress}
+              // disabled={addresserror}
               type="button"
               className="btn btn-warning"
             >
               Add Address
             </button>
+
           ) : (
             <button
               onClick={updateaddress}
@@ -222,7 +313,9 @@ function AddressScreen(props) {
             >
               Update Address
             </button>
-          )}
+          )
+
+          }
         </div>
         <Col md={5}>
           <Card>
@@ -271,7 +364,6 @@ const mapStateToProps = (state) => {
     cartItems: state.BookReducerCart.cart,
     userdetail: state.userLogin.userInfo,
     amount: state.BookReducerCart.amount,
-
   };
 };
 

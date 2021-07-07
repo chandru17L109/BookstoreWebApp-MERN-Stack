@@ -17,7 +17,7 @@ import {
 
 function Item1(props) {
     const editaddress = () => {
-        props.editaddress(props.arr._id,props.arr);
+        props.editaddress(props.arr._id, props.arr);
         props.Setadd(false);
     };
 
@@ -42,7 +42,7 @@ function Item1(props) {
                                     checked={props.radio == props.arr._id}
                                     onChange={(e) => {
                                         props.setRadio(() => {
-                                            console.log(e.target.value);
+
                                             return e.target.value;
                                         });
                                     }}
@@ -115,7 +115,7 @@ function Item1(props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         OndeliverToAddress: (id, arr) =>
-            dispatch(actions.OndeliverToAddressAction(id,arr)),
+            dispatch(actions.OndeliverToAddressAction(id, arr)),
     };
 };
 

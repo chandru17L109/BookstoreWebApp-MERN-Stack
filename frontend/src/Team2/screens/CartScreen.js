@@ -20,31 +20,46 @@ import {
 } from "react-bootstrap";
 import OrderSummary from "../components/OrderSummary";
 import Coupon from "../components/Coupon";
+import CustomizedSnackbars from '../../Team4/alert_notify/alert';
+
 
 const CartScreen = (props) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [charges, setCharges] = useState(0);
   const [cartTotal, setCarttotal] = useState(0);
+  const [notify, setNotify] = useState(null)
 
   useEffect(() => {
     props.onCartLoad(props.userdetail.email);
-    localStorage.setItem('couponvalue',0);
+    localStorage.setItem('couponvalue', 0);
   }, []);
 
   const deleteCartItem = (_id) => {
+    setNotify(<CustomizedSnackbars open={true} message={"Item Deleted Successfully"} />)
+
+    setTimeout(() => {
+      setNotify(null)
+    }, 2000)
     props.onDeleteItem(_id, props.userdetail.email);
   };
 
   const moveToWishlist = (_id) => {
+    setNotify(<CustomizedSnackbars open={true} message={"Item moved to wishlist successfully"} />)
+
+    setTimeout(() => {
+      setNotify(null)
+    }, 2000)
     props.onMoveItem(_id, props.userdetail.email);
   };
 
-  // const number = props.Books.length;
+
 
   return (
+
     <div>
-      {props.Books.length ? (
+
+      {props.Books ? (
         <Row>
           <h1>
             <span> Shopping Cart </span>
@@ -63,6 +78,7 @@ const CartScreen = (props) => {
             );
           })}
           <br></br>
+          {notify}
           <Col sm={3}>
             <Card>
               <ListGroup variant="flush">

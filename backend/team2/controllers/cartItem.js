@@ -9,19 +9,13 @@ const fetchAllCartItems = asyncHandler(async (req, res, next) => {
   try {
     const cartItems = await CartItem.find({ email: req.params.email }).select("books ");
 
-    // console.log("cartItems", cartItems)
 
     var prod = new Array();
     for (let index = 0; index < cartItems[0].books.length; index++) {
       const element = cartItems[0].books[index].bookid;
-      // console.log("element", element)
       let doc = await Product.findOne({ _id: element })
-      // console.log("doc", doc)
       let arr = { ...doc._doc, quantity: cartItems[0].books[index].quantity }
-      // console.log("quantity", doc.quantity)
-      // console.log("arr", arr)
       prod.push(arr)
-      // console.log("prod", prod)
     }
     if (!cartItems) {
       return res.status(400).json({
@@ -32,8 +26,9 @@ const fetchAllCartItems = asyncHandler(async (req, res, next) => {
       success: true,
       data: prod
     });
-  } catch (err) {
-    next(err);
+  }
+  catch (error) {
+    res.status(404).send(error)
   }
 
 
@@ -41,77 +36,84 @@ const fetchAllCartItems = asyncHandler(async (req, res, next) => {
 
 
 const delCartItems = asyncHandler(async (req, res, next) => {
+  try {
+    const b = req.body.bookid;
+    const query = {
+      email: req.params.email
+    };
+    let audioIndex = new Array();
+    CartItem.findOne(query).then(item => {
+      audioIndex = item.books.filter(item => item.bookid != b);
+      item.books = audioIndex
+      item.save();
+    })
+    res.status(201).json({
+      success: true,
+      data: audioIndex
+    });
+  }
+  catch (error) {
+    res.status(400).send(error)
+  }
 
-  const b = req.body.bookid;
-  const query = {
-    email: req.params.email
-  };
-  let audioIndex = new Array();
-  CartItem.findOne(query).then(item => {
-    audioIndex = item.books.filter(item => item.bookid != b);
-    item.books = audioIndex
-    console.log("audio", audioIndex)
-    item.save();
-  }).catch(err => {
-    console.log(err)
-  });
-  res.status(201).json({
-    success: true,
-    data: audioIndex
-  });
 });
 
 
 
 const patchCartItems = asyncHandler(async (req, res, next) => {
-  const b = req.body.bookid;
-  const query = {
-    email: req.params.email,
-  };
-  var bool = false;
-  if (req.body.QuantityChange === "add") {
-    bool = true;
-  }
-  console.log("max", req.body.max)
-  CartItem.findOne(query)
+  try {
+    const b = req.body.bookid;
+    const query = {
+      email: req.params.email,
+    };
+    var bool = false;
+    if (req.body.QuantityChange === "add") {
+      bool = true;
+    }
+    CartItem.findOne(query)
 
-    .then((item) => {
-      const audioIndex = item.books.map((item) => item.bookid).indexOf(b);
-      if (bool) {
-        if (item.books[audioIndex].quantity < req.body.max) {
-          item.books[audioIndex].quantity += 1;
+      .then((item) => {
+        const audioIndex = item.books.map((item) => item.bookid).indexOf(b);
+        if (bool) {
+          if (item.books[audioIndex].quantity < req.body.max) {
+            item.books[audioIndex].quantity += 1;
+          }
+        } else {
+          if (item.books[audioIndex].quantity > 1) {
+            item.books[audioIndex].quantity -= 1;
+          }
         }
-      } else {
-        if (item.books[audioIndex].quantity > 1) {
-          item.books[audioIndex].quantity -= 1;
-        }
-      }
 
-      item.save();
-      console.log("item", item);
-      //sent respnse to client
-    })
-    .catch((err) => {
-      console.log(err);
+        item.save();
+      })
+
+    res.status(201).json({
+      success: true,
+      data: [],
     });
-  res.status(201).json({
-    success: true,
-    data: [],
-  });
+  }
+  catch (error) {
+    res.status(400).send(error)
+  }
 });
 
 const patchAmount = asyncHandler(async (req, res, next) => {
-  const filter = { email: req.params.email };
-  const update = { amount: req.body.amount };
+  try {
+    const filter = { email: req.params.email };
+    const update = { amount: req.body.amount };
 
 
-  let doc = await CartItem.findOneAndUpdate(filter, update, {
-    returnOriginal: false
-  });
-  res.status(201).json({
-    success: true,
-    data: doc
-  });
+    let doc = await CartItem.findOneAndUpdate(filter, update, {
+      returnOriginal: false
+    });
+    res.status(201).json({
+      success: true,
+      data: doc
+    });
+  }
+  catch (error) {
+    res.status(400).send(error)
+  }
 
 })
 

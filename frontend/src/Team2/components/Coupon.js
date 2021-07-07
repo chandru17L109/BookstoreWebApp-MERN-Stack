@@ -30,7 +30,7 @@ function Coupon(props) {
     useEffect(() => {
         applycoupon(scc);
 
-    }, [props.amount]);
+    }, [props.OrderSummary.totalValue], couponvalue);
 
     var showcoupon = false;
     var showms = false;
@@ -38,8 +38,10 @@ function Coupon(props) {
     var percent = -10;
     var minreq = 0;
     var couponvalue = 0;
-    var tot = props.amount;
+
+    var tot = props.OrderSummary.totalValue;
     var valid = "tf";
+
     if (props.Disc != null) {
         percent = props.Disc.offeramount;
         minreq = props.Disc.minamount;
@@ -48,12 +50,11 @@ function Coupon(props) {
 
     if (valid == true) {
         if (tot >= minreq) {
-            
+
             couponvalue = Math.round((percent) * tot / 100);
             showcoupon = true;
-            localStorage.setItem('couponvalue',couponvalue);
-            // props.couponAmount(tot - couponvalue, props.userdetail.email);
-            
+            localStorage.setItem('couponvalue', couponvalue);
+
         }
         else {
             showms = true;
@@ -66,16 +67,17 @@ function Coupon(props) {
     else {
 
     }
-
+    var xyz = Math.round(props.OrderSummary.totalValue - couponvalue);
+    localStorage.setItem('finalval', xyz);
 
 
     const applycoupon = (cc) => {
 
         if (cc == "jkllj") {
             console.log("code entered", cc);
+
             showms = false;
             setDisable(false);
-            localStorage.setItem('finalvalue',props.amount);
             props.onApplycoupon(cc);
 
         }
@@ -97,15 +99,11 @@ function Coupon(props) {
             setDisable(false)
         }
     };
-    const xyz = props.amount - couponvalue;
+
     return (
         <div>
 
-            {/* <h5>
-                subtotal items({props.OrderSummary.totalItems})
-            </h5>
-            <h5>Total:${props.OrderSummary.totalPrice}</h5>
-            <h5>Delivery Charges:{props.OrderSummary.charges}</h5> */}
+
             <form >
                 <input type="text" id="cp" name="cppp" onChange={onChangeHandler} placeholder="coupon code" maxlength="6" />
                 {showms ? <h5>minimum cart value required is {minreq}</h5> : null}
@@ -116,7 +114,10 @@ function Coupon(props) {
 
             </form>
 
-            {showcoupon ? <div ><h5>coupon applied:{couponvalue}</h5><button disabled={dis} onClick={() => applycoupon(scc)} type="button" className="btn btn-warning">cancel coupon</button></div> : null}
+            {showcoupon ? <div ><h5>coupon applied:{couponvalue}</h5><button disabled={dis} onClick={() => applycoupon(scc)} type="button" className="btn btn-warning">{cc} <i
+                className="fa fa-trash "
+                aria-hidden="true"
+            ></i></button></div> : null}
             <hr></hr>
             <OrderSummary />
 

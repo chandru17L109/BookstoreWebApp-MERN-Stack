@@ -12,47 +12,23 @@ const fetchAllOrders = asyncHandler(async (req, res, next) => {
 
 
 const addOrders = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
-    const emptyCart = await CartItem.updateMany({email:req.body.email},{$set:{books:[]}},{new:true,multi:true});
-    const orderData = {
-        books:req.body.books,
-        address:req.body.address[0],
-        amount:req.body.amount,
-        email:req.body.email
+    try {
+        const emptyCart = await CartItem.updateMany({ email: req.body.email }, { $set: { books: [] } }, { new: true, multi: true });
+        const orderData = {
+            books: req.body.books,
+            address: req.body.address[0],
+            amount: req.body.amount,
+            email: req.body.email
+        }
+
+
+        let orderRes = await Orders.create(orderData);
+        res.status(201).json({ success: true });
     }
-
-
-    let orderRes = await Orders.create(orderData);
-    // console.log(orderRes);
-    res.status(201).json({ success: true });
+    catch (error) {
+        res.status(400).send(error)
+    }
 });
-// const addOrders = asyncHandler(async (req, res, next) => {
-//     query = { email: req.body.email }; //req.body
-//     let finduser = await Orders.find(query)
 
-//     if (finduser.length !== 0) {
-//         console.log(req.body);
-//         try {
-//             const AddressRes = await AddressUser.updateMany({ email: req.body.email },
-//                 {
-//                     $push: {
-//                         addresses: req.body.addresses
-//                     }
-//                 }, { new: true })
-
-
-//             console.log(AddressRes)
-//             res.status(200).send(AddressRes)
-//         } catch (err) {
-//             console.log(err);
-//         }
-
-//     } else {
-//         let item = await AddressUser.create(req.body)
-//         res.json({ message: true, res: item });
-
-//     }
-
-// });
 
 module.exports = { fetchAllOrders, addOrders }
