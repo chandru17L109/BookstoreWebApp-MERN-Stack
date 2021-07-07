@@ -383,7 +383,7 @@ export const OndeliverToAddressAction = (id,arr) => {
 export const OnconfirmPaymentAction = (cartItems, address, amount, useremail) => {
     console.log("address", address);
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/orders/", {
+        return fetch("http://localhost:8080/api/v1/cart_orders/", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -396,7 +396,7 @@ export const OnconfirmPaymentAction = (cartItems, address, amount, useremail) =>
                 amount: amount,
             }),
         }).then((res) => {
-            fetch("http://localhost:8080/api/v1/orders/")
+            fetch("http://localhost:8080/api/v1/cart_orders/")
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch({

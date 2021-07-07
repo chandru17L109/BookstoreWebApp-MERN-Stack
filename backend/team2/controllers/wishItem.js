@@ -20,18 +20,6 @@ const fetchAllWishItems = asyncHandler(async (req, res, next) => {
     }
 })
 
-// const addWishItems = asyncHandler(async (req, res, next) => {
-
-//     let wishItemRes = await WishItem.create(req.body);
-//     console.log(wishItemRes);
-//     res.status(201).json({ success: true })
-
-// })
-
-
-
-
-
 const addWishItems = asyncHandler(async (req, res, next) => {
     let searchData = await WishItem.find({ email: req.params.email });
     if (searchData.length === 0) {
@@ -46,22 +34,6 @@ const addWishItems = asyncHandler(async (req, res, next) => {
         res.json({ success: true, data: book_id });
     }
 })
-// const addWishItems = asyncHandler(async (req, res, next) => {
-//     WishItem.updateMany({ _id: req.params.id },
-//         { $push: { books: { isbn: req.params.isbn, name: req.body } } },
-//         { multi: true })
 
-//         .then((result) => {
-//             res.status(201).json({
-//                 message: "product added to wishlist",
-//                 result: result,
-//             });
-//         })
-//         .catch((err) => {
-//             res.status(500).json({
-//                 error: err,
-//             });
-//         });
-// });
 
 module.exports = { fetchAllWishItems, addWishItems }

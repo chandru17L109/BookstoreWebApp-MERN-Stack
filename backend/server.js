@@ -22,6 +22,7 @@ const wishlistRoute = require('./team4/routes/wishlist')
 const cartlistRoute = require('./team4/routes/cart')
 
 const userRoutes = require('./team1/routes/userRoutes')
+const orderRoutesTeam1 = require('./team1/routes/orderRoutes')
 
 // const productRoutes = require('./team2/routes/product')
 const cartItemRoutes = require('./team2/routes/cartItem')
@@ -29,7 +30,7 @@ const wishItemRoutes = require('./team2/routes/wishItem')
 // const addressRoutes = require('./team2/routes/address')
 const addressUser = require('./team2/routes/addressUser')
 const orderRoutes = require('./team2/routes/order')
-const orderRoutesTeam1 = require('./team1/routes/orderRoutes')
+
 const couponRoutes = require('./team2/routes/coupon')
 // const reviewRoutes = require('./team5/routes/review')
 
@@ -54,16 +55,16 @@ app.use('/api/cartlist', cartlistRoute)
 
 app.use('/api/v1/cartItems', cartItemRoutes)
 app.use('/api/v1/wishItems', wishItemRoutes)
-app.use('/api/v1/adr', addressUser)
+app.use("/api/v1/adr", addressUser)
 app.use('/api/v1/coupons', couponRoutes)
-app.use('/api/v1/orders', orderRoutes)
+app.use('/api/v1/cart_orders', orderRoutes)
+app.use('/api/orders', orderRoutesTeam1)
 
 app.use(errorHandler)
 
 // app.use(fileupload())
 
 app.use('/api/users', userRoutes)
-app.use('/api/orders', orderRoutesTeam1)
 
 app.use(notFound_1)
 app.use(errorHandler_1)
