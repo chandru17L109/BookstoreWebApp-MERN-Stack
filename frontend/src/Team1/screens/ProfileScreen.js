@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-	File,
-	Row,
-	Col,
-	Form,
-	Button,
-	Figure,
-	Image,
-	Container,
-} from 'react-bootstrap'
+import { Row, Col, Form, Button, Image, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Message from '../components/Message'
@@ -20,10 +11,7 @@ import {
 	uploadProfilePic,
 } from '../actions/userActions'
 
-import {
-	USER_UPDATE_PROFILE_RESET,
-	USER_UPDATE_PIC_RESET,
-} from '../constants/userConstants'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ history }) => {
 	const [name, setName] = useState('')
@@ -40,8 +28,6 @@ const ProfileScreen = ({ history }) => {
 	const [phone_edit, editPhone] = useState(true)
 
 	const [selectedFile, setFile] = useState(null)
-
-	const [uploading, setUploading] = useState(false)
 
 	const dispatch = useDispatch()
 
@@ -130,7 +116,6 @@ const ProfileScreen = ({ history }) => {
 								onChange={uploadFileHandler}
 							></Form.File>
 
-							{uploading && <Loader />}
 							<Button type='submit' variant='primary'>
 								Update Pic
 							</Button>

@@ -23,7 +23,7 @@ const Headers = () => {
 		<header>
 			{userInfo ? (
 				<>
-					<LinkContainer to='/wishlist'>
+					<LinkContainer to='/mywishlist'>
 						<Nav.Link className='d-inline'>
 							<Button className='btn btn-primary'>Wishlist</Button>
 						</Nav.Link>

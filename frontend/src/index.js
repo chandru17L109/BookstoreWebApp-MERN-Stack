@@ -24,7 +24,7 @@ import {
 	uploadProfilePicReducer,
 } from './Team1/reducers/userReducers'
 import { orderListMyReducer } from './Team1/reducers/orderReducers'
-
+import { wishlistListMyReducer } from './Team1/reducers/wishlistReducers'
 const loggerMiddleware = (storeAPI) => (next) => (action) => {
 	console.log('dispatching', action)
 	let result = next(action)
@@ -45,6 +45,7 @@ const reducer = combineReducers({
 	BookReducer: BookReducer,
 	BookReducerCart: BookReducerCart,
 	orderListMy: orderListMyReducer,
+	wishlistListMy:wishlistListMyReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
