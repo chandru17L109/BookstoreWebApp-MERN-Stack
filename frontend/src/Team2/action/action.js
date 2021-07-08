@@ -238,26 +238,26 @@ export const onDeleteAddressAction = (_id, useremail) => {
             .then((res) => res.json())
             .then((data) => {
                 console.log("before fetch", data);
-                fetch(`http://localhost:8080/api/v1/adr/${useremail}`, {
-                    headers: {
-                        Accept: "application/json",
-                        "Content-type": "application/json",
-                    },
-                })
-                    .then((res) => res.json())
-                    .then((data) => {
-                        dispatch({
-                            type: ON_DELETE_ADDRESS,
-                            payload: data.res,
-                        });
-                    });
+                // fetch(`http://localhost:8080/api/v1/adr/${useremail}`, {
+                //     headers: {
+                //         Accept: "application/json",
+                //         "Content-type": "application/json",
+                //     },
+                // })
+                //     .then((res) => res.json())
+                //     .then((data) => {
+                dispatch({
+                    type: ON_DELETE_ADDRESS,
+                    payload: data.res,
+                });
+                // });
             });
     };
 };
 
 export const onAddAddressAction = (obj, useremail, username, userphone) => {
     return (dispatch) => {
-        console.log("phone",userphone)
+        console.log("phone", userphone)
         console.log("object", obj);
         return fetch("http://localhost:8080/api/v1/adr/", {
             method: "POST",
@@ -311,7 +311,7 @@ export const OnEditAddressAction = (id, elem, useremail) => {
                     .then((res) => res.json())
                     .then((data) => {
                         dispatch({
-                            type: ON_DELETE_ADDRESS,
+                            type: ON_EDIT_ADDRESS,
                             payload: data.res,
                         });
                     });
@@ -356,24 +356,19 @@ export const onQuantityChangeAction = (_id, useremail, QuantityChange, max) => {
 
 
 
+
 export const OrderSummaryAction = (
-    totalPrice,
-    totalItems,
-    charges,
-    cartTotal
+    totalValue
 ) => {
     return {
         type: ORDER_SUMMARY,
         payload: {
-            totalPrice: totalPrice,
-            totalItems: totalItems,
-            charges: charges,
-            cartTotal: cartTotal,
+            totalValue: totalValue,
         },
     };
 };
 
-export const OndeliverToAddressAction = (id,arr) => {
+export const OndeliverToAddressAction = (id, arr) => {
     return {
         type: DELIVERY_ADDRESS,
         payload: arr

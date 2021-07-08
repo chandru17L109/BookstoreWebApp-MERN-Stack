@@ -110,11 +110,12 @@ import AvgRating from '../AvgRating/AvgRating'
         //     if(this.props.Books.length === 12){
         //         shownextbutton = false
         //     }
-
+            // eslint-disable-next-line
             var popularbookslist = this.props.Books.map((books, i)=>{
 
                 var booksreview = this.props.AvgReview;
                 // console.log("booksreview",booksreview);
+                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id === books._id)
                         return true;
@@ -123,7 +124,7 @@ import AvgRating from '../AvgRating/AvgRating'
                 var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
                 // console.log(Reviewfound)
              
-            // if(i < 4){
+            if(i < 12){
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
@@ -166,12 +167,12 @@ import AvgRating from '../AvgRating/AvgRating'
                     </Card>
                 </div>
             )
+            }
         })
-    // }
         
         return (
             <>
- {this.state.notify}
+                {this.state.notify}
 
             <div className="popularPageCarousel">
                 <Carousel fade>
@@ -245,16 +246,16 @@ import AvgRating from '../AvgRating/AvgRating'
                     
 
                         {/* <div className="container-fluid mb-5" > */}
-                        <div className="bottomCard">
-                <Card>
-                    <Card.Img className="bottomCardImage" src="https://europeanmovement.eu/wp-content/uploads/2017/09/education-1024x422.jpg" alt="Card image" />
-                    <Card.ImgOverlay>
+                        {/* <div className="bottomCard"> */}
+                <Card className="bottomCard">
+                    {/* <Card.Img className="bottomCardImage" src="https://europeanmovement.eu/wp-content/uploads/2017/09/education-1024x422.jpg" alt="Card image" /> */}
+                    {/* <Card.ImgOverlay> */}
                         <Card.Title ><h1><b className="bottomCardContent">“Reading is essential for those </b></h1></Card.Title>
- <Card.Title ><h1><b className="bottomCardContent">who seek to rise above the ordinary.” - Jim Rohn </b></h1></Card.Title>
+                        <Card.Title ><h1><b className="bottomCardContent">who seek to rise above the ordinary.” - Jim Rohn </b></h1></Card.Title>
                         
-                    </Card.ImgOverlay>
+                    {/* </Card.ImgOverlay> */}
                 </Card>
-            </div>
+            {/* </div> */}
     {/* </div> */}
 
                 </div>
@@ -264,11 +265,11 @@ import AvgRating from '../AvgRating/AvgRating'
                     <TodayDealsPage/>
                 </div>
 
-                <div className="bottomCard">
-                    <Card>
+                {/* {/* <div className="bottomCard"> */}
+                    {/* <Card>
                         <Card.Img className="bottomCardImage" src={popularPageBottomimage}/>
-                    </Card>
-                </div>
+                    </Card> */}
+                {/* </div> */}
 
             </div>
             

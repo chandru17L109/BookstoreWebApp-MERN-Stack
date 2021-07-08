@@ -62,6 +62,7 @@ class TodayDealsPage extends Component {
 
             var booksreview = this.props.AvgReview;
             console.log("booksreview",booksreview);
+            // eslint-disable-next-line
             var Reviewfound = booksreview.findIndex(function(post, index) {
                 if(post._id._id === books._id)
                     return true;

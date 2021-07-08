@@ -17,7 +17,7 @@ import {
 
 function Item1(props) {
     const editaddress = () => {
-        props.editaddress(props.arr._id,props.arr);
+        props.editaddress(props.arr._id, props.arr);
         props.Setadd(false);
     };
 
@@ -31,22 +31,28 @@ function Item1(props) {
 
     return (
         <Row>
-            <Col md={8}>
-                <ListGroup variant="flush">
+            <Col md={10}>
+                <ListGroup variant="flush" style={{ boxShadow: "10px 10px 5px 10px " }}>
                     <ListGroupItem>
                         <Row>
+
                             <Col md={1}>
-                                <input
-                                    type="radio"
-                                    value={props.arr._id}
-                                    checked={props.radio == props.arr._id}
-                                    onChange={(e) => {
-                                        props.setRadio(() => {
-                                            console.log(e.target.value);
-                                            return e.target.value;
-                                        });
-                                    }}
-                                ></input>
+                                <div class="form-check" >
+                                    <label class="form-check-label">
+                                        <input
+                                            className="form-check-input" name="optionsRadios" id="optionsRadios1"
+                                            type="radio"
+                                            value={props.arr._id}
+                                            checked={props.radio == props.arr._id}
+                                            onChange={(e) => {
+                                                props.setRadio(() => {
+
+                                                    return e.target.value;
+                                                });
+                                            }}
+                                        ></input>
+                                    </label>
+                                </div>
                             </Col>
 
                             <Col>
@@ -74,37 +80,48 @@ function Item1(props) {
                                 )}
                             </Col>
                         </Row>
-                        {props.radio == props.arr._id ? (
-                            <div className="button-div">
-                                <Link to="/payment">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary deliver"
-                                        onClick={deliverToAddress}
-                                    >
-                                        Deliver to this address
-                                    </button>
+                        <Row>
+
+                            {props.radio == props.arr._id ? (
+                                <div className="button-div">
+                                    <Link to="/payment">
+                                        <Col>
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary deliver"
+                                                onClick={deliverToAddress}
+                                            >
+                                                Deliver to this address
+                                            </button>
+                                        </Col>
+                                        &nbsp;&nbsp;
+                                    </Link>
+                                    <Col>
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger delete"
+                                            onClick={deladdress}
+                                        >
+                                            Delete address
+                                        </button>
+                                    </Col>
                                     &nbsp;&nbsp;
-                                </Link>
-                                <button
-                                    type="button"
-                                    class="btn btn-danger delete"
-                                    onClick={deladdress}
-                                >
-                                    Delete address
-                                </button>
-                                &nbsp;&nbsp;
-                                <button
-                                    type="button"
-                                    class="btn btn-warning edit"
-                                    onClick={editaddress}
-                                >
-                                    Edit Address
-                                </button>
-                            </div>
-                        ) : (
-                            <header></header>
-                        )}
+                                    <Col>
+                                        <button
+                                            type="button"
+                                            class="btn btn-warning edit"
+                                            onClick={editaddress}
+                                        >
+                                            Edit Address
+                                        </button>
+                                    </Col>
+                                </div>
+
+                            ) : (
+
+                                <header></header>
+                            )}
+                        </Row>
                     </ListGroupItem>
                 </ListGroup>
             </Col>
@@ -115,7 +132,7 @@ function Item1(props) {
 const mapDispatchToProps = (dispatch) => {
     return {
         OndeliverToAddress: (id, arr) =>
-            dispatch(actions.OndeliverToAddressAction(id,arr)),
+            dispatch(actions.OndeliverToAddressAction(id, arr)),
     };
 };
 

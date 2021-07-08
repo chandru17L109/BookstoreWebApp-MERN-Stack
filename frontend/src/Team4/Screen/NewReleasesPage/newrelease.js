@@ -9,7 +9,9 @@ import {Link} from "react-router-dom";
 import '../../Styles/commonStyling.css';
 import '../../Styles/newRelease.css';
 import NewReleasePageCardImage from '../../images/newReleasePageCardImage.jpg'
-import NewreleasebottomCardImage from '../../images/NewreleasebottomCardImage.jpg'
+// import NewreleasebottomCardImage from '../../images/NewreleasebottomCardImage.jpg'
+import PopularBookPage from '../HomePage/Components/BookListComponents/popularbook'
+
 
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
@@ -108,6 +110,7 @@ class NewReleasePage extends Component {
 
                 var booksreview = this.props.AvgReview;
                 // console.log("booksreview",booksreview);
+                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
@@ -210,9 +213,9 @@ class NewReleasePage extends Component {
 
          
             <div className="bottomCard">
-                <Card>
-                    <Card.Img className="bottomCardImage" src={NewreleasebottomCardImage} alt="Card image" />
-                    <Card.ImgOverlay>
+                {/* <Card> */}
+                    {/* <Card.Img className="bottomCardImage" src={NewreleasebottomCardImage} alt="Card image" /> */}
+                    {/* <Card.ImgOverlay> */}
                         <Card.Title ><h1><b className="bottomCardContent">Connect and Celebrate</b></h1></Card.Title>
                         <Card.Text >
                             <h1 className="bottomCardContent">
@@ -220,9 +223,14 @@ class NewReleasePage extends Component {
                             A Modern Romance for people who love to read</h1>
                         </Card.Text>
                         <Card.Text><h3 className="bottomCardContent">Find new releases and order now</h3></Card.Text>
-                    </Card.ImgOverlay>
-                </Card>
+                    {/* </Card.ImgOverlay> */}
+                {/* </Card> */}
             </div>
+
+            <div className="row">
+                <h2  className="headingpage">Books you may like</h2>
+                    <PopularBookPage/>
+                </div>
             
             </>
         )

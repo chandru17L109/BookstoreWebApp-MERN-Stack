@@ -101,7 +101,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 		if (req.body.password) {
 			user.password = req.body.password
 		}
-
+		if (req.body.phone) {
+			user.phone = req.body.phone
+		}
 		const updateUser = await user.save()
 		res.json({
 			_id: updateUser._id,
@@ -113,9 +115,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 		})
 	} else {
 		res.status(404)
-
-		//ekjfdhekw
-
 		throw new Error('User Not Found')
 	}
 })
@@ -170,7 +169,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 	try {
 		await sendEmail({
 			email: user.email,
-			subject: 'Your password reset token(valid for 10 min)',
+			subject: 'Your password reset token is valid for 10 min',
 			message,
 		})
 		res.status(200).json({
@@ -202,7 +201,8 @@ const resetPassword = asyncHandler(async (req, res) => {
 		throw new Error('Token expired')
 	}
 	if (req.body.password !== req.body.confirmPassword) {
-		return new ErrorHandler('Password does not match', 400)
+		res.status(400)
+		throw new Error('Password does not match')
 	}
 
 	user.password = req.body.password

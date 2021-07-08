@@ -50,10 +50,11 @@ class ReviewPage extends Component {
       console.log("********bookid*******",this.props.BookID)
       console.log("this.props.Bookreview",this.props.Bookreview)
       var BookreviewData = this.props.Bookreview
+      var reviewsList;
       if(BookreviewData.length === 0){
-        var reviewsList = "No reviews available"
+        reviewsList = "No reviews available"
       }else{
-        var reviewsList = BookreviewData.data.map((books, i)=>{
+        reviewsList = BookreviewData.data.map((books, i)=>{
           return(
             <>
               <strong>{books.user}</strong><br></br>
@@ -70,7 +71,7 @@ class ReviewPage extends Component {
     return (
         <div className="row m-3">
         {this.state.notify}
-        <div className="col-12 col-sm-8 col-md-7 col-lg-7 col-xl-8 mt-2">
+        <div className="col-12 col-sm-8 col-md-7 col-lg-7 col-xl-8 mt-2 ml-2">
           <h3>User Reviews</h3>
         {reviewsList}
         </div>

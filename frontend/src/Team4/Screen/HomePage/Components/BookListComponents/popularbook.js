@@ -60,9 +60,11 @@ class PopularBookPage extends Component {
 
 
     render() {
+                // eslint-disable-next-line
         var popularbookslist = this.props.Books.map((books, i)=>{
             var booksreview = this.props.AvgReview;
             console.log("booksreview",booksreview);
+                // eslint-disable-next-line
             var Reviewfound = booksreview.findIndex(function(post, index) {
                 if(post._id === books._id)
                     return true;

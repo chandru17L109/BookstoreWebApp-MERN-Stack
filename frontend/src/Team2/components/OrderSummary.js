@@ -10,15 +10,17 @@ function OrderSummary(props) {
     const [totalDiscount, setTotalDiscount] = useState(0);
     const [charges, setCharges] = useState(0);
     const [cartTotal, setCarttotal] = useState(0);
+    const [totalValue, setTotalValue] = useState(0);
+    const [coup, setCoup] = useState(0);
 
     useEffect(() => {
         let items = 0;
         let price = 0;
         let charge = 0;
         let cart = 0;
-        let discountAmount = 0
-        var coup = 0;
-        coup =localStorage.getItem('couponvalue');
+        let discountAmount = 0;
+        let coupoon = 0;
+
         props.Books.forEach((item) => {
             console.log("quantity of each change", item.quantity);
             items += item.quantity * 1;
@@ -27,21 +29,25 @@ function OrderSummary(props) {
             charge += item.quantity * 10;
             cart += item.quantity * item.price + item.quantity * 10;
         });
-
+        coupoon = localStorage.getItem('finalval');
+        setCoup(coupoon);
         setTotalPrice(price);
         setTotalItems(items);
         setTotalDiscount(discountAmount);
         setCharges(charge);
         setCarttotal(cart);
-        props.amount(Math.round(totalPrice + charges -coup), props.userdetail.email)
-        console.log("amount", props.amount)
+        setTotalValue(totalPrice + charges);
+        props.OrderSummary(totalValue);
+        props.amount(Math.round(coup), props.userdetail.email);
+        //console.log("amount", props.amount);
     }, [
         props.Books,
         totalPrice,
         totalItems,
         totalDiscount,
         charges,
-        cartTotal
+        cartTotal,
+        totalValue
     ]);
     return (
         <div>
@@ -50,9 +56,9 @@ function OrderSummary(props) {
             <h5>Total Rs.{Math.round(totalPrice)}</h5>
             <h5>Delivery Charges Rs.{charges}</h5>
             <hr></hr>
-            {/* <h5 className="text-primary"> */}
-            {/* Cart Total Rs.{props.amount} */}
-            {/* </h5> */}
+            {/* <h5 className="text-primary"> 
+            Cart Total Rs.{coup}
+            </h5> */}
 
         </div>
     )
@@ -70,6 +76,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        OrderSummary: (totalValue) =>
+            dispatch(actions.OrderSummaryAction(totalValue)
+            ),
         amount: (cartTotal, useremail) => dispatch(actions.amountAction(cartTotal, useremail))
     };
 };

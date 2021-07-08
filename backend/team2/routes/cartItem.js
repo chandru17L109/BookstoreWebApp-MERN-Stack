@@ -17,7 +17,7 @@ const {
 
 router.route("/:email")
   .get(fetchAllCartItems)
-  // .post(addCartItems);
+// .post(addCartItems);
 
 router.delete("/:email", delCartItems);
 

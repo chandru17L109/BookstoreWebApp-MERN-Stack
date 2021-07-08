@@ -8,7 +8,7 @@ import { FaHeart } from "react-icons/fa"
 import {Link} from "react-router-dom";
 import '../../Styles/commonStyling.css';
 import '../../Styles/allBooksPage.css';
-import AllbooksbottomCardImage from '../../images/AllbooksbottomCardImage.png'
+// import AllbooksbottomCardImage from '../../images/AllbooksbottomCardImage.png'
 import * as actions from '../../action/action'
 // import React, { useEffect } from 'react'
 import AvgRating from '../AvgRating/AvgRating'
@@ -16,6 +16,8 @@ import CustomizedSnackbars from '../../alert_notify/alert';
 
 import {connect} from 'react-redux';
 // import NewRelease from '../HomePage/Components/BookListComponents/newrelease';
+import TodayDealsPage from '../HomePage/Components/BookListComponents/todaydeals';
+
 
 class AllBooksPage extends Component {
     constructor(props){
@@ -106,6 +108,7 @@ class AllBooksPage extends Component {
 
                 var booksreview = this.props.AvgReview;
                 // console.log("booksreview",booksreview);
+                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
@@ -217,16 +220,16 @@ class AllBooksPage extends Component {
                     
 
                 <div className="bottomCard">
-                    <Card className=" text-Black">
-                        <Card.Img className="bottomCardImage" src={AllbooksbottomCardImage} alt="Card image" />
-                        <Card.ImgOverlay>
+                    {/* <Card className=" text-Black"> */}
+                        {/* <Card.Img className="bottomCardImage" src={AllbooksbottomCardImage} alt="Card image" /> */}
+                        {/* <Card.ImgOverlay> */}
                             <Card.Title><h1><b className="bottomCardContent">Connect and Celebrate</b></h1></Card.Title>
                             <Card.Text>
                                 <h3 className="bottomCardContent">Find Customers favourite books and gift those books to your loved ones.</h3>
                             </Card.Text>
                             <Card.Text><h3 className="bottomCardContent">Find early deals and order now</h3></Card.Text>
-                        </Card.ImgOverlay>
-                    </Card>
+                        {/* </Card.ImgOverlay> */}
+                    {/* </Card> */}
                 </div>
 
                 {/* <div className="w-100">
@@ -236,6 +239,11 @@ class AllBooksPage extends Component {
                 <div className="row">
                     <NewRelease props={this.props.props}/>
                 </div> */}
+
+                <div className="row">
+                <h2  className="headingpage">Books you may like</h2>
+                    <TodayDealsPage/>
+                </div>
                 
            </div>
             

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import * as actions from "../action/action";
 import { connect } from "react-redux";
@@ -14,15 +14,26 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 
 function LastScreen(props) {
+
+  const [notify, setNotify] = useState(null)
+
   useEffect(() => {
+    setNotify(<CustomizedSnackbars open={true} message={"Order Placed Successfully"} />)
+
+    setTimeout(() => {
+      setNotify(null)
+    }, 2000)
     props.onCartLoad(props.userdetail.email);
     props.OnconfirmPayment(props.cartItems, props.address, props.amount, props.userdetail.email);
   }, []);
   return (
     <div>
+      {notify}
       <h4>Thankyou for Shopping with BookStore</h4>
+      <h5>Order Placed Successfully</h5>
       <p>
         You can check <Link>Your Order Details Here</Link>
       </p>

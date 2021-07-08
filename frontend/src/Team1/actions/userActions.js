@@ -20,7 +20,7 @@ import {
 	NEW_PASSWORD_REQUEST,
 	NEW_PASSWORD_SUCCESS,
 	NEW_PASSWORD_FAIL,
-	CLEAR_ERRORS,
+	
 	USER_DETAILS_RESET,
 	USER_UPDATE_PIC_FAIL,
 	USER_UPDATE_PIC_SUCCESS,
@@ -241,11 +241,7 @@ export const uploadProfilePic = (user, files) => async (dispatch) => {
 	}
 }
 
-export const clearErrors = () => async (dispatch) => {
-	dispatch({
-		type: CLEAR_ERRORS,
-	})
-}
+
 
 export const forgotPassword = (email) => async (dispatch) => {
 	console.log('Email', email)

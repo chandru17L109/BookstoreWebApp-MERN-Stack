@@ -61,7 +61,7 @@ export default class SecondHeader extends Component {
                             <div className="search ml-1">
                                 <div className="searchInputs">
                                 <Form inline>
-                                    <FormControl type="text" onChange={handleFilter} value={this.state.wordEntered} placeholder="Search by book name"  />
+                                    <FormControl type="text" onChange={handleFilter} value={this.state.wordEntered} placeholder="Search by book title"  />
                                 </Form>
                                     {this.state.wordEntered.length === 0 ? (
                                         <i class="fa fa-search searchIcon"></i>

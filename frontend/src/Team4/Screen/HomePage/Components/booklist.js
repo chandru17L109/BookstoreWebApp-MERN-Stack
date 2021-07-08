@@ -66,6 +66,7 @@ decidewishlist(bookid){
         var allbookslist = this.props.Books.map((books, i)=>{
                 var booksreview = this.props.AvgReview;
                 console.log("booksreview",booksreview);
+                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
@@ -81,7 +82,7 @@ decidewishlist(bookid){
                             <Card.Img className="card-header  leftpaddingcard bg-white" src={books.image} variant="top" />
                         </Link>
                         
-                        <Card.Body className="card-body  leftpaddingcarddata change-font text-dark" >
+                        <Card.Body className="card-body leftpaddingcarddata change-font text-dark" >
                             <Card.Text as="div" className="cardtext">
 
                                 <div className="text-dark">
