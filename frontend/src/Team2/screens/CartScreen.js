@@ -19,6 +19,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 import OrderSummary from "../components/OrderSummary";
+import './CartItem.css';
 import Coupon from "../components/Coupon";
 import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 

@@ -14,6 +14,8 @@ import {
   ListGroupItem,
   FormControl,
 } from "react-bootstrap";
+// import './AddressScreen.css';
+
 import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 
 function AddressScreen(props) {
@@ -207,120 +209,30 @@ function AddressScreen(props) {
 
   return (
 
-    <div className="address">
+    <div >
       {notify}
-      <h2>Select a delivery address</h2>
-      {props.address ? (props.address.map((element) => {
-        return (
-          <AddressItem
-            key={element._id}
-            arr={element}
-            radio={radio}
-            setRadio={setRadio}
-            delete={deleteAddress}
-            editaddress={editaddress}
-            Setadd={Setadd}
-          ></AddressItem>
-        );
-      }
-      )) : <br></br>}
-      <div className="new-address">
-        <br></br>
-        <div className="form">
-          <h2> Address Form</h2>
-          {addresserror ? <p>Enter valid Address</p> : <span></span>}
-          <input
-            value={pinCode}
-            onChange={pinCodeValid}
-            placeholder="Pincode"
-            maxlength="6"
-          ></input>
-          {pinError ? (<p>Enter valid pincode</p>) : (<span></span>)}
-          <input
-            value={houseNumber}
-            onChange={houseNumberValid}
-            placeholder="House Number"
-          ></input>
-          {houseNumberError ? (<p>Enter valid House Number</p>) : (<span></span>)}
-          <input
-            value={locality}
-            onChange={localityValid}
-            placeholder="Area /Colony/Street"
-          ></input>
-          {localityError ? (<p>Enter valid Locality</p>) : (<span></span>)}
-
-          <input
-            value={city}
-            onChange={cityValid}
-            placeholder="Town/City"
-          ></input>
-          {cityError ? (<p>Enter valid City</p>) : (<span></span>)}
-
-
-          <select
-            value={state}
-            onChange={(e) => {
-              setState(e.target.value);
-            }}
-            name="State"
-            id="cars"
-          >
-            <option value="">Select State</option>
-            <option value="Andhra Pradesh">Andhra Pradesh</option>
-            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-            <option value="Assam">Assam </option>
-            <option value="Bihar">Bihar </option>
-            <option value="Chhattisgarh	">Chhattisgarh </option>
-            <option value="Goa">Goa</option>
-            <option value="Gujarat">Gujarat</option>
-            <option value="Haryana">Haryana</option>
-            <option value="Himachal Pradesh	">Himachal Pradesh </option>
-            <option value="Jharkhand">Jharkhand</option>
-            <option value="Karnataka">Karnataka</option>
-            <option value="Kerala">Kerala</option>
-            <option value="Madhya Pradesh">Madhya Pradesh</option>
-            <option value="Maharashtra">Maharashtra</option>
-            <option value="Manipur">Manipur</option>
-            <option value="Meghalaya">Meghalaya</option>
-            <option value="Mizoram">Mizoram</option>
-            <option value="Nagaland">Nagaland</option>
-            <option value="Odisha">Odisha</option>
-            <option value="Punjab">Punjab</option>
-            <option value="Rajasthan">Rajasthan</option>
-            <option value="Sikkim">Sikkim</option>
-            <option value="Tamil Nadu">Tamil Nadu</option>
-            <option value="Telangana">Telangana</option>
-            <option value="Tripura">Tripura</option>
-            <option value="Uttar Pradesh">Uttar Pradesh</option>
-            <option value="Uttarakhand">Uttarakhand</option>
-            <option value="West Bengal">West Bengal</option>
-          </select>
-          {add ? (
-            <button
-              onClick={addAddress}
-              // disabled={addresserror}
-              type="button"
-              className="btn btn-warning"
-            >
-              Add Address
-            </button>
-
-          ) : (
-            <button
-              onClick={updateaddress}
-              type="button"
-              className="btn btn-info"
-            >
-              Update Address
-            </button>
-          )
-
+      <Row>
+        <Col md={7}>
+          <h2 className="text-primary">Select a delivery address</h2>
+          {props.address ? (props.address.map((element) => {
+            return (
+              <AddressItem
+                key={element._id}
+                arr={element}
+                radio={radio}
+                setRadio={setRadio}
+                delete={deleteAddress}
+                editaddress={editaddress}
+                Setadd={Setadd}
+              ></AddressItem>
+            );
           }
-        </div>
+          )) : <br></br>}
+        </Col>
         <Col md={5}>
           <Card>
             <ListGroup variant="flush">
-              <h3> &nbsp; order Summary</h3>
+              <h3 className="text-primary"> &nbsp; order Summary</h3>
               <ListGroupItem>
                 {props.cartItems.map(function (item) {
                   return (
@@ -352,7 +264,136 @@ function AddressScreen(props) {
             </ListGroup>
           </Card>
         </Col>
-      </div>
+      </Row>
+      <Row style={{ width: "800px" }} >
+        <br></br>
+        <div className="form">
+          <h2 className="text-primary"> Address Form</h2>
+          {addresserror ? <p>Enter valid Address</p> : <span></span>}
+
+
+
+          <div class="form-group">
+            <label for="exampleInputPassword1" className="form-label mt-0 text-primary">House Number</label>
+
+            <input
+              className="form-control"
+              value={houseNumber}
+              onChange={houseNumberValid}
+              placeholder="Enter House Number"
+            ></input>
+            {houseNumberError ? (<p className="text-danger">Enter valid House Number</p>) : (<span></span>)}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" className="form-label mt-1 text-primary">Locality</label>
+
+            <input
+              className="form-control"
+              value={locality}
+              onChange={localityValid}
+              placeholder="Area /Colony/Street"
+            ></input>
+            {localityError ? (<p className="text-danger">Enter valid Locality</p>) : (<span></span>)}
+
+          </div>
+          <Row>
+            <Col>
+              <div class="form-group">
+                <label for="exampleInputPassword1" className="form-label mt-1 text-primary">City</label>
+
+                <input
+                  value={city}
+                  className="form-control"
+                  onChange={cityValid}
+                  placeholder="Town/City"
+                ></input>
+                {cityError ? (<p className="text-danger">Enter valid City</p>) : (<span></span>)}
+
+              </div>
+            </Col>
+            <Col>
+              <div class="form-group">
+                <label for="exampleInputPassword1" className="form-label mt-1 text-primary">Pincode</label>
+                <input
+                  className="form-control"
+                  value={pinCode}
+                  onChange={pinCodeValid}
+                  placeholder="Enter Pincode"
+                  maxlength="6"
+                ></input>
+                {pinError ? (<p className="text-danger" >Enter valid pincode</p>) : (<span></span>)}
+
+              </div>
+            </Col>
+            <Col>
+              <div class="form-group">
+                <label for="exampleSelect1" className="form-label mt-1 text-primary">Select State</label>
+                <select
+                  className="form-select"
+                  value={state}
+                  onChange={(e) => {
+                    setState(e.target.value);
+                  }}
+                  name="State"
+                  id="cars"
+                >
+                  <option value="">Select State</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  <option value="Assam">Assam </option>
+                  <option value="Bihar">Bihar </option>
+                  <option value="Chhattisgarh	">Chhattisgarh </option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Himachal Pradesh	">Himachal Pradesh </option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                </select>
+              </div>
+            </Col>
+          </Row>
+          {add ? (
+            <button
+              onClick={addAddress}
+              // disabled={addresserror}
+              type="button"
+              className="btn btn-primary"
+            >
+              Add Address
+            </button>
+
+          ) : (
+            <button
+              onClick={updateaddress}
+              type="button"
+              className="btn btn-warning"
+            >
+              Update Address
+            </button>
+          )
+
+          }
+        </div>
+      </Row>
+
     </div>
   );
 }

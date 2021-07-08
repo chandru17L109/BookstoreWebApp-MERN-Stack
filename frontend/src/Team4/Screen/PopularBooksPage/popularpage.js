@@ -266,9 +266,9 @@ import AvgRating from '../AvgRating/AvgRating'
                 </div>
 
                 {/* {/* <div className="bottomCard"> */}
-                    <Card>
+                    {/* <Card>
                         <Card.Img className="bottomCardImage" src={popularPageBottomimage}/>
-                    </Card>
+                    </Card> */}
                 {/* </div> */}
 
             </div>
