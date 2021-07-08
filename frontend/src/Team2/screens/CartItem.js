@@ -15,6 +15,7 @@ import {
     ListGroupItem,
     FormControl,
 } from "react-bootstrap";
+import './CartItem.css';
 
 const Item = (props) => {
 
@@ -46,45 +47,47 @@ const Item = (props) => {
 
             <ListGroup variant="flush">
                 <ListGroupItem>
-                    <Row>
+                    <div id="cart_item">
+                        <Row>
 
-                        <Col md={1} >
-                            <Link to={`/`}>
-                                <Image src={props.item.image} fluid rounded />
-                            </Link>
-                        </Col>
+                            <Col md={1} >
+                                <Link to={`/`}>
+                                    <Image src={props.item.image} fluid rounded />
+                                </Link>
+                            </Col>
 
-                        <Col md={2} >
-                            <Link to={`/`}>{props.item.title}   </Link>
-                        </Col>
+                            <Col md={2} >
+                                <Link to={`/`}>{props.item.title}   </Link>
+                            </Col>
 
-                        <Col md={2}>Rs.{Math.round(xyz)}</Col>
+                            <Col md={2}>Rs.{Math.round(xyz)}</Col>
 
-                        <Col md={1}>
+                            <Col md={1}>
 
-                            <Button onClick={onMinus}>-</Button>
-                        </Col>
-                        <Col md={1}>
-                            <p>{props.item.quantity}</p>
-                        </Col>
-                        <Col md={1}>
-                            <Button onClick={onAdd}>+</Button>
-                        </Col>
+                                <Button onClick={onMinus}>-</Button>
+                            </Col>
+                            <Col md={1}>
+                                <p>{props.item.quantity}</p>
+                            </Col>
+                            <Col md={1}>
+                                <Button onClick={onAdd}>+</Button>
+                            </Col>
 
-                        <Col md={2} >
-                            <Button onClick={move} type="button" className="btn btn-primary mr-5">
-                                Move To Wishlist
-                            </Button>
-                        </Col>
-                        <Col >
-                            <Button onClick={del} type="button" className="btn btn-danger ml-5">
-                                <i
-                                    className="fa fa-trash "
-                                    aria-hidden="true"
-                                ></i>
-                            </Button>
-                        </Col>
-                    </Row>
+                            <Col md={2} >
+                                <Button onClick={move} type="button" className="btn btn-primary mr-5">
+                                    Move To Wishlist
+                                </Button>
+                            </Col>
+                            <Col >
+                                <Button onClick={del} type="button" className="btn btn-danger ml-5">
+                                    <i
+                                        className="fa fa-trash "
+                                        aria-hidden="true"
+                                    ></i>
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
                 </ListGroupItem>
             </ListGroup>
 
