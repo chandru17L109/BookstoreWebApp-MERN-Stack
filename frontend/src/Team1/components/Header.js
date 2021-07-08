@@ -29,6 +29,7 @@ const Headers = () => {
 								{' '}
 								Wishlist <FaHeart />{' '}
 							</Button>
+							<Button className='btn btn-primary'>{' '}Wishlist <FaHeart />{' '}</Button>
 						</Nav.Link>
 					</LinkContainer>
 

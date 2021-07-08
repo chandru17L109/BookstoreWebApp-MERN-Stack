@@ -4,38 +4,38 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listMyWishlist, deleteFromWishlist } from '../actions/wishlistActions'
+import { listMyWishlist,deleteFromWishlist } from '../actions/wishlistActions'
 import '../../Team4/Styles/design.css'
 import '../../Team4/Styles/homeContentCards.css'
-import { Link } from 'react-router-dom'
-import { FaCartPlus } from 'react-icons/fa'
-import { FaTrash } from 'react-icons/fa'
-import CustomizedSnackbars from '../../Team4/alert_notify/alert'
+import { Link } from "react-router-dom";
+import { FaCartPlus } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa"
+import CustomizedSnackbars from '../../Team4/alert_notify/alert';
+
 
 const WishlistScreen = ({ history }) => {
-	const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-	const wishlistListMy = useSelector((state) => state.wishlistListMy)
-	const deletefromwishlist = useSelector((state) => state.deleteFromWishlist)
+    const wishlistListMy = useSelector((state) => state.wishlistListMy)
+    const deletefromwishlist = useSelector((state) => state.deleteFromWishlist)
+    
+    const { loading: loadingWishlist, error: errorWishlist, wishlists } = wishlistListMy
+    const {success } = deletefromwishlist
+    
+    
+    console.log("Wishlist Screen Data", wishlists)
+    useEffect(() => {
+        dispatch(listMyWishlist())
+    }, [dispatch,history,success])
 
-	const {
-		loading: loadingWishlist,
-		error: errorWishlist,
-		wishlists,
-	} = wishlistListMy
-	const { success } = deletefromwishlist
 
-	console.log('Wishlist Screen Data', wishlists)
-	useEffect(() => {
-		dispatch(listMyWishlist())
-	}, [dispatch, history, success])
-
-	const deletehandler = (e) => {
-		//console.log(e)
+    const deletehandler = (e) => {
+        //console.log(e)
 		dispatch(deleteFromWishlist(e))
 		console.log('delete button clicked')
 	}
 
+<<<<<<< HEAD
 	return (
 		<Container>
 			<h2 className='text-center bg-light'>My Wishlist</h2>
@@ -112,6 +112,62 @@ const WishlistScreen = ({ history }) => {
 }
 
 export default WishlistScreen
+=======
+    return (
+            <Container >  
+                    <h2 className="text-center bg-light">My Wishlist</h2>
+                <Col>
+                    {loadingWishlist ? (
+                        <Loader />
+                    ) : errorWishlist || wishlists.length==0? (
+                        <Container className="cardmarign">
+                            <br/><h1 variant='danger' className="text-center">Wishlist is empty</h1><br/>
+                        </Container>
+                    ) : (
+                        <Row>
+                            {wishlists.map((wishlist) => (
+                                <Col   className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign">
+                                <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
+
+                                    <Link to={'/description/' + wishlist[0]._id}>
+                                        <Card.Img className="card-header  leftpaddingcard bg-white" src={wishlist[0].image} variant="top" />
+                                    </Link>
+
+                                    <Card.Body className="card-body  leftpaddingcarddata change-font text-dark" >
+                                        <Card.Text as="div" className="cardtext">
+
+                                            <div className="text-dark">
+                                                <strong >{wishlist[0].title}</strong>
+                                                <br></br>
+                                                <strong style={{ fontWeight: "normal" }}>{wishlist[0].authors}</strong>
+                                            </div>
+
+                                            <strong style={{ textDecorationLine: 'line-through' }}>Rs. {wishlist[0].price}</strong>
+                                            <strong style={{ marginLeft: "7px", color: "red" }}>Rs.{Math.round(wishlist[0].price - (wishlist[0].price * wishlist[0].discount / 100))}</strong>
+
+                                            <div className="aligncartwishlist">
+                                                    <button class="btn btn-light border-0 wishlistbutton" id={wishlist[0]._id} onClick={(e)=>deletehandler(wishlist[0]._id)}>
+                                                        <i className="text-danger "><FaTrash /></i>
+                                                    </button>
+                                            </div>
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                                </Col>
+                            ))}
+                        </Row>
+                    )}
+                </Col>
+        </Container>
+
+    );
+};
+
+
+
+export default WishlistScreen;
+
+>>>>>>> 1979dd68174bf7889168cf0632223a3ca5c6fddf
 
 // <>
 // <Card className="cardContainer">
