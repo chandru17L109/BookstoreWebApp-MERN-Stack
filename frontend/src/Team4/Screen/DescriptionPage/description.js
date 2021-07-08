@@ -57,6 +57,7 @@ function ProductDetailspage(props) {
     }
 
   var booksreview = props.AvgReview;
+  // eslint-disable-next-line
   var Reviewfound = booksreview.findIndex(function(post, index) {
       if(post._id._id === props.Bookdetail._id)
           return true;

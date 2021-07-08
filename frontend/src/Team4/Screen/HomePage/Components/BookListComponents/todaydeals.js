@@ -19,7 +19,6 @@ class TodayDealsPage extends Component {
         this.state = {todaydealslist : [], discountquery : "sort=-discount&limit=6",notify: null}
     }
 
-
     componentDidMount(){
         this.props.onFetchTodaydealsBooks(this.state.discountquery);
         this.props.OnAvgreview();
@@ -61,7 +60,7 @@ class TodayDealsPage extends Component {
         
         var DealsBooklist = this.props.todaydealsBooks.map((books, i)=>{
             var booksreview = this.props.AvgReview;
-            
+            // eslint-disable-next-line
             var Reviewfound = booksreview.findIndex(function(post, index) {
                 if(post._id._id === books._id)
                     return true;

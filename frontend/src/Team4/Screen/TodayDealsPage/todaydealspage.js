@@ -103,15 +103,16 @@ class TodayDealsPage extends Component {
                 shownextbutton = false
             }
 
-           DealsBooklist = this.props.Books.map((books, i)=>{
+            DealsBooklist = this.props.Books.map((books, i)=>{
 
             var booksreview = this.props.AvgReview;
-                var Reviewfound = booksreview.findIndex(function(post, index) {
-                    if(post._id._id === books._id)
-                        return true;
-                })
+            // eslint-disable-next-line
+            var Reviewfound = booksreview.findIndex(function(post, index) {
+                if(post._id._id === books._id)
+                    return true;
+            })
                 
-                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+            var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
 
             return(
                 <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >

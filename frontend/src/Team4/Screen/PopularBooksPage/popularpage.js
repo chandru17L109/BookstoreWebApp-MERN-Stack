@@ -68,15 +68,17 @@ import popularPageCarouselImage4 from '../../images/popularPageCarouselImage4.jp
     }
 
     render() {
-            var popularbookslist = this.props.Books.map((books, i)=>{
+        // eslint-disable-next-line
+        var popularbookslist = this.props.Books.map((books, i)=>{
 
-                var booksreview = this.props.AvgReview;
-                var Reviewfound = booksreview.findIndex(function(post, index) {
-                    if(post._id === books._id)
-                        return true;
-                })
+            var booksreview = this.props.AvgReview;
+            // eslint-disable-next-line
+            var Reviewfound = booksreview.findIndex(function(post, index) {
+                if(post._id === books._id)
+                    return true;
+            })
                 
-                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+            var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
              
             if(i < 12){
             return(
