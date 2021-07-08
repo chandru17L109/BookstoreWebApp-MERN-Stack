@@ -4,36 +4,51 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listMyWishlist } from '../actions/wishlistActions'
+import { listMyWishlist,deleteFromWishlist } from '../actions/wishlistActions'
 import '../../Team4/Styles/design.css'
 import '../../Team4/Styles/homeContentCards.css'
 import { Link } from "react-router-dom";
 import { FaCartPlus } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa"
+import { FaTrash } from "react-icons/fa"
+import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 
-const WishlistScreen = ({ }) => {
+
+const WishlistScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const wishlistListMy = useSelector((state) => state.wishlistListMy)
+    const deletefromwishlist = useSelector((state) => state.deleteFromWishlist)
+    
     const { loading: loadingWishlist, error: errorWishlist, wishlists } = wishlistListMy
-    //console.log("Wishlist Screen Data", wishlists)
+    const {success } = deletefromwishlist
+    
+    
+    console.log("Wishlist Screen Data", wishlists)
     useEffect(() => {
         dispatch(listMyWishlist())
-    }, [dispatch])
+    }, [dispatch,history,success])
+
+
+    const deletehandler = (e) => {
+        //console.log(e)
+		dispatch(deleteFromWishlist(e))
+		console.log('delete button clicked')
+	}
 
     return (
-
-        <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign">
-                <Col className="col-sm">
-                    <h2>My Wishlist</h2>
+            <Container >  
+                    <h2 className="text-center bg-light">My Wishlist</h2>
+                <Col>
                     {loadingWishlist ? (
                         <Loader />
-                    ) : errorWishlist ? (
-                        <Message variant='danger'>{errorWishlist}</Message>
+                    ) : errorWishlist || wishlists.length==0? (
+                        <Container className="cardmarign">
+                            <br/><h1 variant='danger' className="text-center">Wishlist is empty</h1><br/>
+                        </Container>
                     ) : (
-                        <>
+                        <Row>
                             {wishlists.map((wishlist) => (
-
+                                <Col   className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign">
                                 <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
 
                                     <Link to={'/description/' + wishlist[0]._id}>
@@ -50,36 +65,27 @@ const WishlistScreen = ({ }) => {
                                             </div>
 
                                             <strong style={{ textDecorationLine: 'line-through' }}>Rs. {wishlist[0].price}</strong>
-                                            {/* <strong style={{marginLeft:"7px",color:"red"}}>Rs.{SellingPrice(books.price,books.discount)}</strong> */}
                                             <strong style={{ marginLeft: "7px", color: "red" }}>Rs.{Math.round(wishlist[0].price - (wishlist[0].price * wishlist[0].discount / 100))}</strong>
 
-
-                                            {/* <div>
-                                                    <strong style={{ float: "left" }} variant="link">
-                                                        <AvgRating rating={Math.round(RatingValue)}></AvgRating>
-                                                    </strong>
-                                                    <strong style={{ marginLeft: "10px" }}>({wishlist[0].discount}%)</strong>
-                                                </div> */}
-
                                             <div className="aligncartwishlist">
-                                                <button class="btn btn-light border-0 cartbutton">
-                                                    <i className="text-primary "><FaCartPlus /></i>
-                                                </button>
-                                                <button class="btn btn-light border-0 wishlistbutton">
-                                                    <i className="text-danger "><FaHeart /></i>
-                                                </button>
+                                                    <button class="btn btn-light border-0 wishlistbutton" id={wishlist[0]._id} onClick={(e)=>deletehandler(wishlist[0]._id)}>
+                                                        <i className="text-danger "><FaTrash /></i>
+                                                    </button>
                                             </div>
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
+                                </Col>
                             ))}
-                        </>
+                        </Row>
                     )}
                 </Col>
-        </div>
+        </Container>
 
     );
 };
+
+
 
 export default WishlistScreen;
 

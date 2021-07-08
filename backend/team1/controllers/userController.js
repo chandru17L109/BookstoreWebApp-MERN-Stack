@@ -164,7 +164,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 	const message =
 		`You are receiving this because you have requested the reset of the password from your account.\n\n` +
 		`Please click on the following link or paste this into your browser to complete the process within 10 minutes of receiving it:\n\n` +
-		`http://localhost:3000/resetPassword/${resetToken}\n\n` +
+		`http://localhost:8080/resetPassword/${resetToken}\n\n` +
 		`If you did not request this, please ignore this mail and your password will remain unchanged`
 
 	try {

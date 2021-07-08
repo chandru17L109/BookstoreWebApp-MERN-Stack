@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Container, Navbar, Nav, NavDropdown, Button } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { logout } from '../actions/userActions'
-import { FaSignInAlt } from 'react-icons/fa'
+import { FaHeart, FaSignInAlt } from 'react-icons/fa'
 // import { FaStar } from "react-icons/fa";
 
 import { FaCartPlus } from 'react-icons/fa'
@@ -25,7 +25,7 @@ const Headers = () => {
 				<>
 					<LinkContainer to='/mywishlist'>
 						<Nav.Link className='d-inline'>
-							<Button className='btn btn-primary'>Wishlist</Button>
+							<Button className='btn btn-primary'>{' '}Wishlist <FaHeart />{' '}</Button>
 						</Nav.Link>
 					</LinkContainer>
 

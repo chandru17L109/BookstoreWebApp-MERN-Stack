@@ -101,7 +101,6 @@ const ProfileScreen = ({ history }) => {
 	const submitHandlerPic = (e) => {
 		e.preventDefault()
 		console.log('selected file ', selectedFile)
-
 		dispatch(uploadProfilePic({ id: user._id }, { file: selectedFile }))
 		window.location.reload()
 
