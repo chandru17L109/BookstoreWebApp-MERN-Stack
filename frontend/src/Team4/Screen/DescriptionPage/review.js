@@ -34,15 +34,23 @@ class ReviewPage extends Component {
           },2000)
           this.setState({rating:"",comment:""})
         }else{
-          setTimeout(()=>{
-            this.setState({notify:null})
-          },10000)
-          this.props.onAddReview(this.state.rating, this.state.comment, this.props.User.name, this.props.BookID);
-          this.setState({notify: <CustomizedSnackbars open={true} message={"Review Added !"}/>})
-          this.props.onFetchBookReviews(this.props.BookID);
-          this.props.OnAvgreview()
-          console.log(this.props.AvgReview)
-          this.setState({rating:"",comment:""})
+          if(this.state.rating !== "0" && this.state.comment !== ""){
+            this.props.onAddReview(this.state.rating, this.state.comment, this.props.User.name, this.props.BookID);
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Review Added !"}/>})
+            setTimeout(()=>{
+              this.setState({notify:null})
+            },2000)
+            this.props.onFetchBookReviews(this.props.BookID);
+            this.props.OnAvgreview()
+            console.log(this.props.AvgReview)
+            this.setState({rating:"",comment:""})
+          }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please give Rating and Comment !"}/>})
+            setTimeout(()=>{
+              this.setState({notify:null})
+            },2000)
+          }
+         
         }  
     }
         
@@ -88,7 +96,7 @@ class ReviewPage extends Component {
                   </strong>
 
                   <select className="form-control form-control-sm d-inline ml-2" onChange={this.Rating.bind(this)} value={this.state.rating} style={{width: "100px"}} id="ratings">
-                    <option selected>Choose...</option>
+                    <option selected value="0">Choose...</option>
                         <option value="5">Excellent</option>
                         <option value="4">Very Good</option>
                         <option value="3">Good</option>

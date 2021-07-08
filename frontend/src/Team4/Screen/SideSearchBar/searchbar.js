@@ -44,20 +44,11 @@ class Searchbar extends Component {
     discount30andabove(querycondition) { this.props.onFetchDiscount30andabove(querycondition);this.props.onSetPageNo(1); this.setState({index:15}) }
     discount10andabove(querycondition) { this.props.onFetchDiscount10andabove(querycondition);this.props.onSetPageNo(1); this.setState({index:16}) }
 
-    // ratings5(querycondition){ this.props.onFetchRatings5(querycondition) }
-    // ratings4(querycondition){ this.props.onFetchRatings4(querycondition) }
-    // ratings3(querycondition){ this.props.onFetchRatings3(querycondition) }
-    // ratings2(querycondition){ this.props.onFetchRatings2(querycondition) }
-    // ratings1(querycondition){ this.props.onFetchRatings1(querycondition) }
-
     sortpricelowtohigh(querycondition){ this.props.onFetchSortpricelowtohigh(querycondition);this.props.onSetPageNo(1); this.setState({index:17}) }
     sortpricehightolow(querycondition){ this.props.onFetchSortpricehightolow(querycondition);this.props.onSetPageNo(1); this.setState({index:18}) }
 
     sortdiscountlowtohigh(querycondition){ this.props.onFetchSortdiscountlowtohigh(querycondition);this.props.onSetPageNo(1); this.setState({index:19}) }
     sortdiscounthightolow(querycondition){ this.props.onFetchSortdiscounthightolow(querycondition);this.props.onSetPageNo(1); this.setState({index:20}) }
-
-    // sortratingslowtohigh(querycondition){ this.props.onFetchSortratingslowtohigh(querycondition) }
-    // sortratingshightolow(querycondition){ this.props.onFetchSortratingshightolow(querycondition) }
 
     render() {
         console.log("props location from searchbar",this.props.childprops.location.pathname)
@@ -66,7 +57,6 @@ class Searchbar extends Component {
             <div className="pt-2" >
                 <div className="search1 mt-2" >
                     <h4 className="text-info">Search By</h4>
-                    {/* <li onClick={this.allbook.bind(this,this.state.allbookcategory)}>All</li> */}
                     <div class="nav">
                     
                         <div class="multi-level ml-0">
@@ -132,16 +122,6 @@ class Searchbar extends Component {
                             </div></> :null
                         }
 
-                            {/* <div class="item">
-                                <input type="checkbox" id="F"/>
-                                <img src={arrow} class="arrow"/><label className="text-primary" for="F">Rating</label>
-                                
-                                <ul>
-                                    <li onClick={this.sortratingslowtohigh.bind(this,this.state.sortratingLtoH)}>Low to High</li>
-                                    <li onClick={this.sortratingshightolow.bind(this,this.state.sortratingHtoL)}>High to Low</li>
-                                </ul>
-                            </div> */}
-
                         </div>
                     </div>
                 
@@ -163,7 +143,6 @@ class Searchbar extends Component {
         onFetchthriller : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchspritual : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchclassic : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-
       
         onFetchPricebelow500 : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchPrice500andabove : (querycondition) => dispatch(actions.fetchbooksbyquery(1,querycondition)),
@@ -172,12 +151,6 @@ class Searchbar extends Component {
         onFetchDiscount50andabove : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchDiscount30andabove : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchDiscount10andabove : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        
-        // onFetchRatings5 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        // onFetchRatings4 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        // onFetchRatings3 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        // onFetchRatings2 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        // onFetchRatings1 : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
 
         onFetchSortpricelowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchSortpricehightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
@@ -185,71 +158,9 @@ class Searchbar extends Component {
         onFetchSortdiscountlowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onFetchSortdiscounthightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
 
-        // onFetchSortratingslowtohigh : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
-        // onFetchSortratingshightolow : (querycondition)=> dispatch(actions.fetchbooksbyquery(1,querycondition)),
         onSetPageNo :(num)=>dispatch({type:actions.SET_PAGE,payload:num})
 
     }
   }
   
   export default connect(null, mapDispatchToProps)(Searchbar);
-
-    /* <div class="item">
-    <input type="checkbox" id="G"/>
-    <img src={arrow} class="arrow"/><label className="text-primary" for="G">Rating</label>
-    <ul>
-        <li onClick={this.ratings5.bind(this,this.state.rating5)}>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-        </li>
-        <li onClick={this.ratings4.bind(this,this.state.rating4)}>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-        </li>
-        <li onClick={this.ratings3.bind(this,this.state.rating3)}>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-        </li>
-        <li onClick={this.ratings2.bind(this,this.state.rating2)}>
-            <i className="text-warning"><FaStar/></i>
-            <i className="text-warning"><FaStar/></i>
-        </li>
-        <li onClick={this.ratings1.bind(this,this.state.rating1)}>
-            <i className="text-warning"><FaStar/></i>
-        </li>
-    </ul>
-                            </div> */
-
-// const mapStateToProps = (state) => {
-//     console.log('Inside Component ', state);
-//     return {
-//         Books: state.BookReducer.books
-//     }
-//   }
-  
-    // price(selectedquery){
-    //     console.log("selectedquery",selectedquery)
-    //     var API = `http://localhost:4000/books/?${this.state.ratingsall}${selectedquery}`
-    //     console.log("API",API)
-    //     fetch(API,{
-    //         headers:{'content-type': 'application/json'},
-    //     })
-    //     .then(res=>res.json())
-    //     .then(data=>{
-    //         this.setState({popularbooks : data.data})
-    //     });
-    // }
-
-    // all(){
-
-    // }
-
-// onFetchPricebelow500 : () => dispatch(actions.fetchbooksbypricebelow500()),
-// onFetchPrice500andabove : () => dispatch(actions.fetchbooksbyprice500andabove()),
-// onFetchPrice1000andabove : (querycondition)=> dispatch(actions.fetchbooksbyprice1000andabove(querycondition)),
