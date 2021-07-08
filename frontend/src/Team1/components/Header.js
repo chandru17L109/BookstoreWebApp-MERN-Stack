@@ -37,16 +37,21 @@ const Headers = () => {
 							</Button>
 						</Nav.Link>
 					</LinkContainer>
-					<NavDropdown title={userInfo.name} id='username'>
+					<LinkContainer to='/myorders'>
+						<Nav.Link className='d-inline'>
+							<Button className='btn btn-primary'>Orders</Button>
+						</Nav.Link>
+					</LinkContainer>
+					<NavDropdown
+						title={<span className='text-light my-auto'>{userInfo.name}</span>}
+						id='username'
+					>
 						<LinkContainer to='/profile' className='d-inline'>
 							<NavDropdown.Item>Profile Update</NavDropdown.Item>
 						</LinkContainer>
 
 						<NavDropdown.Item onClick={logoutHandler}>LogOut</NavDropdown.Item>
 					</NavDropdown>
-					<LinkContainer to='/myorders' className='d-inline'>
-						<Nav.Link>MyOrders</Nav.Link>
-					</LinkContainer>
 				</>
 			) : (
 				<LinkContainer to='/login'>

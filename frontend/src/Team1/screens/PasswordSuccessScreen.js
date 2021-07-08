@@ -1,14 +1,22 @@
 import React from 'react'
 import Message from '../components/Message'
 import { Link } from 'react-router-dom'
+import FormContainer from '../components/FormContainer.js'
 const PasswordSuccessScreen = () => {
 	return (
 		<div>
-			<Message variant='success'>PASSWORD CHANGED SUCCESSFULLY</Message>
+			<FormContainer>
+				<Message variant='success'>PASSWORD CHANGED SUCCESSFULLY</Message>
+			</FormContainer>
 			<center>
-				<p>
-					Click here to <Link to='/login'>LOGIN</Link>
-				</p>
+				<h3>
+					Click here to{' '}
+					<a>
+						<Link to='/login' variant='primary' className='text-primary'>
+							LOGIN
+						</Link>
+					</a>
+				</h3>
 			</center>
 		</div>
 	)

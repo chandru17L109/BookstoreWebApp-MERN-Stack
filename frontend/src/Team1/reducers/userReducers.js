@@ -19,7 +19,6 @@ import {
 	NEW_PASSWORD_REQUEST,
 	NEW_PASSWORD_SUCCESS,
 	NEW_PASSWORD_FAIL,
-	CLEAR_ERRORS,
 	USER_DETAILS_RESET,
 	USER_UPDATE_PIC_FAIL,
 	USER_UPDATE_PIC_SUCCESS,
@@ -180,12 +179,6 @@ export const forgotPasswordReducer = (state = {}, action) => {
 				...state,
 				loading: false,
 				error: action.payload,
-			}
-
-		case CLEAR_ERRORS:
-			return {
-				...state,
-				error: null,
 			}
 
 		default:

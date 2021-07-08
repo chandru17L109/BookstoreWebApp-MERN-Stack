@@ -62,7 +62,7 @@ const ProfileScreen = ({ history }) => {
 				dispatch({ type: USER_UPDATE_PIC_RESET })
 			}*/
 		}
-	}, [dispatch, history, userInfo, user, success /*pic_success*/])
+	}, [dispatch, history, userInfo, user, success])
 
 	const submitHandler = (e) => {
 		e.preventDefault()
@@ -94,7 +94,7 @@ const ProfileScreen = ({ history }) => {
 		console.log('clicked')
 	}
 
-	const srcp = 'https://bookstore-13.herokuapp.com/dp/' + photo
+	const srcp = 'http://localhost:8080/dp/' + photo
 	console.log(photo)
 	return (
 		<Container>
@@ -138,90 +138,108 @@ const ProfileScreen = ({ history }) => {
 							<Row>
 								<Form.Group controlId='name'>
 									<Form.Label>Name</Form.Label>
-									<Form.Control
-										type='name'
-										placeholder='Enter name'
-										value={name}
-										disabled={name_edit}
-										onChange={(e) => setName(e.target.value)}
-									></Form.Control>
-									<Button
-										type='button'
-										variant='primary'
-										size='sm'
-										onClick={(e) => editName(false)}
-									>
-										Edit Name
-									</Button>
+									<br />
+									<div style={{ display: 'inline-flex' }}>
+										<Form.Control
+											type='name'
+											placeholder='Enter name'
+											value={name}
+											disabled={name_edit}
+											onChange={(e) => setName(e.target.value)}
+										></Form.Control>
+										<Button
+											type='button'
+											variant='primary'
+											size='sm'
+											style={{ float: 'right' }}
+											onClick={(e) => editName(false)}
+										>
+											<i className='fa fa-edit '></i>
+										</Button>
+									</div>
 								</Form.Group>
 								<br />
 								<Form.Group controlId='email'>
 									<Form.Label>Email Address</Form.Label>
-									<Form.Control
-										type='email'
-										placeholder='Enter email'
-										value={email}
-										disabled={email_edit}
-										onChange={(e) => setEmail(e.target.value)}
-									></Form.Control>
-									<Button
-										type='button'
-										variant='primary'
-										size='sm'
-										onClick={(e) => editEmail(false)}
-									>
-										Edit Email
-									</Button>
+									<br />
+									<div style={{ display: 'inline-flex' }}>
+										<Form.Control
+											type='email'
+											placeholder='Enter email'
+											value={email}
+											disabled={email_edit}
+											onChange={(e) => setEmail(e.target.value)}
+										></Form.Control>
+										<Button
+											type='button'
+											variant='primary'
+											size='sm'
+											style={{ float: 'right' }}
+											onClick={(e) => editEmail(false)}
+										>
+											<i className='fa fa-edit '></i>
+										</Button>
+									</div>
 								</Form.Group>
 								<br />
 								<Form.Group controlId='phone'>
 									<Form.Label>Mobile No.</Form.Label>
-									<Form.Control
-										type='phone'
-										placeholder='Enter phone no'
-										value={phone}
-										disabled={phone_edit}
-										onChange={(e) => setPhone(e.target.value)}
-									></Form.Control>
-									<Button
-										type='button'
-										variant='primary'
-										size='sm'
-										onClick={(e) => editPhone(false)}
-									>
-										Edit Phone no
-									</Button>
+									<br />
+									<div style={{ display: 'inline-flex' }}>
+										<Form.Control
+											type='phone'
+											placeholder='Enter phone no'
+											value={phone}
+											disabled={phone_edit}
+											onChange={(e) => setPhone(e.target.value)}
+										></Form.Control>
+										<Button
+											type='button'
+											variant='primary'
+											size='sm'
+											style={{ float: 'right' }}
+											onClick={(e) => editPhone(false)}
+										>
+											<i className='fa fa-edit '></i>
+										</Button>
+									</div>
 								</Form.Group>
 								<Form.Group controlId='password'>
 									<Form.Label>Password</Form.Label>
-									<Form.Control
-										type='password'
-										placeholder='Enter password'
-										value={password}
-										disabled={password_edit}
-										onChange={(e) => setPassword(e.target.value)}
-									></Form.Control>
+									<br />
+									<div style={{ display: 'inline-flex' }}>
+										<Form.Control
+											type='password'
+											placeholder='Enter password'
+											value={password}
+											disabled={password_edit}
+											onChange={(e) => setPassword(e.target.value)}
+										></Form.Control>
+									</div>
 								</Form.Group>
 								<br />
 
 								<Form.Group controlId='confirmPassword'>
 									<Form.Label>Confirm Password</Form.Label>
-									<Form.Control
-										type='password'
-										placeholder='Confirm password'
-										value={confirmPassword}
-										disabled={password_edit}
-										onChange={(e) => setConfirmPassword(e.target.value)}
-									></Form.Control>
-									<Button
-										type='button'
-										variant='primary'
-										size='sm'
-										onClick={(e) => editPassword(false)}
-									>
-										Edit Password
-									</Button>
-
+									<br />
+									<div style={{ display: 'inline-flex' }}>
+										<Form.Control
+											type='password'
+											placeholder='Confirm password'
+											value={confirmPassword}
+											disabled={password_edit}
+											onChange={(e) => setConfirmPassword(e.target.value)}
+										></Form.Control>
+										<Button
+											type='button'
+											variant='primary'
+											size='sm'
+											style={{ float: 'right' }}
+											onClick={(e) => editPassword(false)}
+										>
+											<i className='fa fa-edit '></i>
+										</Button>
+									</div>
 									<br />
 									<br />
 

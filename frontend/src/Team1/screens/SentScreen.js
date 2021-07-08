@@ -2,7 +2,8 @@ import React from 'react'
 import Message from '../components/Message'
 import { Button, Form } from 'react-bootstrap'
 import FormContainer from '../components/FormContainer.js'
-import { useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+
 const SentScreen = ({ history }) => {
 	const [token, setToken] = useState('')
 	const submitHandler = (e) => {
@@ -18,9 +19,11 @@ const SentScreen = ({ history }) => {
 	}
 	return (
 		<div>
-			<Message variant='success'>MAIL SENT SUCCESSFULLY</Message>
 			<FormContainer>
-				<h1>Put the link here</h1>
+				<Message variant='success'>MAIL SENT SUCCESSFULLY</Message>
+			</FormContainer>
+			<FormContainer>
+				<h1>Put the token here</h1>
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId='token'>
 						<Form.Label>Enter Token</Form.Label>
@@ -31,11 +34,12 @@ const SentScreen = ({ history }) => {
 							onChange={onTokenChange}
 						></Form.Control>
 					</Form.Group>
-					<br />
+
 					<Button type='submit' variant='primary'>
 						RESET PASSWORD
 					</Button>
 				</Form>
+				<br />
 			</FormContainer>
 		</div>
 	)
