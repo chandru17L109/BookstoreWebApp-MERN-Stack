@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Table, Row, Col } from 'react-bootstrap'
+import { Container,Table, Row, Col } from 'react-bootstrap'
 
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
@@ -20,11 +20,13 @@ const OrderScreen = () => {
 		<>
 			<Row>
 				<Col md={12}>
-					<h2>My Orders</h2>
+					<h2 className="text-center bg-light">My Orders</h2>
 					{loading ? (
 						<Loader />
-					) : error ? (
-						<Message variant='danger'>{error}</Message>
+					) : error || orders.length==0? (
+						<Container className="col-xl-3 cardmarign">
+                            <br/><h1 variant='danger' className="text-center">Orders is empty</h1><br/>
+                        </Container>
 					) : (
 						<Table striped bordered hover responsive className='table-sm'>
 							<thead>
