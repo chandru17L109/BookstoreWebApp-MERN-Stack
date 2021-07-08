@@ -170,7 +170,7 @@ const ProfileScreen = ({ history }) => {
 		console.log('clicked')
 	}
 
-	const srcp = 'https://bookstore-13.herokuapp.com/dp/' + photo
+	const srcp = 'http://localhost:8080/dp/' + photo
 	console.log(photo)
 	return (
 		<Container>
