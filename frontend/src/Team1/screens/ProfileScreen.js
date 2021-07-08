@@ -232,7 +232,7 @@ const ProfileScreen = ({ history }) => {
 										size='sm'
 										onClick={(e) => editName(false)}
 									>
-										Edit Name
+										<i class='fa fa-edit'></i>
 									</Button>
 								</Form.Group>
 
@@ -256,7 +256,7 @@ const ProfileScreen = ({ history }) => {
 										size='sm'
 										onClick={(e) => editEmail(false)}
 									>
-										Edit Email
+										<i class='fa fa-edit'></i>
 									</Button>
 								</Form.Group>
 
@@ -280,7 +280,7 @@ const ProfileScreen = ({ history }) => {
 										size='sm'
 										onClick={(e) => editPhone(false)}
 									>
-										Edit Phone no
+										<i class='fa fa-edit'></i>
 									</Button>
 								</Form.Group>
 
@@ -320,7 +320,7 @@ const ProfileScreen = ({ history }) => {
 										size='sm'
 										onClick={(e) => editPassword(false)}
 									>
-										Edit Password
+										<i class='fa fa-edit'></i>
 									</Button>
 									<br />
 									<br />
