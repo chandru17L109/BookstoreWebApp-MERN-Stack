@@ -19,12 +19,12 @@ export default class Header extends Component {
 	render() {
 		return (
 			<div className='header-color'>
-				<Navbar bg='primary' expand='lg' className='p-4'>
+				<Navbar bg='primary' expand='lg' className='py-4'>
 					<Navbar.Brand>
 						<Link to={'/'}>
 							<div className='align-img-text'>
 								{/* <img alt=" logo " src={logo} width="80"  height="80"  className="d-inline-block align-top headerLogo mt-0"/> */}
-								<p className='headerName'>BOOK STORE</p>
+								<p className='headerName ml-1'>BOOK STORE</p>
 							</div>
 						</Link>
 					</Navbar.Brand>

@@ -94,7 +94,7 @@ const CartScreen = (props) => {
         <EmptyCart></EmptyCart>
       )}
       <div className="row">
-        <h6>Books You May Like</h6>
+        <h4 className="ml-4">Books You May Like</h4>
         <TodayDealsPage props={props.props} />
       </div>
     </div>
