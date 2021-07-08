@@ -36,7 +36,7 @@ class ReviewPage extends Component {
         }else{
           setTimeout(()=>{
             this.setState({notify:null})
-          },2000)
+          },10000)
           this.props.onAddReview(this.state.rating, this.state.comment, this.props.User.name, this.props.BookID);
           this.setState({notify: <CustomizedSnackbars open={true} message={"Review Added !"}/>})
           this.props.onFetchBookReviews(this.props.BookID);

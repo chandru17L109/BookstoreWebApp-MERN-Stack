@@ -20,7 +20,6 @@ export default function AvgRating(props) {
                 <i className={ rating >= 5 ? 'fa fa-star text-warning' : rating >= 4.5 ? 'fa fa-star-half-o' : 'fa fa-star-o' } ></i>
             </span>
 
-            {/* <span>{numReviews + ' reviews'}</span> */}
         </div>
     )
 }

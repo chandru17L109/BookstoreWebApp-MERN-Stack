@@ -1,31 +1,17 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { useState, useEffect } from "react";
-import {
-    Row,
-    Col,
-    Form,
-    Button,
-    Card,
-    Image,
-    ListGroup,
-    ListGroupItem,
-    FormControl,
-} from "react-bootstrap";
+
 import * as actions from '../action/action'
 import { connect } from 'react-redux';
 import OrderSummary from "./OrderSummary";
 
 function Coupon(props) {
-    //const [showcoupon, setShowcoupon]=useState(false);
     const [cc, setCc] = useState("");
     const [scc, setScc] = useState("jkllj");
-    //const [offer, setOffer]=useState(0);
     const [disable, setDisable] = useState(true);
     const [dis, setDis] = useState(true);
 
 
-    console.log("afs", props.amount);
 
     useEffect(() => {
         applycoupon(scc);
@@ -74,7 +60,6 @@ function Coupon(props) {
     const applycoupon = (cc) => {
 
         if (cc == "jkllj") {
-            console.log("code entered", cc);
 
             showms = false;
             setDisable(false);
@@ -86,11 +71,9 @@ function Coupon(props) {
             setDisable(true);
             setDis(false);
         }
-        console.log("coupon value", couponvalue)
     }
 
     const onChangeHandler = (e) => {
-        console.log("code enterin", e.target.value);
         setCc(e.target.value);
         if (e.target.value == "") {
             setDisable(true)
@@ -121,7 +104,7 @@ function Coupon(props) {
             <hr></hr>
             <OrderSummary />
 
-            <h5>Cart Total:{Math.round(xyz)}</h5>
+            <h5 className="text-Primary">Cart Total:{Math.round(xyz)}</h5>
         </div>
     )
 }
@@ -130,7 +113,6 @@ function Coupon(props) {
 
 
 const mapStateToProps = (state) => {
-    console.log('Inside', state);
     return {
         OrderSummary: state.BookReducerCart.orderSummary,
         amount: state.BookReducerCart.amount,

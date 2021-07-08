@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap' 
-// import fiction2  from "../../../../images/fiction1.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-// import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
+
 import '../../../../Styles/design.css';
+
 import * as actions from '../../../../action/action'
 import {connect} from 'react-redux';
+
 import CustomizedSnackbars from '../../../../alert_notify/alert';
 import AvgRating from '../../../AvgRating/AvgRating'
 
@@ -22,7 +23,6 @@ class TodayDealsPage extends Component {
     componentDidMount(){
         this.props.onFetchTodaydealsBooks(this.state.discountquery);
         this.props.OnAvgreview();
-
     }
 
     decidecartlist(bookid){
@@ -31,14 +31,14 @@ class TodayDealsPage extends Component {
             setTimeout(()=>{
                 this.setState({notify:null})
             },2000)
-          //   this.props.props.history.push('/login')
-          }else{
+        }
+        else{
             this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
             setTimeout(()=>{
               this.setState({notify:null})
             },2000)
             this.props.onAddcartlist(this.props.Email.email, bookid);
-          }  
+        }  
     }
 
     decidewishlist(bookid){
@@ -47,36 +47,33 @@ class TodayDealsPage extends Component {
               setTimeout(()=>{
                   this.setState({notify:null})
               },2000)
-            }else{
+        }
+        else{
             this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
               setTimeout(()=>{
                 this.setState({notify:null})
               },2000)
               this.props.onAddwishlist(this.props.Email.email, bookid);
-            }
-  }
+        }
+    }
 
     render() {
-        console.log("this.props.todaydealsBooks",this.props.todaydealsBooks)
+        
         var DealsBooklist = this.props.todaydealsBooks.map((books, i)=>{
-
             var booksreview = this.props.AvgReview;
-            console.log("booksreview",booksreview);
-            // eslint-disable-next-line
+            
             var Reviewfound = booksreview.findIndex(function(post, index) {
                 if(post._id._id === books._id)
                     return true;
             })
             var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-            console.log(Reviewfound)
-
 
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     
                 <Card className="card-top border-0 mb-4 card shadow rounded Cardshover">
                     
-                <Link to = {'/description/'+books._id}>
+                    <Link to = {'/description/'+books._id}>
                         <Card.Img className="card-header leftpaddingcard bg-white" src={books.image} variant="top" />
                     </Link>
                     
@@ -124,16 +121,15 @@ class TodayDealsPage extends Component {
     }
 }
 
-  const mapStateToProps = (state) => {
-    console.log('Inside Component ', state);
+const mapStateToProps = (state) => {
     return {
         todaydealsBooks: state.BookReducer.homepagetodaydeals,
         Email : state.userLogin.userInfo,
         AvgReview : state.BookReducer.avgreview,
     }
-  }
+}
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         onFetchTodaydealsBooks: (condition_popular)=>dispatch(actions.fetchbooksHomepagetodaydeals(condition_popular)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
@@ -141,16 +137,8 @@ class TodayDealsPage extends Component {
         OnAvgreview : () => dispatch(actions.FetchAverageReview())
 
     }
-  }
+}
   
   export default connect(mapStateToProps, mapDispatchToProps)(TodayDealsPage);
 
 
-// fetch('http://localhost:4000'+'/books/?sort=-discount',{
-//     headers:{'content-type': 'application/json'},
-// })
-// .then(res=>res.json())
-// .then(data=>{
-//     this.setState({todaydealslist : data.data})
-// });
-// console.log("alldeals",this.state.todaydealslist)

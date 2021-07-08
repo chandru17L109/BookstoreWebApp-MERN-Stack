@@ -29,7 +29,7 @@ const Button = (props) => {
         </button>
       )}
       <div>
-        <span>By placing this order, you agree to store's T&C</span>
+        <span className='button-text'>By placing this order, you agree to store's T&C</span>
       </div>
     </div>
   );

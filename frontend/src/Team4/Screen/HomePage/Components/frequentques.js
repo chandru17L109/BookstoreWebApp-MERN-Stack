@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Faq from 'react-faq-component';
 import {CardColumns,Card,Container} from 'react-bootstrap';
+
 import '../../../Styles/freq.css';
+
 import SellImage1 from '../../../images/sellImage1.png'
 import SellImage2 from '../../../images/sellImage2.png'
 import SellImage3 from '../../../images/sellImage3.png'
@@ -12,7 +14,9 @@ import DealsForYouImage4 from '../../../images/dealsForYouImage4.jpg'
 import DealsForYouImage5 from '../../../images/dealsForYouImage5.jpg'
 import DealsForYouImage6 from '../../../images/dealsForYouImage6.jpg'
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import {Link} from "react-router-dom";
+
+
 const data = {
   title: "Frequently Asked Questions",
   rows: [
@@ -67,63 +71,63 @@ export default class Frequentques extends Component {
       <div>
         <Container>
 
-          {/* Deals for you content (before FAQ) */}
-        <div className="dealsForYouContent">
-          <div>
-            <h1 className="dealsForYouHeading">DEALS FOR YOU !!!</h1>
-          </div>
-          <CardColumns>
-            <Card>
-              <Card.Img className="dealsForYouImage" variant="top" src={DealsForYouImage1} />
-            </Card>
-            <Card>
-              <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage2} />
-            </Card>
-            <Card>
-              <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage3}  />
-            </Card>
-          </CardColumns>
-          <CardColumns>
-            <Card>
-              <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage4} />
-            </Card>
-            <Card>
-              <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage5}  />
-            </Card>
-            <Card>
-              <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage6} />
-              </Card>
-          </CardColumns>
-        </div>
-
-        {/* FAQ  */}
-        <div className="FAQcontent">
-          <Faq data={data}/>
-        </div>
-
-        <div className="row">
+          <div className="dealsForYouContent">
             <div>
-              <h2>Why sell on Book Store?</h2>
+              <h1 className="dealsForYouHeading">DEALS FOR YOU !!!</h1>
             </div>
-        </div>
+            <Link to = {"/todaydealspage"}>
+            <CardColumns>
+              <Card>
+                <Card.Img className="dealsForYouImage" variant="top" src={DealsForYouImage1} />
+              </Card>
+              <Card>
+                <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage2} />
+              </Card>
+              <Card>
+                <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage3}  />
+              </Card>
+            </CardColumns>
+            <CardColumns>
+              <Card>
+                <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage4} />
+              </Card>
+              <Card>
+                <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage5}  />
+              </Card>
+              <Card>
+                <Card.Img className="dealsForYouImage"variant="top" src={DealsForYouImage6} />
+                </Card>
+            </CardColumns>
+            </Link>
+          </div>
 
-        <div className="row" style={{color: 'black'}}>
-          <div className="col-md-4 pt-2 pb-5">
-            <img className="sellImage" src={SellImage1} alt=""/>
-            <h3>E-Commerce</h3>
-            <div> With online selling, buying books has become so easy that books are now one of the top selling categories in e-commerce</div>
+          <div className="FAQcontent">
+            <Faq data={data}/>
           </div>
-          <div className="col-md-4 pt-2 pb-5">
-            <img  className="sellImage" src={SellImage2}  alt=""/>
-            <h3>Reach crores of customers</h3>
-            <div>Sell to crores of engaged customer visiting Book.Store.in on desktop and through our mobile app.</div>
+
+          <div className="row">
+              <div>
+                <h2>Why sell on Book Store?</h2>
+              </div>
           </div>
-          <div className="col-md-4 pt-2 pb-5">
-            <img  className="sellImage" src={SellImage3} alt=""/>
-            <h3>Receive timely payments</h3>
-            <div >Book Store ensures your payments for your delivered orders are deposited directly in your bank account every 7 days.</div>
+
+          <div className="row" style={{color: 'black'}}>
+            <div className="col-md-4 pt-2 pb-5">
+              <img className="sellImage" src={SellImage1} alt=""/>
+              <h3>E-Commerce</h3>
+              <div> With online selling, buying books has become so easy that books are now one of the top selling categories in e-commerce</div>
+            </div>
+            <div className="col-md-4 pt-2 pb-5">
+              <img  className="sellImage" src={SellImage2}  alt=""/>
+              <h3>Reach crores of customers</h3>
+              <div>Sell to crores of engaged customer visiting Book.Store.in on desktop and through our mobile app.</div>
+            </div>
+            <div className="col-md-4 pt-2 pb-5">
+              <img  className="sellImage" src={SellImage3} alt=""/>
+              <h3>Receive timely payments</h3>
+              <div >Book Store ensures your payments for your delivered orders are deposited directly in your bank account every 7 days.</div>
+            </div>
           </div>
-        </div>
 
         </Container>
 

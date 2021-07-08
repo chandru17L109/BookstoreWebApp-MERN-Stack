@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-// import {Button,Card,Row,Container} from 'react-bootstrap' 
+
 import '../../Styles/searchbar.css';
-// import { FaStar } from "react-icons/fa";
+import arrow  from "../../images/Arrow.png"
+
 import 'bootstrap/dist/css/bootstrap.css';
+
 import * as actions from '../../action/action'
 import {connect} from 'react-redux';
-import arrow  from "../../images/Arrow.png"
 
 class Searchbar extends Component {
     constructor(props){

@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap' 
-// import fiction2  from "../../../../images/nonfic3.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-// import { FaStar } from "react-icons/fa"
 import {Link} from "react-router-dom";
+
 import '../../../../Styles/design.css';
 import '../../../../Styles/commonStyling.css'
 
 import * as actions from '../../../../action/action'
-// import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
 
 import CustomizedSnackbars from '../../../../alert_notify/alert';
@@ -36,14 +34,14 @@ class NewRelease extends Component {
             setTimeout(()=>{
                 this.setState({notify:null})
             },2000)
-          //   this.props.props.history.push('/login')
-          }else{
+        }
+        else{
             this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
             setTimeout(()=>{
               this.setState({notify:null})
             },2000)
             this.props.onAddcartlist(this.props.Email.email, bookid);
-          }  
+        }  
     }
 
     decidewishlist(bookid){
@@ -51,27 +49,27 @@ class NewRelease extends Component {
             this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
               setTimeout(()=>{
                   this.setState({notify:null})
-              },2000)
-            }else{
+            },2000)
+        }
+        else{
             this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
               setTimeout(()=>{
                 this.setState({notify:null})
               },2000)
               this.props.onAddwishlist(this.props.Email.email, bookid);
-            }
-  }
+        }
+    }
 
     render() {
         var newreleaselist = this.props.newreleaseBooks.map((books, i)=>{
             var booksreview = this.props.AvgReview;
-            console.log("booksreview",booksreview);
-                // eslint-disable-next-line
+               
             var Reviewfound = booksreview.findIndex(function(post, index) {
                 if(post._id._id === books._id)
                     return true;
             })
             var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-            console.log(Reviewfound)
+            
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     
@@ -119,37 +117,28 @@ class NewRelease extends Component {
         return (
             <>
             {this.state.notify}
-                {newreleaselist}    
+            {newreleaselist}    
             </>
         )
     }
 }
 
   
-  const mapStateToProps = (state) => {
-    console.log('Inside Component ', state);
+const mapStateToProps = (state) => {
     return {
         newreleaseBooks: state.BookReducer.homepagenewrelease,
         Email : state.userLogin.userInfo,
         AvgReview : state.BookReducer.avgreview,
     }
-  }
+}
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         onFetchNewReleaseBooks: (condition_popular)=> dispatch(actions.fetchbooksHomepagenewrelease(condition_popular)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
         OnAvgreview : () => dispatch(actions.FetchAverageReview())
     }
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(NewRelease);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NewRelease);
 
-// fetch('http://localhost:4000'+'/books/?sort=-date',{
-//     headers:{'content-type': 'application/json'},
-// })
-// .then(res=>res.json())
-// .then(data=>{
-//     this.setState({newrelease : data.data})
-// });
-// console.log("alldeals",this.state.newrelease)

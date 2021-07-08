@@ -3,13 +3,13 @@ export const GET_BOOKS_BY_HEADERSEARCHQUERY = "GET_BOOKS_BY_HEADERSEARCHQUERY"
 export const GET_BOOKS_BY_QUERY_HOMEPAGE_TODAYDEALS = "GET_BOOKS_BY_QUERY_HOMEPAGE_TODAYDEALS"
 export const GET_BOOKS_BY_QUERY_HOMEPAGE_POPULARBOOKS = "GET_BOOKS_BY_QUERY_HOMEPAGE_POPULARBOOKS"
 export const GET_BOOKS_BY_QUERY_HOMEPAGE_NEWRELEASE = "GET_BOOKS_BY_QUERY_HOMEPAGE_NEWRELEASE"
-export const GET_BOOKS_BY_QUERY_PAGINATION = "GET_BOOKS_BY_QUERY_PAGINATION"
 export const ADD_TO_WISH_LIST = "ADD_TO_WISH_LIST"
 export const ADD_TO_CART_LIST = "ADD_TO_CART_LIST"
 export const ADD_REVIEW = "ADD_REVIEW"
 export const GET_BOOKS_BY_REVIEWS = "GET_BOOKS_BY_REVIEWS"
 export const GET_BOOKS_BY_AVERAGE_REVIEWS = "GET_BOOKS_BY_AVERAGE_REVIEWS"
 export const GET_BOOK_FOR_DESCRIPTION = "GET_BOOK_FOR_DESCRIPTION"
+export const GET_BOOK_FOR_SEARCH_TITLE = "GET_BOOK_FOR_SEARCH_TITLE"
 export const SET_PAGE = "SET_PAGE"
 
 
@@ -20,26 +20,18 @@ var currentpage =""
 
 var FINDURL = () => {
     var url = window.location.href.split("/");
-    console.log("window.location.href",url)
     var findurl = url[url.length - 1]
-    console.log("findurl",findurl)
 
     if(findurl === "allbookspage"){
         FETCHQUERY = "/"
         currentpage = "/"
-
     }else if(findurl === "newrelease"){
         FETCHQUERY = '&sort=-publishDate'
         currentpage = '&sort=-publishDate'
     }
-    // }else if(findurl === "popularpage"){
-    //     FETCHQUERY = "&sort=-ratings"
-    //     currentpage = "&sort=-ratings"
-
     else if(findurl === "todaydealspage"){
         FETCHQUERY = '&sort=-discount'
         currentpage = '&sort=-discount'
-
     }else{
         FETCHQUERY = "/?"
         currentpage = "/?"
@@ -60,8 +52,6 @@ var CONDITION = (givencondition) =>{
 var PAGE_NO = (cur_page,query,condition) => {
     var fetch = []
     fetch.push([cur_page,query,condition])
-    console.log("fetch array",fetch)
-    console.log("templist before",templist, currentpage)
     if((condition !== "")){
         templist.pop()
         templist.push([cur_page,query,condition])
@@ -71,41 +61,28 @@ var PAGE_NO = (cur_page,query,condition) => {
                 if(templist[templist.length - 1][1] !== currentpage){
                     var fetchlist = []
                     fetchlist.push([cur_page,  currentpage , ""])
-                    console.log("fetchlist inside", fetchlist)
                     return fetchlist
                 }
                 else{
                     fetchlist = []
                     fetchlist.push([cur_page,  templist[templist.length - 1][1], templist[templist.length - 1][2]])
-                    console.log("fetchlist inside", fetchlist)
                     return fetchlist
                 }
             }
     }
-    console.log("templist after",templist, currentpage)
     return fetch
 }
 
 export const fetchbooksbyquery = (cur_page,givencondition) => {
-    console.log("cur_page",cur_page)
     let query = FINDURL();
-    console.log("query",query);
     let condition = CONDITION(givencondition)
-    console.log("condition",condition);
     var current_page = PAGE_NO(cur_page,query,condition)
-
-    console.log("current_page",current_page)
-
-    // console.log("currentpage[0]",current_page[0][0])
-    // console.log("currentpage[1]",current_page[0][1])
-    // console.log("currentpage[2]",current_page[0][2])
 
     var pageno_   = current_page[0][0]
     var sort_ = current_page[0][1]
     var condition_  = current_page[0][2]
 
     var Current_API = `${API}/books?page=${pageno_}&limit=12${sort_}${condition_}`
-
 
     console.log("Current_API",Current_API)
 
@@ -125,31 +102,27 @@ export const fetchbooksbyquery = (cur_page,givencondition) => {
 
 export const fetchbooksHomepagetodaydeals = (givencondition) => {
     let query = FINDURL();
-    console.log("query",query);
     let condition = CONDITION(givencondition)
-    console.log("condition",condition);
 
     console.log(`${API}/books${query}${condition}`)
 
-        return dispatch => {
-            return fetch(`${API}/books${query}${condition}`, {
-                    headers: { 'Content-Type': 'application/json' },
+    return dispatch => {
+        return fetch(`${API}/books${query}${condition}`, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(data =>data.json()) 
+            .then(res=>{
+                dispatch({
+                    type : GET_BOOKS_BY_QUERY_HOMEPAGE_TODAYDEALS,
+                    payload : res.data
                 })
-                .then(data =>data.json()) 
-                .then(res=>{
-                    dispatch({
-                        type : GET_BOOKS_BY_QUERY_HOMEPAGE_TODAYDEALS,
-                        payload : res.data
-                    })
-                })
+            })
         }
-}
+    }
 
 export const fetchbooksHomepagepopularbooks = (givencondition) => {
     let query = FINDURL();
-    console.log("query",query);
     let condition = CONDITION(givencondition)
-    console.log("condition",condition);
 
     console.log(`${API}/books${query}${condition}`)
 
@@ -169,9 +142,7 @@ export const fetchbooksHomepagepopularbooks = (givencondition) => {
 
 export const fetchbooksHomepagenewrelease = (givencondition) => {
     let query = FINDURL();
-    console.log("query",query);
     let condition = CONDITION(givencondition)
-    console.log("condition",condition);
 
     console.log(`${API}/books${query}${condition}`)
 
@@ -190,7 +161,6 @@ export const fetchbooksHomepagenewrelease = (givencondition) => {
 }
 
 export const fetchheadersearchresults = (searchvalue) => {
-    console.log("searchvalue",searchvalue);
     console.log(`${API}/books/CommonSearch/${searchvalue}`)
 
     return dispatch => {
@@ -199,35 +169,12 @@ export const fetchheadersearchresults = (searchvalue) => {
             })
             .then(data =>data.json()) 
             .then(res=>{
-                // this.setstate({books:res.data})
-                console.log("res",res)
                 dispatch({
                     type : GET_BOOKS_BY_HEADERSEARCHQUERY,
                     payload : res
                 })
             })
     }
-}
-
-export const fetchAllbooksPagination = (currentpage) => {
-
-    console.log(`${API}/books?page=${currentpage}&limit=12`)
-
-        return dispatch => {
-            return fetch(`${API}/books?page=${currentpage}&limit=12`, {
-                    headers: { 'Content-Type': 'application/json' },
-                })
-                .then(data =>data.json()) 
-                .then(res=>{
-                    dispatch({
-                        type : GET_BOOKS_BY_QUERY_PAGINATION,
-                        payload : {
-                            data : res.data,
-                            paginate : res.pagination
-                        }
-                    })
-                })
-        }
 }
 
 export const Addtocartlist = (email,bookid) => {
@@ -314,7 +261,7 @@ export const FetchReview = (bookid) => {
         }
 }
 
-export const FetchAverageReview = (bookid) => {
+export const FetchAverageReview = () => {
     console.log(`${API}/books/review/avgrating`)
         return dispatch => {
             return fetch(`${API}/books/review/avgrating`, {
@@ -331,8 +278,6 @@ export const FetchAverageReview = (bookid) => {
 }
 
 export const FetchBookDescription = (bookid) =>{
-    console.log("bookid",bookid)
-    console.log(`${API}/books?_id=${bookid}`)
 
     return dispatch => {
         return fetch(`${API}/books?_id=${bookid}`, {
@@ -349,189 +294,19 @@ export const FetchBookDescription = (bookid) =>{
     }
 }
 
-// export const FetchAllbooksBasedonAvgRating = (currentpage) =>{
-//     console.log("currentpage",currentpage)
-//     console.log(`${API}/books/review/avgrating`)
-//     return dispatch => {
-//         return fetch(`${API}/books/review/avgrating`, {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json()) 
-//             .then(res=>{
-//                 console.log("res",res)
-//                 dispatch({
-//                     type : GET_BOOK_BY_,
-//                     payload : res.data[0]
-//                 })
-//             })
-//     }
-// }
+export const FetchBookSearchByTitle = () =>{
+    console.log(`${API}/books?limit=40`)
 
-    // else{
-    //     FETCHQUERY = `/CommonSearch/${findurl}/?1`
-    // }
-
-// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-// export const GET_BOOKS_BY_MIXEDCOLLECTION = "GET_BOOKS_BY_MIXEDCOLLECTION"
-// export const GET_BOOKS_BY_TODAYDEALS = "GET_BOOKS_BY_TODAYDEALS"
-// export const GET_BOOKS_BY_NEWRELEASE = "GET_BOOKS_BY_NEWRELEASE"
-// export const GET_BOOKS_BY_POPULAR = "GET_BOOKS_BY_POPULAR" 
-// export const GET_BOOKS_BY_PRICE_LESSTHAN500 = "GET_BOOKS_BY_PRICE_LESSTHAN500"
-// export const GET_BOOKS_BY_PRICE_500ANDABOVE = "GET_BOOKS_BY_PRICE_500ANDABOVE"
-// export const GET_BOOKS_BY_PRICE_1000ANDABOVE = "GET_BOOKS_BY_PRICE_1000ANDABOVE"
-// export const fetchbooksbypricebelow500 = () => {
-
-//     let query = FINDURL();
-//     console.log("query",query)
-
-//     return dispatch => {
-//         return fetch(`${API}/books${query}&price[lt]=500`, {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_PRICE_LESSTHAN500,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-
-// export const fetchbooksbypricebelow500 = () => {
-
-//     let query = FINDURL();
-//     console.log("query",query)
-
-//     return dispatch => {
-//         return fetch(`${API}/books${query}&price[lt]=500`, {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_PRICE_LESSTHAN500,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-// export const fetchbooksbyprice500andabove= () => {
-
-//     let query = FINDURL();
-//     console.log("query",query)
-
-//     return dispatch => {
-//         return fetch(`${API}/books${query}&price[gte]=500`, {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_PRICE_1000ANDABOVE,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-
-// export const fetchbooksbyprice1000andabove= (querycondition) => {
-
-//     let query = FINDURL();
-//     console.log("query",query)
-
-//     return dispatch => {
-//         return fetch(`${API}/books${query}&${querycondition}`, {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_PRICE_1000ANDABOVE,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-
-
-
-
-
-
-// ------------------------------------------------------------------------
-
-// export const fetchbooksbymixedcollections = () => {
-//     return dispatch => {
-//         return fetch(API+'/books', {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json()) 
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_MIXEDCOLLECTION,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-// export const fetchbooksbytodaydeals = () => {
-//     return dispatch => {
-//         return fetch(API+'/books?sort=-discount', {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_TODAYDEALS,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-
-// export const fetchbooksbynewrelease = () => {
-//     return dispatch => {
-//         return fetch(API+'/books?sort=-date', {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_NEWRELEASE,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-
-// export const fetchbooksbypopularbooks = () => {
-//     return dispatch => {
-//         return fetch(API+'/books?sort=-ratings', {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json())
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_POPULAR,
-//                     payload : res.data
-//                 })
-//             })
-//     }
-// }
-
-
-// if(query[query.length-1] === 1){
-//     return dispatch => {
-//         return fetch(`${API}/books${query}${condition}`, {
-//                 headers: { 'Content-Type': 'application/json' },
-//             })
-//             .then(data =>data.json()) 
-//             .then(res=>{
-//                 dispatch({
-//                     type : GET_BOOKS_BY_QUERY,
-//                     payload : res
-//                 })
-//             })
-//     }
-//
+    return dispatch => {
+        return fetch(`${API}/books?limit=40`, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then(res=>res.json()) 
+            .then(data=>{
+                dispatch({
+                    type : GET_BOOK_FOR_SEARCH_TITLE,
+                    payload : data.data
+                })
+            })
+    }
+}

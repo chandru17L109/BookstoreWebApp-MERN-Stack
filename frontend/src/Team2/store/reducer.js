@@ -10,11 +10,8 @@ let initialState = {
 }
 
 const BookReducerCart = (state = initialState, action) => {
-    console.log('Action recieved at reducer***  ', action);
     switch (action.type) {
 
-        case actions.ON_PAGE_LOAD: return { ...state, books: action.payload }
-        case actions.ON_ADD_CARTITEM: return { ...state, books: action.payload }
 
         case actions.ON_CART_LOAD: return { ...state, cart: action.payload }
         case actions.ON_DELETE_ITEM: return { ...state, cart: action.payload }

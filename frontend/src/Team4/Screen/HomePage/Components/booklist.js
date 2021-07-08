@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import {Carousel,Card, Row, Col} from 'react-bootstrap' 
-// import nonfic2  from "../../../images/nonfic2.JPG"
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa"
-// import { FaStar } from "react-icons/fa"
-import TodayDealsPage from './BookListComponents/todaydeals';
-import NewRelease from './BookListComponents/newrelease';
-import PopularBookPage from './BookListComponents/popularbook';
 import {Link} from "react-router-dom";
+
 import '../../../Styles/design.css';
+
+import * as actions from '../../../action/action'
+import {connect} from 'react-redux';
+
 import HomePageCarousal2Image1 from '../../../images/homePageCarousal2Image1.png'
 import HomePageCarousal2Image2 from '../../../images/homePageCarousal2Image2.jpg'
 import HomePageCarousal2Image3 from '../../../images/homePageCarousal2Image3.jpg'
 import BooklistCard2Image from '../../../images/booklistCard2Image.png'
-import * as actions from '../../../action/action'
-import {connect} from 'react-redux';
+
+import TodayDealsPage from './BookListComponents/todaydeals';
+import NewRelease from './BookListComponents/newrelease';
+import PopularBookPage from './BookListComponents/popularbook';
 import CustomizedSnackbars from '../../../alert_notify/alert';
 import AvgRating from '../../AvgRating/AvgRating'
 
@@ -29,50 +31,50 @@ class AllBooksPage extends Component {
     componentDidMount(){
        this.props.onFetchBooklistBooks();
        this.props.OnAvgreview();
-   }
+    }
 
    decidecartlist(bookid){
-    if(!this.props.Email){
-      this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
-      setTimeout(()=>{
-          this.setState({notify:null})
-      },2000)
-    //   this.props.props.history.push('/login')
-    }else{
-      this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
-      setTimeout(()=>{
-        this.setState({notify:null})
-      },2000)
-      this.props.onAddcartlist(this.props.Email.email, bookid);
-    }  
-}
-
-decidewishlist(bookid){
-  if(!this.props.Email){
-    this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
-      setTimeout(()=>{
-          this.setState({notify:null})
-      },2000)
-    }else{
-    this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
-      setTimeout(()=>{
-        this.setState({notify:null})
-      },2000)
-      this.props.onAddwishlist(this.props.Email.email, bookid);
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+        }
+        else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+            this.props.onAddcartlist(this.props.Email.email, bookid);
+        }  
     }
-}
+
+    decidewishlist(bookid){
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+        }
+        else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+            this.props.onAddwishlist(this.props.Email.email, bookid);
+        }
+    }
 
     render() {
         var allbookslist = this.props.Books.map((books, i)=>{
-                var booksreview = this.props.AvgReview;
-                console.log("booksreview",booksreview);
-                // eslint-disable-next-line
-                var Reviewfound = booksreview.findIndex(function(post, index) {
-                    if(post._id._id === books._id)
-                        return true;
-                })
-                var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-                console.log(Reviewfound)
+            var booksreview = this.props.AvgReview;
+            
+            var Reviewfound = booksreview.findIndex(function(post, index) {
+                if(post._id._id === books._id)
+                    return true;
+            })
+            var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
+              
             return(
                 <div className="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2 cardmarign" key={i}>
                     
@@ -92,7 +94,6 @@ decidewishlist(bookid){
                                 </div>
                                    
                                 <strong style={{ textDecorationLine: 'line-through' }}>Rs. {books.price}</strong>
-                                {/* <strong style={{marginLeft:"7px",color:"red"}}>Rs.{SellingPrice(books.price,books.discount)}</strong> */}
                                 <strong style={{marginLeft:"7px",color:"red"}}>Rs.{Math.round(books.price - (books.price * books.discount/100))}</strong>
                                
 
@@ -116,7 +117,6 @@ decidewishlist(bookid){
                     </Card>
                 </div>
             )
-            // }
         })
         
         return (
@@ -211,21 +211,6 @@ decidewishlist(bookid){
                         </Row>
                     </Card>
 
-                {/* <div className="booklistCard2">
-                    <div class="card flex-row flex-wrap booklistCard2Container">
-                        <img className="booklistCard2Image" src="https://static.storyhouse.com/cms/wp-content/uploads/2020/06/Newsletter-Banner-1200x4002-1-2048x683.png" alt=""/>
-                        <div class="card-block card-content booklistCard2Content">
-                            <h1 class="card-title" className="booklistCard2Heading">The Summer Reading Challenge </h1>
-                            <div className="lineHeight">
-                            <p class="card-text" ><div><p className="booklistCard2Text">Kids who read any 7 books can earn a Star Reader Certificate and a free </p></div></p>
-                            <p class="card-text"><div><p className="booklistCard2Text">book from National Geographic Kids. Pick up a sign-up sheet at your local </p></div></p>
-                            <p class="card-text"><div><p className="booklistCard2Text">Books Store to get started. Limited time offer. Book choice limited to specific</p> </div></p>
-                            <p class="card-text"><div><p className="booklistCard2Text"> titles and ages (Grades K-8). Children must have parent’s permission.</p></div></p>
-                            </div>
-                            <h5 class="card-title booklistCard2Heading">Book Store <br/> June 15 - August 15 </h5>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="w-100">
                       <span className="heading_">Popular Books</span>
                       <Link to = {'/popularpage'}> <a href = "/" className="viewmore">View more ..</a> </Link>
@@ -239,33 +224,23 @@ decidewishlist(bookid){
     }
 }
 
-  const mapStateToProps = (state) => {
-    console.log('Inside Component ', state);
+const mapStateToProps = (state) => {
     return {
         Books: state.BookReducer.books,
         Email : state.userLogin.userInfo,
         AvgReview : state.BookReducer.avgreview,
-
     }
   }
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         onFetchBooklistBooks: ()=>dispatch(actions.fetchbooksbyquery()),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
         onAddwishlist : (email,bookid) =>  dispatch(actions.Addtowishlist(email,bookid)),
         OnAvgreview : () => dispatch(actions.FetchAverageReview())
     }
-  }
+}
   
-  export default connect(mapStateToProps, mapDispatchToProps)(AllBooksPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AllBooksPage);
 
 
-//   fetch('http://localhost:4000'+'/books',{
-//     headers:{'content-type': 'application/json'},
-// })
-// .then(res=>res.json())
-// .then(data=>{
-//     this.setState({allbooks : data.data})
-// });
-// console.log("alldeals",this.state.allbooks)

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import {Card, Container, Row, Col} from 'react-bootstrap';
+
 import '../../../Styles/homeContentCards.css';
+
 import BooklistCard3Imageprime from '../../../images/booklistCard3Imageprime.png'
 
 export default class Homecontent1 extends Component {
     render() {
         return (
             <div>
+                
                <Container>
                     <Card className="cardContainer">
                         <Row>

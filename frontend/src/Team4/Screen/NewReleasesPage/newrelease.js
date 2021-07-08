@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import {Card,Button} from 'react-bootstrap' ;
-// import fiction2  from "../../images/nonfic3.JPG"
-import SearchPage from '../SideSearchBar/searchbar';
+import {Card,Button} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
+
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-// import { FaStar } from "react-icons/fa";
-import {Link} from "react-router-dom";
+
 import '../../Styles/commonStyling.css';
 import '../../Styles/newRelease.css';
-import NewReleasePageCardImage from '../../images/newReleasePageCardImage.jpg'
-// import NewreleasebottomCardImage from '../../images/NewreleasebottomCardImage.jpg'
-import PopularBookPage from '../HomePage/Components/BookListComponents/popularbook'
 
-
-import * as actions from '../../action/action'
-import {connect} from 'react-redux';
-
+import SearchPage from '../SideSearchBar/searchbar';
+import NewReleasePageCardImage from '../../images/newReleasePageCardImage.jpg';
+import PopularBookPage from '../HomePage/Components/BookListComponents/popularbook';
+import * as actions from '../../action/action';
 import AvgRating from '../AvgRating/AvgRating'
 
 import CustomizedSnackbars from '../../alert_notify/alert';
@@ -30,58 +27,56 @@ class NewReleasePage extends Component {
         this.props.onFetchAllbooks(this.state.current);
         this.props.OnAvgreview();
         this.props.onSetPageNo(1)
-      }
+    }
   
-      changenext(){
-          var cur = this.props.pagenum;
-          cur=cur+1
-          this.props.onSetPageNo(cur)
-          this.props.onFetchAllbooks(cur)
-      }
-  
-      changeprev(){
-          var cur = this.props.pagenum;;
-          cur=cur-1
-          this.props.onSetPageNo(cur)
-          this.props.onFetchAllbooks(cur)
-      }
+    changenext(){
+        var cur = this.props.pagenum;
+        cur=cur+1
+        this.props.onSetPageNo(cur)
+        this.props.onFetchAllbooks(cur)
+    }
 
-      decidecartlist(bookid){
+    changeprev(){
+        var cur = this.props.pagenum;;
+        cur=cur-1
+        this.props.onSetPageNo(cur)
+        this.props.onFetchAllbooks(cur)
+    }
+
+    decidecartlist(bookid){
         if(!this.props.Email){
             this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
             setTimeout(()=>{
                 this.setState({notify:null})
             },2000)
-          //   this.props.props.history.push('/login')
-          }else{
+        }else{
             this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
             setTimeout(()=>{
-              this.setState({notify:null})
+                this.setState({notify:null})
             },2000)
-            this.props.onAddcartlist(this.props.Email.email, bookid);
-          }   
-      }
+        this.props.onAddcartlist(this.props.Email.email, bookid);
+        }   
+    }
 
-      decidewishlist(bookid){
+    decidewishlist(bookid){
         if(!this.props.Email){
             this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
-              setTimeout(()=>{
-                  this.setState({notify:null})
-              },2000)
-            }else{
-            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
-              setTimeout(()=>{
+                setTimeout(()=>{
+                    this.setState({notify:null})
+                },2000)
+        }else{
+        this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
+            setTimeout(()=>{
                 this.setState({notify:null})
-              },2000)
-              this.props.onAddwishlist(this.props.Email.email, bookid);
-            }
+            },2000)
+        this.props.onAddwishlist(this.props.Email.email, bookid);
+        }
     }
     
     render() {
         var showprevbutton = true
         var shownextbutton = true
         var newreleaselist;
-        console.log("this.props.Books",this.props.Books)
 
         if(this.props.pagenum !== 1){
             showprevbutton = false
@@ -109,15 +104,12 @@ class NewReleasePage extends Component {
             newreleaselist = this.props.Books.map((books, i)=>{
 
                 var booksreview = this.props.AvgReview;
-                // console.log("booksreview",booksreview);
-                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
                 })
                 
                 var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-                // console.log(Reviewfound)
                 
                 return(
                     
@@ -143,7 +135,6 @@ class NewReleasePage extends Component {
 
                                 <div>
                                     <strong style={{float:"left"}} variant="link">
-                                        {/* <Rating rating={product.rating} numReviews={product.numReviews}></Rating> */}
                                         <AvgRating rating={Math.round(RatingValue)}></AvgRating>
 
                                     </strong>
@@ -158,7 +149,6 @@ class NewReleasePage extends Component {
                                         <i className="text-danger "><FaHeart/></i>
                                     </button> 
                                 </div>                               
-
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -166,7 +156,7 @@ class NewReleasePage extends Component {
             )
         })
     }
-        return (
+return (
             <>
  {this.state.notify}
             <div className="newReleasePageCard">
@@ -174,7 +164,7 @@ class NewReleasePage extends Component {
                     <Card.Img className="newReleasePageCardImage" src={NewReleasePageCardImage} alt="Card image"  />
                     <Card.ImgOverlay>
                         <Card.Title className="newReleasePageCardContent"><h1><b>
-                          Non-Fictional Books - Fasinating Worlds of <br></br>Reality, Discover New Things in Every Page!!!</b></h1>
+                            Non-Fictional Books - Fasinating Worlds of <br></br>Reality, Discover New Things in Every Page!!!</b></h1>
                         </Card.Title>
                     </Card.ImgOverlay>
                 </Card>
@@ -213,18 +203,12 @@ class NewReleasePage extends Component {
 
          
             <div className="bottomCard">
-                {/* <Card> */}
-                    {/* <Card.Img className="bottomCardImage" src={NewreleasebottomCardImage} alt="Card image" /> */}
-                    {/* <Card.ImgOverlay> */}
-                        <Card.Title ><h1><b className="bottomCardContent">Connect and Celebrate</b></h1></Card.Title>
-                        <Card.Text >
-                            <h1 className="bottomCardContent">
-                            {/* newReleaseCard2Text */}
-                            A Modern Romance for people who love to read</h1>
-                        </Card.Text>
-                        <Card.Text><h3 className="bottomCardContent">Find new releases and order now</h3></Card.Text>
-                    {/* </Card.ImgOverlay> */}
-                {/* </Card> */}
+                <Card.Title ><h1><b className="bottomCardContent">Connect and Celebrate</b></h1></Card.Title>
+                <Card.Text >
+                    <h1 className="bottomCardContent">
+                    A Modern Romance for people who love to read</h1>
+                </Card.Text>
+                <Card.Text><h3 className="bottomCardContent">Find new releases and order now</h3></Card.Text>
             </div>
 
             <div className="row">
@@ -238,16 +222,15 @@ class NewReleasePage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('Inside Component ', state);
     return {
         Books: state.BookReducer.books,
         Email : state.userLogin.userInfo,
         AvgReview : state.BookReducer.avgreview,
         pagenum : state.BookReducer.pageNo
     }
-  }
+}
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
@@ -255,22 +238,6 @@ const mapStateToProps = (state) => {
         OnAvgreview : () => dispatch(actions.FetchAverageReview()),
         onSetPageNo :(no)=>dispatch({type:actions.SET_PAGE,payload:no})
     }
-  }
+}
   
-  export default connect(mapStateToProps, mapDispatchToProps)(NewReleasePage);
-
-  
-// onFetchNewReleaseBooks: ()=>dispatch(actions.fetchbooksbynewrelease()),
-
-  // componentDidMount(){
-        // fetch('http://localhost:4000'+'/books/?sort=-date',{
-        //     headers:{'content-type': 'application/json'},
-        // })
-        // .then(res=>res.json())
-        // .then(data=>{
-        //     this.setState({newrelease : data.data})
-        // });
-        // console.log("alldeals",this.state.newrelease)
-    // }
-
-    // function NewReleasePage(props){
+export default connect(mapStateToProps, mapDispatchToProps)(NewReleasePage);

@@ -1,206 +1,97 @@
-/* .visibility{
-    visibility: hidden;
-  }
-  
-  .bookListCard{
-    width: 100%;
-    text-align: center;
-  }
-  
-  @keyframes mymove {
-    50% {color: rgb(22, 21, 20);}
-    0% {
-      object-position: 0% 0%;
-    }
-    25% {
-      object-position: 20% 0%;
-    }
-    100% {
-      object-position: 100% 100%;
-    }
-  }
-  .bookListCardImage{
-      height: 350px;
-  }
-  
-  .bookListCardLeftContent{
-    text-align: center;
-    top: 15%;
-    left: 60%;
-    position: absolute;
-    font-family: "Copperplate, Papyrus, fantasy";
-  }
-  
-  .bookListCardContentAni{
-    font-size: 250%;
-    color: rgb(255, 0, 98);
-    animation: mymove 3s infinite;
-    font-family: Trebuchet MS, Helvetica, sans-serif;
-  
-  }
-  .bookListCardRightContent{
-    text-align: center;
-    top: 15%;
-    right: 60%;
-    position: absolute;
-    font-family: "Copperplate, Papyrus, fantasy";
-  
-  }
-  
-  .bookListCardContent{
-    color: black !important;
-    font-weight: 600;
-  }
-  
-  .booklistCard2{
-    width: 100%;
-    margin: 20px 10px;
-    background-color: white;
-  }
-  
-  .booklistCard2:hover{
-    box-shadow: 7px 7px 7px 7px #b6b3b3;
-    transition: 0.5s;
-    transform: translateY(7px);
-  }
-  
-  .booklistCard2Container{
-    display: inline;
-  }
-  
-  .booklistCard2Heading{
-    font-weight: 800;
-  }
-  
-  .booklistCard2Text{
-    color: black !important;
-    font-size: 18px;
-  }
-  
-  .booklistCard2Image{
-    object-fit: cover;
+.visibility{
+  visibility: hidden;
+}
+
+
+.leftpaddingcard{
+  margin-left: 10px !important;
+}
+
+.leftpaddingcarddata{
+  margin-left: 10px !important;
+}
+
+.leftpaddingcarddata .aligncartwishlist{
+  margin-left: -10px !important;
+}
+
+.booklistCard2{
+  width: 100%;
+  margin: 20px 10px;
+  background-color: white;
+}
+
+.booklistCard2:hover{
+  box-shadow: 7px 7px 7px 7px #b6b3b3;
+  transition: 0.5s;
+  transform: translateY(7px);
+}
+
+.booklistCard2Container{
+  display: inline;
+}
+
+.booklistCard2Heading{
+  font-weight: 800;
+}
+
+.booklistCard2Text{
+  color: black !important;
+  font-size: 18px;
+  line-height: 200%;
+}
+
+.booklistCard2Image{
+  width: 500px;
+  height: 300px; 
+  object-fit: cover;
+  object-position: 0% 0%;
+  animation: booklistCard2ImageAni 5s infinite;
+}  
+
+@keyframes booklistCard2ImageAni {
+  50% {color: black;}
+  0% {
     object-position: 0% 0%;
-    animation: booklistCard2ImageAni 5s infinite;
-  }  
-  
-  @keyframes booklistCard2ImageAni {
-    50% {color: black;}
-    0% {
-      object-position: 0% 0%;
-    }
-    25% {
-      object-position: 20% 0%;
-    }
-    100% {
-      object-position: 100% 100%;
-    }
   }
-  
-  .booklistCard2Content{
-    background-color: rgb(255, 253, 253);
-    padding: 30px;
+  25% {
+    object-position: 20% 0%;
   }
-  
-  .Cardshover:hover{
-    box-shadow: 5px 5px 5px 5px #111111;
-    transform: translateY(10px);
-    transition: 1s;
+  100% {
+    object-position: 100% 100%;
   }
-   */
-  .visibility{
-    visibility: hidden;
-  }
+}
 
+.booklistCard2Content{
+  background-color: rgb(255, 253, 253);
+  padding: 30px;
+  line-height: 0 !important;
+}
 
-  .leftpaddingcard{
-    margin-left: 10px !important;
-  }
+.Cardshover:hover{
+  box-shadow: 5px 5px 5px 5px #111111;
+  transform: translateY(10px);
+  transition: 1s;
+}
 
-  .leftpaddingcarddata{
-    margin-left: 10px !important;
-  }
-  
-  .leftpaddingcarddata .aligncartwishlist{
-    margin-left: -10px !important;
-  }
-  
-  .booklistCard2{
-    width: 100%;
-    margin: 20px 10px;
-    background-color: white;
-  }
-  
-  .booklistCard2:hover{
-    box-shadow: 7px 7px 7px 7px #b6b3b3;
-    transition: 0.5s;
-    transform: translateY(7px);
-  }
-  
-  .booklistCard2Container{
-    display: inline;
-  }
-  
-  .booklistCard2Heading{
-    font-weight: 800;
-  }
-  
-  .booklistCard2Text{
-    color: black !important;
-    font-size: 18px;
-    line-height: 200%;
-  }
-  
-  .booklistCard2Image{
-    width: 500px;
-    height: 300px; 
-    object-fit: cover;
-    object-position: 0% 0%;
-    animation: booklistCard2ImageAni 5s infinite;
-  }  
-  
-  @keyframes booklistCard2ImageAni {
-    50% {color: black;}
-    0% {
-      object-position: 0% 0%;
-    }
-    25% {
-      object-position: 20% 0%;
-    }
-    100% {
-      object-position: 100% 100%;
-    }
-  }
-  
-  .booklistCard2Content{
-    background-color: rgb(255, 253, 253);
-    padding: 30px;
-    line-height: 0 !important;
-  }
-  
-  .Cardshover:hover{
-    box-shadow: 5px 5px 5px 5px #111111;
-    transform: translateY(10px);
-    transition: 1s;
-  }
-
-  .homePageCarousal2{
-    display: inline-block;
-    width: 100%;
-    padding:20px;
+.homePageCarousal2{
+  display: inline-block;
+  width: 100%;
+  padding:20px;
 }
 
 .homePageCarousal2Image{
-    width: 100%;
-    height: 400px;
+  width: 100%;
+  height: 400px;
 }
 
 .homePageCarousal2Content{
-    color: black;
-    font-family: Brush Script MT, cursive;
-    position: absolute;
-    top:-340%;
-    left: 48%;
-    transform: translate(-45%, -50%);
+  color: black;
+  font-family: Brush Script MT, cursive;
+  position: absolute;
+  top:-340%;
+  left: 48%;
+  transform: translate(-45%, -50%);
 }
 
 /* ------------------------------------------------------------------------------------------- */
@@ -269,26 +160,26 @@
     width: 180px;
   }
 
-.homePageCarousal2Image{
-  height: 350px;
-}
+  .homePageCarousal2Image{
+    height: 350px;
+  }
 
-.homePageCarousal2Content{
-  top:-290%;
-  left: 48%;
-}
+  .homePageCarousal2Content{
+    top:-290%;
+    left: 48%;
+  }
 
-.homePageCarousal2Text{
-  font-size: 28px !important;
-}
+  .homePageCarousal2Text{
+    font-size: 28px !important;
+  }
 
-.leftpaddingcarddata{
-  margin-top: 20px !important;
-}
+  .leftpaddingcarddata{
+    margin-top: 20px !important;
+  }
 
-.leftpaddingcarddata .aligncartwishlist{
-  margin-left: 20px !important;
-}
+  .leftpaddingcarddata .aligncartwishlist{
+    margin-left: 20px !important;
+  }
 
 }
 
@@ -312,31 +203,31 @@
     margin: 5px 3px;
   }
 
-.carousalsize{
-  height: 300px !important;
-}
-.leftpaddingcard{
-  margin-left: 0px !important;
-}
-.opacityicon{
-  opacity: 0.3 !important;
-  background-color: rgb(228, 224, 216) !important;
-}
+  .carousalsize{
+    height: 300px !important;
+  }
+  .leftpaddingcard{
+    margin-left: 0px !important;
+  }
+  .opacityicon{
+    opacity: 0.3 !important;
+    background-color: rgb(228, 224, 216) !important;
+  }
 
-.homePageCarousal2Image{
-  height: 200px;
-}
+  .homePageCarousal2Image{
+    height: 200px;
+  }
 
-.homePageCarousal2Content{
-  top:-100%;
-  left: 48%;
-}
+  .homePageCarousal2Content{
+    top:-100%;
+    left: 48%;
+  }
 
-.homePageCarousal2Text{
-  font-size: 14px !important;
-}
+  .homePageCarousal2Text{
+    font-size: 14px !important;
+  }
 
-.leftpaddingcarddata .aligncartwishlist{
-  margin-left: 0px !important;
-}
+  .leftpaddingcarddata .aligncartwishlist{
+    margin-left: 0px !important;
+  }
 }

@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import AddressItem from "./AddressItem";
+import './AddressScreen.css'
 import OrderSummary from "../components/OrderSummary";
-import { Link } from "react-router-dom";
 import * as actions from "../action/action";
 import { connect } from "react-redux";
 import {
   Row,
   Col,
-  Button,
-  Card,
   Image,
   ListGroup,
   ListGroupItem,
-  FormControl,
 } from "react-bootstrap";
-// import './AddressScreen.css';
 
 import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 
@@ -90,7 +86,7 @@ function AddressScreen(props) {
 
   const editaddress = (id, arr) => {
 
-    console.log("id", id);
+
     setArea(arr.locality);
     setPincode(arr.pinCode);
     setflatno(arr.houseNumber);
@@ -99,7 +95,7 @@ function AddressScreen(props) {
     SetId(id);
     SetAddress(arr);
     Setadd(false)
-    console.log("Set id", id);
+
   };
 
   const updateaddress = () => {
@@ -209,10 +205,10 @@ function AddressScreen(props) {
 
   return (
 
-    <div >
+    <div className='wrapper-container' >
       {notify}
-      <Row>
-        <Col md={7}>
+      <div className='address-container'>
+        <div className='address-list'>
           <h2 className="text-primary">Select a delivery address</h2>
           {props.address ? (props.address.map((element) => {
             return (
@@ -228,45 +224,9 @@ function AddressScreen(props) {
             );
           }
           )) : <br></br>}
-        </Col>
-        <Col md={5}>
-          <Card>
-            <ListGroup variant="flush">
-              <h3 className="text-primary"> &nbsp; order Summary</h3>
-              <ListGroupItem>
-                {props.cartItems.map(function (item) {
-                  return (
-                    <>
-                      <Row>
-                        <Col md={2}>
-                          <Image src={item.image} fluid rounded />
-                        </Col>
-                        <Col md={3}>
-                          <p>{item.title}</p>
-                        </Col>
-                        <Col md={3}>
-                          <p>Rs {item.price}</p>
-                        </Col>
-                        <Col md={3}>
-                          <p>Qty:{item.quantity}</p>
-                        </Col>
-                      </Row>
-                      <h1></h1>
-                    </>
-                  );
-                })}
-              </ListGroupItem>
-
-              <ListGroupItem>
-                <OrderSummary />
-                <h5 className="text-primary">Cart Total Rs.{props.amount}</h5>
-              </ListGroupItem>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-      <Row style={{ width: "800px" }} >
-        <br></br>
+          <br></br>
+          <br></br>
+        </div>
         <div className="form">
           <h2 className="text-primary"> Address Form</h2>
           {addresserror ? <p>Enter valid Address</p> : <span></span>}
@@ -371,14 +331,15 @@ function AddressScreen(props) {
             </Col>
           </Row>
           {add ? (
-            <button
-              onClick={addAddress}
-              // disabled={addresserror}
-              type="button"
-              className="btn btn-primary"
-            >
-              Add Address
-            </button>
+            <div className='button-wrapper'>
+              <button
+                onClick={addAddress}
+                type="button"
+                className="btn btn-primary"
+              >
+                Add Address
+              </button>
+            </div>
 
           ) : (
             <button
@@ -392,14 +353,51 @@ function AddressScreen(props) {
 
           }
         </div>
-      </Row>
+      </div>
+      <div className="order-container">
+        <ListGroup variant="flush">
+          <h2 className='heading' > &nbsp; Order Summary</h2>
+          <ListGroupItem className='Book-style'>
+            {props.cartItems.map(function (item) {
+              return (
+                <>
+                  <div className='book-container'>
+                    <div className='book-img-container'>
+                      <Image src={item.image} fluid rounded />
+                    </div>
+                    <div className='book-text'>
+                      <p>{item.title}</p>
+                    </div>
+                    <div className='book-text'>
+                      <p>Rs.{item.price}</p>
+                    </div>
+                    <div className='book-text'>
+                      <p>Qty:{item.quantity}</p>
+                    </div>
+                  </div>
+                  <h1></h1>
+                </>
+              );
+            })}
+          </ListGroupItem>
+
+          <div>
+            <OrderSummary />
+            <h5 className="heading">Cart Total Rs.{props.amount}</h5>
+
+          </div>
+
+        </ListGroup>
+
+      </div>
+
 
     </div>
   );
 }
 
 const mapStateToProps = (state) => {
-  console.log("Inside", state);
+
   return {
     address: state.BookReducerCart.address,
     cartItems: state.BookReducerCart.cart,

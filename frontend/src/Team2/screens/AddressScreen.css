@@ -1,51 +1,10 @@
-.card{
-
-    margin-left: 17px;
-    width: 400px;
-    border-radius: 70%;
+.wrapper-container {
+  width: 80%;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: row;
 }
 
-.btn{
-
-    margin-left: 17px;
+.address-container {
+  margin: 0px 60px;
 }
-
-#order_summary{
-    float:left;
-    padding-top: 1.5cm;
-    margin-left: 4cm;
-    width:auto;
-    
-}
-
-#existing_address{
-    width: 800px;
-    height: auto;
-}
-
-#col-1{
-    width: 50%;
-    float: left;
-    height: 16cm;
-}
-#col-2{
-    width: 50%;
-    float: left;
-    height: 16cm;
-    
-}
-#rows{
-    height: auto;
-}
-
-h3{
-   color: black;
-   text-align: center;
-}
-#down_bar{
-    background-color: white;
-}
-#list_group{
-    width: auto;
-}
-

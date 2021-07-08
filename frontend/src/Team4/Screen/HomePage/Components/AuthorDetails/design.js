@@ -1,6 +1,8 @@
 import Carousel from "./Carousel";
 import {Container} from 'react-bootstrap';
+
 import './AuthorDetails.css';
+
 import Author1 from '../../../../images/Author1.jpg'
 import Author2 from '../../../../images/Author2.jpg'
 import Author3 from '../../../../images/Author3.jpg'

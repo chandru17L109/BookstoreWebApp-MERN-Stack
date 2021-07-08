@@ -106,6 +106,7 @@ const CardComponent = () => {
                         <input {...getCardNumberProps()} style={{ width: '100%' }} />
                         
                     </PaymentInputsWrapper>
+                     {/* <input type="text"  onChange={inputChangeHandler} name='nameInput' onClick={inputclickHandler}  val={state.nameInput} /> */}
                 </div>
                 <div className='card-input-container'>
                     <h4>Enter Name on Card</h4>

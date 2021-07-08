@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 import { useState, useEffect } from "react";
@@ -6,29 +6,20 @@ import * as actions from "../action/action";
 import { connect } from "react-redux";
 import EmptyCart from "../components/EmptyCart";
 import TodayDealsPage from '../../Team4/Screen/HomePage/Components/BookListComponents/todaydeals';
-
+import './CartScreen.css'
 import {
-  Row,
-  Col,
-  Form,
   Button,
   Card,
-  Image,
   ListGroup,
-  ListGroupItem,
-  FormControl,
 } from "react-bootstrap";
-import OrderSummary from "../components/OrderSummary";
 import './CartItem.css';
 import Coupon from "../components/Coupon";
 import CustomizedSnackbars from '../../Team4/alert_notify/alert';
 
 
 const CartScreen = (props) => {
-  const [totalPrice, setTotalPrice] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
-  const [charges, setCharges] = useState(0);
-  const [cartTotal, setCarttotal] = useState(0);
+
   const [notify, setNotify] = useState(null)
 
   useEffect(() => {
@@ -53,67 +44,52 @@ const CartScreen = (props) => {
     }, 2000)
     props.onMoveItem(_id, props.userdetail.email);
   };
-
+  var len = 0;
+  if (props.Books) {
+    len = props.Books.length;
+  }
 
 
   return (
 
     <div>
 
-      {props.Books ? (
-        <Row>
+      {len ? (
+        <div className='main-container'>
           <h1>
             <span> Shopping Cart </span>
           </h1>
-          {console.log("cartlist", props.Books)}
-          {props.Books.map(function (item) {
-            return (
-              <Col sm={8}>
-                <CartItem
-                  key={item._id}
-                  item={item}
-                  moveTo={moveToWishlist}
-                  remove={deleteCartItem}
-                />
-              </Col>
-            );
-          })}
-          <br></br>
-          {notify}
-          <Col sm={3}>
-            <Card>
-              <ListGroup variant="flush">
-                <ListGroupItem>
-                  {/* <FormControl
-                    className="form-control me-sm-2"
-                    type="text"
-                    placeholder="Apply Coupon"
-                    style={{ height: "50px" }}
-                    className="mr-sm-2"
-                  />
-                </ListGroupItem>
-                <ListGroupItem>
-                  <Button
-                    className="btn btn-primary my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Apply Coupon
-                  </Button> */}
-                  <Coupon />
-                </ListGroupItem>
+          <div className='cart-wrapper-container' >
+            <div className='cart-items' >
+              {props.Books.map(function (item) {
+                return (
+                  <div >
+                    <CartItem
+                      key={item._id}
+                      item={item}
+                      moveTo={moveToWishlist}
+                      remove={deleteCartItem}
+                    />
+                  </div>
+                );
+              })}
+            </div>
 
-                <ListGroupItem>
-                  {/* <OrderSummary /> */}
-                </ListGroupItem>
-                <Link to="/address">
-                  <Button type="button" className="btn-block">
-                    Proceed to checkOut
-                  </Button>
-                </Link>
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
+            {notify}
+            <div className='coupon-container'>
+              <Card>
+                <ListGroup variant="flush">
+                  <Coupon />
+                  <Link to="/address">
+                    <Button type="button" className="btn-block ">
+                      Proceed to checkOut
+                    </Button>
+                  </Link>
+                </ListGroup>
+              </Card>
+            </div>
+          </div>
+        </div>
       ) : (
         <EmptyCart></EmptyCart>
       )}
@@ -126,8 +102,8 @@ const CartScreen = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log("Inside", state);
   return {
+    OrderSummary: state.BookReducerCart.orderSummary,
     Books: state.BookReducerCart.cart,
     userdetail: state.userLogin.userInfo
   };

@@ -7,7 +7,7 @@
 
 .red-button{
   padding: 0.8em 1.5em;
-  background-color: red;
+  background-color: #446e9b;
   color: white;
   text-transform: uppercase !important;
   border: none;
@@ -27,8 +27,19 @@ pointer-events: none;
 }
 
 .red-button:hover {
-background-color: rgba(231, 157, 73, 0.932);
+background-color: #4f7cac;
 box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
 color: #fff;
 transform: translateY(-7px);
+}
+
+@media only screen and (max-width: 500px){
+  .red-button{
+    font-size: 12px;
+  }
+
+  .button-text{
+    font-size: 14px;
+  }
+
 }

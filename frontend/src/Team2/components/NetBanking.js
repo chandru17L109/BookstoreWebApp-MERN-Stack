@@ -48,7 +48,7 @@ const NetBanking = () => {
       
         
             <div className="Main-container"  >
-                <h3>Select bank</h3>
+                <h2>Select Bank</h2>
                 <div ref={box}>
                 <div className={`bank-vector-container ${bankState === 'HDFC' ? 'active-bank':''}`} onClick={() =>{
                      setbankState('HDFC');

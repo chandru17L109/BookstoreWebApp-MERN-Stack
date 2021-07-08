@@ -2,17 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as actions from "../action/action";
 import { connect } from "react-redux";
+import './AddressItem.css'
 
 import {
     Row,
     Col,
-    Form,
-    Button,
-    Card,
-    Image,
     ListGroup,
     ListGroupItem,
-    FormControl,
 } from "react-bootstrap";
 
 function Item1(props) {
@@ -30,11 +26,11 @@ function Item1(props) {
     };
 
     return (
-        <Row>
+        <Row >
             <Col md={10}>
-                <ListGroup variant="flush" style={{ boxShadow: "10px 10px 5px 10px " }}>
+                <ListGroup variant="flush" style={{ boxShadow: "5px 3px 5px 3px " }}>
                     <ListGroupItem>
-                        <Row>
+                        <Row >
 
                             <Col md={1}>
                                 <div class="form-check" >
@@ -85,18 +81,16 @@ function Item1(props) {
                             {props.radio == props.arr._id ? (
                                 <div className="button-div">
                                     <Link to="/payment">
-                                        <Col>
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary deliver"
-                                                onClick={deliverToAddress}
-                                            >
-                                                Deliver to this address
-                                            </button>
-                                        </Col>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary deliver"
+                                            onClick={deliverToAddress}
+                                        >
+                                            Deliver to this address
+                                        </button>
                                         &nbsp;&nbsp;
                                     </Link>
-                                    <Col>
+                                    <div className='button-wrapper'>
                                         <button
                                             type="button"
                                             class="btn btn-danger delete"
@@ -104,9 +98,9 @@ function Item1(props) {
                                         >
                                             Delete address
                                         </button>
-                                    </Col>
+                                    </div>
                                     &nbsp;&nbsp;
-                                    <Col>
+                                    <div className='button-wrapper'>
                                         <button
                                             type="button"
                                             class="btn btn-warning edit"
@@ -114,7 +108,7 @@ function Item1(props) {
                                         >
                                             Edit Address
                                         </button>
-                                    </Col>
+                                    </div>
                                 </div>
 
                             ) : (

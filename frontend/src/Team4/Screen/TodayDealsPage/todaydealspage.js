@@ -1,21 +1,22 @@
-import React, { Component } from 'react'
-import {Button,Card} from 'react-bootstrap' 
-// import fiction2  from "../../images/fiction2.JPG"
-import SearchPage from '../SideSearchBar/searchbar';
-import { FaCartPlus } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa"
-// import { FaStar } from "react-icons/fa"
+import React, { Component } from 'react';
+import {Button,Card} from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import {connect} from 'react-redux';
+
+import { FaCartPlus } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+
 import '../../Styles/commonStyling.css';
 import '../../Styles/todayDealsPage.css';
-import TodayDealsCarousalImage from '../../images/todayDealsCarousalImage.jpg'
-// import TodayDealsbottomCardImage from '../../images/todayDealsbottomCardImage.jpg'
-import * as actions from '../../action/action'
-// import React, { useEffect } from 'react'
-import {connect} from 'react-redux';
-import CustomizedSnackbars from '../../alert_notify/alert';
-import AvgRating from '../AvgRating/AvgRating'
+
+import TodayDealsCarousalImage from '../../images/todayDealsCarousalImage.jpg';
+
+import SearchPage from '../SideSearchBar/searchbar';
+import * as actions from '../../action/action';
+
+import AvgRating from '../AvgRating/AvgRating';
 import PopularBookPage from '../HomePage/Components/BookListComponents/popularbook';
+import CustomizedSnackbars from '../../alert_notify/alert';
 
 class TodayDealsPage extends Component {
 
@@ -28,51 +29,50 @@ class TodayDealsPage extends Component {
         this.props.onFetchAllbooks(this.state.current);
         this.props.OnAvgreview();
         this.props.onSetPageNo(1)
-      }
+    }
   
-          changenext(){
-              var cur = this.props.pagenum;
-              cur=cur+1
-              this.props.onSetPageNo(cur)
-              this.props.onFetchAllbooks(cur)
-          }
-          changeprev(){
-              var cur = this.props.pagenum;
-              cur=cur-1
-              this.props.onSetPageNo(cur)
-              this.props.onFetchAllbooks(cur)
-          }
-  
-          decidecartlist(bookid){
-            if(!this.props.Email){
-                this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+    changenext(){
+        var cur = this.props.pagenum;
+        cur=cur+1
+        this.props.onSetPageNo(cur)
+        this.props.onFetchAllbooks(cur)
+    }
+    changeprev(){
+        var cur = this.props.pagenum;
+        cur=cur-1
+        this.props.onSetPageNo(cur)
+        this.props.onFetchAllbooks(cur)
+    }
+
+    decidecartlist(bookid){
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
+            setTimeout(()=>{
+                this.setState({notify:null})
+            },2000)
+        }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            setTimeout(()=>{
+                    this.setState({notify:null})
+            },2000)
+            this.props.onAddcartlist(this.props.Email.email, bookid);
+        }   
+    }
+
+    decidewishlist(bookid){
+        if(!this.props.Email){
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
                 setTimeout(()=>{
                     this.setState({notify:null})
                 },2000)
-              //   this.props.props.history.push('/login')
-              }else{
-                this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the Cart !"}/>})
+            }else{
+            this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
                 setTimeout(()=>{
-                  this.setState({notify:null})
+                this.setState({notify:null})
                 },2000)
-                this.props.onAddcartlist(this.props.Email.email, bookid);
-              }   
-        }
-  
-        decidewishlist(bookid){
-            if(!this.props.Email){
-                this.setState({notify: <CustomizedSnackbars open={true} message={"Please Login to continue !"}/>})
-                  setTimeout(()=>{
-                      this.setState({notify:null})
-                  },2000)
-                }else{
-                this.setState({notify: <CustomizedSnackbars open={true} message={"Item successfully added to the WishList !"}/>})
-                  setTimeout(()=>{
-                    this.setState({notify:null})
-                  },2000)
-                  this.props.onAddwishlist(this.props.Email.email, bookid);
-                }
-      }
+                this.props.onAddwishlist(this.props.Email.email, bookid);
+            }
+    }   
 
     render() {
         var showprevbutton = true
@@ -106,15 +106,12 @@ class TodayDealsPage extends Component {
            DealsBooklist = this.props.Books.map((books, i)=>{
 
             var booksreview = this.props.AvgReview;
-                // console.log("booksreview",booksreview);
-                // eslint-disable-next-line
                 var Reviewfound = booksreview.findIndex(function(post, index) {
                     if(post._id._id === books._id)
                         return true;
                 })
                 
                 var RatingValue = Reviewfound!== -1 ? booksreview[Reviewfound].average_ : "";
-                // console.log(Reviewfound)
 
             return(
                 <div className="col-6 col-sm-4 col-md-3 col-lg-3 col-xl-3 cardmarign" key={i} >
@@ -157,82 +154,73 @@ class TodayDealsPage extends Component {
                         </Card.Body>
                     </Card>
                 </div>
-                
             )
-            //}
         })
     }
         
         return (
             <>
-            {this.state.notify}
+                {this.state.notify}
 
-            <div className="todayDealsCarousal">
-                <Card>
-                    <Card.Img className="todayDealsCarousalImage" src={TodayDealsCarousalImage}/>
-                    <Card.ImgOverlay >
-                        <div className="todayDealsCarousalLeftContent">
-                        <h1><b><div className="todayDealsCarousalContentAni">40% </div><h1 className="todayDealsCarousalContent">Offers on Your Best Crime Thrillers!!!</h1></b></h1></div>
-                        <div className="todayDealsCarousalRightContent">
-                        <h1><b><div className="todayDealsCarousalContentAni">40% </div><h1 className="todayDealsCarousalContent">Offers on All Time Famous Novels!!!</h1></b></h1></div>
-                    </Card.ImgOverlay>
-                </Card>
-            </div>
+                <div className="todayDealsCarousal">
+                    <Card>
+                        <Card.Img className="todayDealsCarousalImage" src={TodayDealsCarousalImage}/>
+                        <Card.ImgOverlay >
+                            <div className="todayDealsCarousalLeftContent">
+                            <h1><b><div className="todayDealsCarousalContentAni">40% </div><h1 className="todayDealsCarousalContent">Offers on Your Best Crime Thrillers!!!</h1></b></h1></div>
+                            <div className="todayDealsCarousalRightContent">
+                            <h1><b><div className="todayDealsCarousalContentAni">40% </div><h1 className="todayDealsCarousalContent">Offers on All Time Famous Novels!!!</h1></b></h1></div>
+                        </Card.ImgOverlay>
+                    </Card>
+                </div>
 
-            <div className="Main">
-            <div className = "row">
-                    <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
-                        <div className="search-option-catagory card shadow rounded">
-                        <SearchPage childprops={this.props}/>
+                <div className="Main">
+                <div className = "row">
+                        <div className="col-4 col-sm-3 col-md-2 col-lg-2 col-xl-2 ">
+                            <div className="search-option-catagory card shadow rounded">
+                            <SearchPage childprops={this.props}/>
+                            </div>
+                        </div>
+
+                        <div className="col-8 col-sm-9 col-md-9 col-xl-9 col-ls-9">
+                            <div className="search-sidecontent">
+                                <div className="row">
+                                <h2  className="headingpage">Todays Deals</h2>
+                                    <div className="row">
+                                    {DealsBooklist} 
+                                    </div>
+                                </div>
+                        </div>
+                        <div className="row">
+                                <ul className="justify-content-center align-items-center pagination pagination-lg">
+                                    <li class="page-item list-unstyled">
+                                        <Button class="page-link mr-1" onClick={this.changeprev.bind(this)} disabled={showprevbutton}>Prev</Button>
+                                    </li>
+                                    <li class="page-item list-unstyled">
+                                        <Button class="page-link mr-1" >{this.props.pagenum}</Button>
+                                    </li>
+                                    <li class="page-item list-unstyled">
+                                        <Button class="page-link mr-1" onClick={this.changenext.bind(this)} disabled={shownextbutton}>Next</Button>
+                                    </li>
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
-
-                    <div className="col-8 col-sm-9 col-md-9 col-xl-9 col-ls-9">
-                        <div className="search-sidecontent">
-                            <div className="row">
-                            <h2  className="headingpage">Todays Deals</h2>
-                                <div className="row">
-                                {DealsBooklist} 
-                                </div>
-                            </div>
-                       </div>
-                       <div className="row">
-                            <ul className="justify-content-center align-items-center pagination pagination-lg">
-                                <li class="page-item list-unstyled">
-                                    <Button class="page-link mr-1" onClick={this.changeprev.bind(this)} disabled={showprevbutton}>Prev</Button>
-                                </li>
-                                <li class="page-item list-unstyled">
-                                    <Button class="page-link mr-1" >{this.props.pagenum}</Button>
-                                </li>
-                                <li class="page-item list-unstyled">
-                                    <Button class="page-link mr-1" onClick={this.changenext.bind(this)} disabled={shownextbutton}>Next</Button>
-                                </li>
-                            </ul>
-
-                         </div>
-                    </div>
                 </div>
-        
-            </div>
 
-            <div className="bottomCard">
-                    {/* <Card> */}
-                        {/* <Card.Img className="bottomCardImage" src={TodayDealsbottomCardImage} width="400px" height="200px" /> */}
-                        {/* <Card.ImgOverlay> */}
-                            <Card.Title><h1><b className="bottomCardContent">Best Buys, Maximum Savings..!</b></h1></Card.Title>
-                            <Card.Text><h3  className="bottomCardContent">
-                                Find Customers favourite books and gift those books to your loved ones</h3>
-                            </Card.Text>
-                            <Card.Text><h3  className="bottomCardContent">Find todays deals and order now</h3></Card.Text>
-                        {/* </Card.ImgOverlay> */}
-                    {/* </Card> */}
+                <div className="bottomCard">
+                    <Card.Title><h1><b className="bottomCardContent">Best Buys, Maximum Savings..!</b></h1></Card.Title>
+                    <Card.Text><h3  className="bottomCardContent">
+                        Find Customers favourite books and gift those books to your loved ones</h3>
+                    </Card.Text>
+                    <Card.Text><h3  className="bottomCardContent">Find todays deals and order now</h3></Card.Text>
                 </div>
 
                 <div className="row">
-                <h2  className="headingpage">Books you may like</h2>
+                    <h2  className="headingpage">Books you may like</h2>
                     <PopularBookPage/>
                 </div>
-            
             </>
         )
     }
@@ -245,11 +233,10 @@ const mapStateToProps = (state) => {
         Email : state.userLogin.userInfo,
         AvgReview : state.BookReducer.avgreview,
         pagenum : state.BookReducer.pageNo
-
     }
-  }
+}
   
-  const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         onFetchAllbooks: (curr_page)=>dispatch(actions.fetchbooksbyquery(curr_page)),
         onAddcartlist : (email,bookid) =>  dispatch(actions.Addtocartlist(email,bookid)),
@@ -257,20 +244,6 @@ const mapStateToProps = (state) => {
         OnAvgreview : () => dispatch(actions.FetchAverageReview()),
         onSetPageNo :(num)=>dispatch({type:actions.SET_PAGE,payload:num})
     }
-  }
+}
       
- export default connect(mapStateToProps, mapDispatchToProps)(TodayDealsPage);
-
-
-
-      
-//     componentDidMount(){
-//         fetch('http://localhost:4000'+'/books/?sort=-discount',{
-//             headers:{'content-type': 'application/json'},
-//         })
-//         .then(res=>res.json())
-//         .then(data=>{
-//             this.setState({todaydealslist : data.data})
-//         });
-//         console.log("alldeals",this.state.todaydealslist)
-//     }
+export default connect(mapStateToProps, mapDispatchToProps)(TodayDealsPage)

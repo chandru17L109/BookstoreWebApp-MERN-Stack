@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 
 import * as actions from '../action/action'
@@ -22,7 +22,6 @@ function OrderSummary(props) {
         let coupoon = 0;
 
         props.Books.forEach((item) => {
-            console.log("quantity of each change", item.quantity);
             items += item.quantity * 1;
             discountAmount += item.price * item.quantity * (item.discount / 100);
             price += item.quantity * (item.price * (1 - (item.discount / 100)));
@@ -39,7 +38,6 @@ function OrderSummary(props) {
         setTotalValue(totalPrice + charges);
         props.OrderSummary(totalValue);
         props.amount(Math.round(coup), props.userdetail.email);
-        //console.log("amount", props.amount);
     }, [
         props.Books,
         totalPrice,
@@ -50,15 +48,13 @@ function OrderSummary(props) {
         totalValue
     ]);
     return (
-        <div>
+        <div style={{ padding: "20px 0px 0px 20px" }}>
             <h5>subtotal items({totalItems})</h5>
             <h6 className="text-primary"><i>Yay you saved Rs.{Math.round(totalDiscount)}</i></h6>
             <h5>Total Rs.{Math.round(totalPrice)}</h5>
             <h5>Delivery Charges Rs.{charges}</h5>
             <hr></hr>
-            {/* <h5 className="text-primary"> 
-            Cart Total Rs.{coup}
-            </h5> */}
+
 
         </div>
     )
@@ -66,7 +62,6 @@ function OrderSummary(props) {
 
 
 const mapStateToProps = (state) => {
-    console.log('Inside', state);
     return {
         Books: state.BookReducerCart.cart,
         amount: state.BookReducerCart.amount,

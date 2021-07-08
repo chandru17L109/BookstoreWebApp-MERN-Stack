@@ -1,33 +1,27 @@
 import React, { Component } from 'react'
-import {Link} from "react-router-dom";
 import {FormControl, Form, Button } from 'react-bootstrap';
+import {Link} from "react-router-dom";
 
 import '../../../Styles/secondheader.css';
 
+import * as actions from '../../../action/action'
+import {connect} from 'react-redux';
 
-export default class SecondHeader extends Component {
+class SecondHeader extends Component {
     constructor(props){
         super(props);
-        this.state = {booksData: [], filterData : [], wordEntered: "" }
+        this.state = {filterData : [], wordEntered: "" }
     }
 
     componentDidMount(){
-        fetch('http://localhost:8080/books?limit=40',{
-            headers:{'content-type': 'application/json'},
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            this.setState({booksData : data.data})
-        });
-        
+        this.props.onFetchBooklistTitle();
    }
 
     render() {
-        console.log("Search Data: ",this.state.booksData);   
         const handleFilter = (event) => {
             const searchWord = event.target.value;
             this.setState({wordEntered : searchWord});
-            const newFilter = this.state.booksData.filter((value) => {
+            const newFilter = this.props.booksData.filter((value) => {
                 return value.title.toLowerCase().includes(searchWord.toLowerCase());
         });
         
@@ -42,11 +36,8 @@ export default class SecondHeader extends Component {
             this.setState({wordEntered : ""});
           };
         
-
         return (
-            <>
-            {/* <Router> */}
-           
+            <>           
                 <nav className="navbar navbar-expand-lg navbar-light p-3">
                     <div id="navbarNavDropdown">
                         <ul className="navbar-nav my-1">
@@ -86,11 +77,25 @@ export default class SecondHeader extends Component {
                         </ul>
                     </div>
                 </nav>
-                
-                
-            {/* </Router> */}
-            
             </>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        booksData : state.BookReducer.booksearchtitle,
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => {
+    return {
+        onFetchBooklistTitle : () => dispatch(actions.FetchBookSearchByTitle())
+    }
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(SecondHeader);
+
+
+
+
