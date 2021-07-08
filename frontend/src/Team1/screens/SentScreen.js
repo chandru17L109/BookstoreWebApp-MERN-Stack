@@ -20,7 +20,7 @@ const SentScreen = ({ history }) => {
 		<div>
 			<Message variant='success'>MAIL SENT SUCCESSFULLY</Message>
 			<FormContainer>
-				<h1>Put the link here</h1>
+				<h1>Put the token here</h1>
 				<Form onSubmit={submitHandler}>
 					<Form.Group controlId='token'>
 						<Form.Label>Enter Token</Form.Label>

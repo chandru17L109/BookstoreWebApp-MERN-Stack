@@ -46,7 +46,7 @@ const LoginScreen = ({ location, history }) => {
 	}
 	//use Dispatch
 	const dispatch = useDispatch()
-  
+
 	const userLogin = useSelector((state) => state.userLogin)
 	const { loading, error, userInfo } = userLogin
 
@@ -106,7 +106,7 @@ const LoginScreen = ({ location, history }) => {
 				<Button
 					type='submit'
 					variant='primary'
-					disabled={!passwordError && !emailError}
+					disabled={!passwordError || !emailError}
 				>
 					Sign In
 				</Button>

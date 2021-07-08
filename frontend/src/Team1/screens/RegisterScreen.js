@@ -18,8 +18,9 @@ const RegisterScreen = ({ location, history }) => {
 	const [message, setMessage] = useState(null)
 
 	const [emailError, setEmailError] = useState(true)
-	const [passwordError, setPasswordError] = useState(true)
 	const [nameError, setNameError] = useState(true)
+	const [passwordError, setPasswordError] = useState(true)
+
 	const [confirmPasswordError, setConfirmPasswordError] = useState(true)
 	const [phoneError, setPhoneError] = useState(true)
 
@@ -103,9 +104,12 @@ const RegisterScreen = ({ location, history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault()
+
 		if (password !== confirmPassword) {
 			setMessage('Passwords do not match')
 		} else {
+			setMessage('')
+
 			dispatch(register(name, email, password, phone))
 		}
 	}
@@ -121,7 +125,9 @@ const RegisterScreen = ({ location, history }) => {
 			<h1>Sign Up</h1>
 			{message && <Message variant='danger'>{message}</Message>}
 
-			{error && <Message variant='danger'>{error}</Message>}
+			{error && (
+				<Message variant='danger'>Please provide all the information</Message>
+			)}
 			{loading && <Loader></Loader>}
 
 			<Form onSubmit={submitHandler}>
@@ -200,7 +206,18 @@ const RegisterScreen = ({ location, history }) => {
 
 				<br />
 
-				<Button type='submit' variant='primary'>
+				<Button
+					type='submit'
+					variant='primary'
+					disabled={
+						!emailError ||
+						!passwordError ||
+						!nameError ||
+						!phoneError ||
+						!passwordError ||
+						!confirmPasswordError
+					}
+				>
 					Register
 				</Button>
 			</Form>

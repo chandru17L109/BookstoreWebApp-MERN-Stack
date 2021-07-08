@@ -22,7 +22,7 @@ const Headers = () => {
 	return (
 		<header>
 			{userInfo ? (
-				<>
+				<Container>
 					<LinkContainer to='/mywishlist'>
 						<Nav.Link className='d-inline'>
 							<Button className='btn btn-primary'>Wishlist</Button>
@@ -37,9 +37,10 @@ const Headers = () => {
 							</Button>
 						</Nav.Link>
 					</LinkContainer>
+
 					<NavDropdown title={userInfo.name} id='username'>
 						<LinkContainer to='/profile' className='d-inline'>
-							<NavDropdown.Item>Profile Update</NavDropdown.Item>
+							<NavDropdown.Item variant=''>Profile Update</NavDropdown.Item>
 						</LinkContainer>
 
 						<NavDropdown.Item onClick={logoutHandler}>LogOut</NavDropdown.Item>
@@ -47,7 +48,7 @@ const Headers = () => {
 					<LinkContainer to='/myorders' className='d-inline'>
 						<Nav.Link>MyOrders</Nav.Link>
 					</LinkContainer>
-				</>
+				</Container>
 			) : (
 				<LinkContainer to='/login'>
 					<Nav.Link>

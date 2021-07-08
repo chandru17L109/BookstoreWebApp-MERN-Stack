@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearErrors, forgotPassword } from '../actions/userActions'
+import { forgotPassword } from '../actions/userActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { Redirect } from 'react-router-dom'
@@ -17,10 +17,6 @@ const ForgotPasswordScreen = (location, history) => {
 	)
 
 	useEffect(() => {
-		if (error) {
-			// alert.error(error);
-			dispatch(clearErrors())
-		}
 		console.log('MESSAGE', message)
 		if (message === 'PASSWORD CHANGED') {
 			window.location.reload()
@@ -73,7 +69,7 @@ const ForgotPasswordScreen = (location, history) => {
 						)}
 					</Form.Group>
 					<br />
-					<Button type='submit' variant='primary'>
+					<Button type='submit' variant='primary' disabled={!emailError}>
 						SEND EMAIL
 					</Button>
 				</Form>

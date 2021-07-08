@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetPassword, clearErrors } from '../actions/userActions'
+import { resetPassword } from '../actions/userActions'
 import { Redirect } from 'react-router-dom'
 import FormContainer from '../components/FormContainer.js'
 const NewPasswordScreen = ({ history, match }) => {
@@ -11,6 +11,12 @@ const NewPasswordScreen = ({ history, match }) => {
 	const [passwordError, setPasswordError] = useState(true)
 	const [confirmPasswordError, setConfirmPasswordError] = useState(true)
 	const [redirctTo, setRedirctTo] = useState(false)
+
+
+
+	
+
+
 	const dispatch = useDispatch()
 
 	const { error, success, userInfo, message } = useSelector(
@@ -45,10 +51,6 @@ const NewPasswordScreen = ({ history, match }) => {
 	}
 
 	useEffect(() => {
-		if (error) {
-			// alert.error(error);
-			dispatch(clearErrors())
-		}
 		console.log('MESSAGE SUCCESS', message)
 		if (message === 'PASSWORD CHANGED') {
 			setRedirctTo(true)
@@ -57,11 +59,8 @@ const NewPasswordScreen = ({ history, match }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault()
-		if (password !== confirmPassword) {
-			throw new Error('Passwords do not match')
-		} else {
-			dispatch(resetPassword(match.params.token, password, confirmPassword))
-		}
+
+		dispatch(resetPassword(match.params.token, password, confirmPassword))
 	}
 	if (redirctTo) {
 		return <Redirect to='/PasswordSuccess' />
