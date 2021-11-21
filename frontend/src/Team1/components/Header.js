@@ -31,7 +31,7 @@ const Headers = () => {
 
 					<LinkContainer to='/cartlist'>
 						<Nav.Link className='d-inline'>
-							<Button className='btn btn-primary'>
+							<Button className='btn btn-primary m-1'>
 								{' '}
 								Cart <FaCartPlus />{' '}
 							</Button>
@@ -39,19 +39,19 @@ const Headers = () => {
 					</LinkContainer>
 					<LinkContainer to='/myorders'>
 						<Nav.Link className='d-inline'>
-							<Button className='btn btn-primary'>Orders</Button>
+							<Button className='btn btn-primary m-1'>Orders</Button>
 						</Nav.Link>
 					</LinkContainer>
-					<NavDropdown
+					{/* <NavDropdown
 						title={<span className='text-light my-auto'>{userInfo.name}</span>}
 						id='username'
-					>
+					> */}
 						<LinkContainer to='/profile' className='d-inline'>
-							<NavDropdown.Item>Profile Update</NavDropdown.Item>
+							<Button className='btn btn-primary m-1' >Profile</Button>
 						</LinkContainer>
 
-						<NavDropdown.Item onClick={logoutHandler}>LogOut</NavDropdown.Item>
-					</NavDropdown>
+						<Button  className='btn btn-primary m-1'onClick={logoutHandler}>LogOut</Button>
+					{/* </NavDropdown> */}
 				</>
 			) : (
 				<LinkContainer to='/login'>

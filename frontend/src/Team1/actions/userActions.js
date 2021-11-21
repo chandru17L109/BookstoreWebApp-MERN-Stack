@@ -38,7 +38,7 @@ export const login = (email, password) => async (dispatch) => {
 			},
 		}
 		const { data } = await axios.post(
-			'http://localhost:8080/api/users/login',
+			'https://bookstore-13.herokuapp.com/api/users/login',
 			{ email, password },
 			config
 		)
@@ -78,7 +78,7 @@ export const register = (name, email, password, phone) => async (dispatch) => {
 		}
 
 		const { data } = await axios.post(
-			'http://localhost:8080/api/users/',
+			'https://bookstore-13.herokuapp.com/api/users/',
 			{ name, email, password, phone },
 			config
 		)
@@ -121,7 +121,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 		}
 
 		const { data } = await axios.get(
-			`http://localhost:8080/api/users/${id}`,
+			`https://bookstore-13.herokuapp.com/api/users/${id}`,
 			config
 		)
 
@@ -162,7 +162,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 		}
 		//user is the data we need to update with
 		const { data } = await axios.put(
-			`http://localhost:8080/api/users/profile`,
+			`https://bookstore-13.herokuapp.com/api/users/profile`,
 			user,
 			config
 		)
@@ -214,7 +214,7 @@ export const uploadProfilePic = (user, files) => async (dispatch) => {
 		const formData = new FormData()
 		formData.append('file', files.file)
 		const { data } = await axios.put(
-			'http://localhost:8080/api/users/upload/' + user.id,
+			'https://bookstore-13.herokuapp.com/api/users/upload/' + user.id,
 			formData,
 			config
 		)
@@ -256,7 +256,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 		}
 
 		const { data } = await axios.post(
-			'http://localhost:8080/api/users/forgotPassword',
+			'https://bookstore-13.herokuapp.com/api/users/forgotPassword',
 			{ email },
 			config
 		)
@@ -288,7 +288,7 @@ export const resetPassword =
 			}
 
 			const { data } = await axios.put(
-				`http://localhost:8080/api/users/resetPassword/${token}`,
+				`https://bookstore-13.herokuapp.com/api/users/resetPassword/${token}`,
 				{ password, confirmPassword },
 				config
 			)

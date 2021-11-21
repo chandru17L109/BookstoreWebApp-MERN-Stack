@@ -2,6 +2,11 @@
   background-color: #131a22 !important; 
 }
 
+.header-padding{
+  padding-top: 20px;
+  padding-bottom: 20px !important;
+}
+
 .headerLogo{
   margin-left: 20px;
   margin-right: 5px;
@@ -22,7 +27,7 @@
 .headerSearchBar{
   display: inline !important;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 20px;
   width: 360px !important;
   border-radius: 5px !important;
   /* border: 1px solid red !important; */
@@ -61,6 +66,10 @@
     top: 8px;
     left: 70px;
   }
+  .header-padding{
+    padding-top: 20px;
+    padding-bottom: 40px !important;
+  }
 
 }@media only screen and (max-width: 900px){
   .headerName{
@@ -72,6 +81,10 @@
     top: 8px;
     left: 70px;
   }
+  .header-padding{
+    padding-top: 20px;
+    padding-bottom: 40px !important;
+  }
 
 }@media only screen and (max-width: 768px){
   .headerName{
@@ -82,6 +95,10 @@
     position: absolute;
     top: 8px;
     left: 70px;
+  }
+  .header-padding{
+    padding-top: 20px;
+    padding-bottom: 40px !important;
   }
 
 }
@@ -99,6 +116,10 @@
     position: absolute;
     top: 8px;
     left: 70px;
+  }
+  .header-padding{
+    padding-top: 20px;
+    padding-bottom: 40px !important;
   }
 
 }

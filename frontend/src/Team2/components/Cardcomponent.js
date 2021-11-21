@@ -101,16 +101,16 @@ const CardComponent = () => {
             <form onSubmit={formHandler}>
                 <div className='card-input-container'>
                     <h4>Enter Card Number</h4>
-                    <PaymentInputsWrapper {...wrapperProps}>
+                    <PaymentInputsWrapper className="input-length" {...wrapperProps}>
                         <svg {...getCardImageProps({ images })} />
-                        <input {...getCardNumberProps()} style={{ width: '100%' }} />
+                        <input {...getCardNumberProps()} />
                         
                     </PaymentInputsWrapper>
                      {/* <input type="text"  onChange={inputChangeHandler} name='nameInput' onClick={inputclickHandler}  val={state.nameInput} /> */}
                 </div>
                 <div className='card-input-container'>
                     <h4>Enter Name on Card</h4>
-                    <input type="text"  onChange={inputChangeHandler} name='nameInput' onClick={inputclickHandler}  val={state.nameInput} />
+                    <input type="text"  class="form-control form-control-lg" onChange={inputChangeHandler} name='nameInput' onClick={inputclickHandler}  val={state.nameInput} />
                     
                     {(Boolean(clickstate.nameInput)) || (Boolean(state.nameInput.length) || (                   
                         <div className="err-msg">

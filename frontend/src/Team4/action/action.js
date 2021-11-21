@@ -13,7 +13,7 @@ export const GET_BOOK_FOR_SEARCH_TITLE = "GET_BOOK_FOR_SEARCH_TITLE"
 export const SET_PAGE = "SET_PAGE"
 
 
-const API = "http://localhost:8080"
+const API = "https://bookstore-13.herokuapp.com"
 var FETCHQUERY = ""
 var templist =[]
 var currentpage =""
@@ -23,8 +23,8 @@ var FINDURL = () => {
     var findurl = url[url.length - 1]
 
     if(findurl === "allbookspage"){
-        FETCHQUERY = "/"
-        currentpage = "/"
+        FETCHQUERY = "/?"
+        currentpage = "/?"
     }else if(findurl === "newrelease"){
         FETCHQUERY = '&sort=-publishDate'
         currentpage = '&sort=-publishDate'

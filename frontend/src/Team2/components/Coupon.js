@@ -88,16 +88,20 @@ function Coupon(props) {
 
 
             <form >
-                <input type="text" id="cp" name="cppp" onChange={onChangeHandler} placeholder="coupon code" maxlength="6" />
-                {showms ? <h5>minimum cart value required is {minreq}</h5> : null}
-                {showms2 ? <h5>coupon code is invalid </h5> : null}
-                <button disabled={disable} onClick={() => applycoupon(cc)} type="button" className="btn btn-warning">
+                <input className="form-control form-control-lg" type="text" id="cp" name="cppp" onChange={onChangeHandler} placeholder="coupon code" maxlength="6"/>
+                <div className="ml-3 text-secondary">
+                    <span>Try FLAT40 Coupon</span>
+                </div>
+                {showms ? <h5 className="ml-3 text-secondary">minimum cart value required is {minreq}</h5> : null}
+                {showms2 ? <h5 className="ml-3 text-secondary">coupon code is invalid </h5> : null}
+                <br></br>
+                <button disabled={disable} onClick={() => applycoupon(cc)} type="button" className="btn btn-warning ml-3">
                     apply coupon
                 </button>
 
             </form>
 
-            {showcoupon ? <div ><h5>coupon applied:{couponvalue}</h5><button disabled={dis} onClick={() => applycoupon(scc)} type="button" className="btn btn-warning">{cc} <i
+            {showcoupon ? <div ><h5 className="ml-3">coupon applied:{couponvalue}</h5><button disabled={dis} onClick={() => applycoupon(scc)} type="button" className="btn btn-warning ml-3">{cc} <i
                 className="fa fa-trash "
                 aria-hidden="true"
             ></i></button></div> : null}

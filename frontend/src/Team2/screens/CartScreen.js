@@ -57,7 +57,7 @@ const CartScreen = (props) => {
       {len ? (
         <div className='main-container'>
           <h1>
-            <span> Shopping Cart </span>
+            <span className="ml-4"> Shopping Cart </span>
           </h1>
           <div className='cart-wrapper-container' >
             <div className='cart-items' >

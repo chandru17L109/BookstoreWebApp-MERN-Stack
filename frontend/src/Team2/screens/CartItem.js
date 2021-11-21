@@ -48,54 +48,39 @@ const Item = (props) => {
         <>
             <div className='cart-item-wrapper'>
                 {notify}
-                <Col md={1} >
-                    <Link to={`/`}>
-                        <Image src={props.item.image} fluid rounded />
-                    </Link>
-                </Col>
-
-                <Col md={2} >
-                    <Link to={`/`}>{props.item.title}   </Link>
-                </Col>
-
-                <Col md={2}>Rs.{Math.round(xyz)}</Col>
-                <div className='quantity-wrapper'>
-                    <Col md={1}>
-                        <div onClick={onMinus}>
-                            <Button>-</Button>
+                <div className="row ml-1">
+                    <div className="col-2 col-sm-1 col-md-1 col-lg-1 col-xl-1 mb-1">
+                        <Link to={`/`}>
+                            <Image src={props.item.image} fluid rounded />
+                        </Link>
+                    </div>
+                    <div className="col-5 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <span>{props.item.title}</span>
+                    </div>
+                    <div className="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                        <strong> Rs.{Math.round(xyz)}</strong>
+                    </div>
+                    <div className="col-5 col-sm-3 col-md-3 col-lg-3 col-xl-3 ">
+                            <Button onClick={onMinus} className="ml-0 plusminuslistbtn">-</Button>
+                            <Button className="ml-1 btn-info plusminuslistbtn" >{props.item.quantity} </Button>
+                            <Button onClick={onAdd} className="ml-1 plusminuslistbtn">+</Button>
+                    </div>
+                    <div className="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div className='quantity-wrapper'>
+                            <Button onClick={move} type="button" className="btn btn-warning wishlistbtn">
+                                <span>Move To Wishlist</span>
+                            </Button>
+                            <Button onClick={del} type="button" className="btn btn-danger ml-1">
+                                <i
+                                    className="fa fa-trash "
+                                    aria-hidden="true"
+                                ></i>
+                            </Button>
                         </div>
-                    </Col>
-                    <Col md={1}>
-                        <p>{props.item.quantity}</p>
-                    </Col>
-                    <Col md={1}>
-                        <div onClick={onAdd}>
-                            <Button>+</Button>
-                        </div>
-                    </Col>
-                </div>
-                <div>
-                    <Col md={2} >
-                        <Button onClick={move} type="button" className="btn btn-primary mr-5">
-                            Move To Wishlist
-                        </Button>
-                    </Col>
-                </div>
-                <div>
-                    <Col >
-                        <Button onClick={del} type="button" className="btn btn-danger ml-5">
-                            <i
-                                className="fa fa-trash "
-                                aria-hidden="true"
-                            ></i>
-                        </Button>
-                    </Col>
+                        
+                    </div>
                 </div>
             </div>
-
-
-
-
 
         </>
     );

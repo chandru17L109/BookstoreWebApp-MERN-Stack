@@ -19,7 +19,7 @@ export default class Header extends Component {
 	render() {
 		return (
 			<div className='header-color'>
-				<Navbar bg='primary' expand='lg' className='py-4'>
+				<Navbar bg='primary' expand='lg' className="header-padding">
 					<Navbar.Brand>
 						<Link to={'/'}>
 							<div className='align-img-text'>
@@ -52,16 +52,9 @@ export default class Header extends Component {
 						className='justify-content-end'
 					>
 						<Nav className='justify-content-end inline headerButtons loginsignup'>
-							{/* <Nav.Link href="#login"><Button variant="success" className="button1">Login</Button></Nav.Link> */}
-							{/* <Nav.Link href="#signup"><Button variant="info"  className="button2">Sign Up</Button></Nav.Link> */}
-
-							{/* <div className="d-inline"> <Button variant="warning" >Cart</Button></div>
-                                <div className="d-inline"> <Button variant="danger">Wishlist</Button></div> */}
-							{/* <div className="d-inline"> <Button><Headers/></Button></div> */}
+						
 							<Headers />
 
-							{/* <Button variant="success" className="button1">Cart</Button>
-                                <Button variant="info"  className="button2">Wishlist</Button> */}
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>

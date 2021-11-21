@@ -34,7 +34,6 @@ function PaymentScreen(props) {
   return (
     <div>
       <div className='header-container'>
-
         <h2>Select payment mode</h2>
       </div>
       <div className='payment-wrapper-container'>
@@ -92,9 +91,9 @@ function PaymentScreen(props) {
                 return (
                   <>
                     <div className='book-container'>
-                      <div className='book-img-container'>
+                      {/* <div className='book-img-container col-2'>
                         <Image src={item.image} fluid rounded />
-                      </div>
+                      </div> */}
                       <div className='book-text'>
                         <p>{item.title}</p>
                       </div>

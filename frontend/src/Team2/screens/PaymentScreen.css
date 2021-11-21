@@ -1,3 +1,6 @@
+.mainContainer{
+  width: 100%;
+}
 .payment-wrapper-container {
   margin: 20px auto;
   width: 85%;
@@ -6,7 +9,7 @@
 }
 
 .header-container h2 {
-  margin: 0px auto;
+  margin: 0px 22px;
   width: 80%;
   font-family: Georgia, serif;
   color: #446e9b;
@@ -42,7 +45,7 @@
 }
 
 .left-container {
-  width: 20%;
+  width: 30%;
   /* border: solid 0.1px lightgrey; */
   background-color: lightgrey;
 }
@@ -54,7 +57,7 @@
 
 .order-container {
   width: 40%;
-  margin: 0px 20px;
+  margin: 0px 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 10px;
@@ -105,7 +108,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding: 20px 0px;
+  padding: 10px 0px;
   border-bottom: solid 0.5px #446e9b;
 }
 
@@ -133,12 +136,12 @@
   }
   .root-container {
     display: flex;
-    width: 90%;
+    width: 100%;
     margin: 0px auto 20px auto;
   }
 
   .order-container {
-    width: 90%;
+    width: 100%;
     margin: auto;
   }
 

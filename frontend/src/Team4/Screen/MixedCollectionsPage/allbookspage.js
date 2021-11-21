@@ -12,10 +12,9 @@ import '../../Styles/allBooksPage.css';
 import SearchPage from '../SideSearchBar/searchbar';
 import * as actions from '../../action/action';
 import AvgRating from '../AvgRating/AvgRating';
-import TodayDealsPage from '../HomePage/Components/BookListComponents/todaydeals';
+// import TodayDealsPage from '../HomePage/Components/BookListComponents/todaydeals';
 
 import CustomizedSnackbars from '../../alert_notify/alert';
-
 
 class AllBooksPage extends Component {
     constructor(props){
@@ -221,10 +220,10 @@ class AllBooksPage extends Component {
                     <Card.Text><h3 className="bottomCardContent">Find early deals and order now</h3></Card.Text>
                 </div>
 
-                <div className="row">
+                {/* <div className="row">
                     <h2  className="headingpage">Books you may like</h2>
                     <TodayDealsPage/>
-                </div>
+                </div> */}
                 
            </div>
             </>

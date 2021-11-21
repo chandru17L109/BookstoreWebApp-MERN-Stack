@@ -37,6 +37,7 @@ function Item1(props) {
                                     <label class="form-check-label">
                                         <input
                                             className="form-check-input" name="optionsRadios" id="optionsRadios1"
+                                            width="100px"
                                             type="radio"
                                             value={props.arr._id}
                                             checked={props.radio == props.arr._id}

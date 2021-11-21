@@ -26,7 +26,7 @@ export const listMyWishlist = () => async (dispatch, getState) => {
         },
       }
   
-      const { data } = await axios.get(`http://localhost:8080/api/wishlists/mywishlist`, config)
+      const { data } = await axios.get(`https://bookstore-13.herokuapp.com/api/wishlists/mywishlist`, config)
       console.log("actions data",data)
       dispatch({
         type: WISH_LIST_MY_SUCCESS,
@@ -64,7 +64,7 @@ export const listMyWishlist = () => async (dispatch, getState) => {
         },
       }
   
-      const { data } = await axios.put(`http://localhost:8080/api/wishlists/mywishlist/`+ id,{id},config)
+      const { data } = await axios.put(`https://bookstore-13.herokuapp.com/api/wishlists/mywishlist/`+ id,{id},config)
       
       console.log("actions data",data)
       dispatch({
@@ -88,7 +88,7 @@ export const listMyWishlist = () => async (dispatch, getState) => {
 //     console.log("ProductId", _id);
 //     return (dispatch) => {
 //         return fetch(
-//             `http://localhost:8080/api/v1/cartItems/${useremail}`,
+//             `https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`,
 //             {
 //                 headers: {
 //                     Accept: "application/json",
@@ -101,7 +101,7 @@ export const listMyWishlist = () => async (dispatch, getState) => {
 //             .then((res) => res.json())
 //             .then((data) => {
 //                 console.log("before fetch", data);
-//                 fetch(`http://localhost:8080/api/v1/cartItems/${useremail}`, {
+//                 fetch(`https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`, {
 //                     headers: {
 //                         Accept: "application/json",
 //                         "Content-type": "application/json",

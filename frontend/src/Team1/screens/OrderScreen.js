@@ -90,9 +90,9 @@ const OrderScreen = () => {
 				) : (
 					<Row>
 						{orders.map((order) => (
-							<Col className='col-xl-4 cardmarign'>
-								<Card className='card-top border-0 mb-4 card shadow rounded Cardshover'>
-									<Card.Body className='card-body  leftpaddingcarddata change-font text-dark'>
+							<Col className='col-12 col-sm-12 col-xl-4 cardmarign'>
+								<Card className='border-0 card shadow mb-4 rounded Cardshover'>
+									<Card.Body className='card-body  text-dark'>
 										<Card.Text className='cardtext'>
 											<div className='text-dark'>
 												<small>

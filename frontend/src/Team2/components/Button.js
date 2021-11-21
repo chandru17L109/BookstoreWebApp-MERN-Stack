@@ -28,8 +28,8 @@ const Button = (props) => {
           {props.children}
         </button>
       )}
-      <div>
-        <span className='button-text'>By placing this order, you agree to store's T&C</span>
+      <div className="terms-condition">
+        <span className='text-secondary'>By placing this order, you agree to store's T&C</span>
       </div>
     </div>
   );

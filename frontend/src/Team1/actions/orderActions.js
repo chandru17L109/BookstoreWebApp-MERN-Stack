@@ -22,7 +22,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
 		}
 
 		const { data } = await axios.get(
-			`http://localhost:8080/api/orders/myorders`,
+			`https://bookstore-13.herokuapp.com/api/orders/myorders`,
 			config
 		)
 

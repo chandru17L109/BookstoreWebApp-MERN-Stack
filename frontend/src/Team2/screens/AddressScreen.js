@@ -207,6 +207,8 @@ function AddressScreen(props) {
 
     <div className='wrapper-container' >
       {notify}
+      {/* <div className ="row"> */}
+      <div className="col-12 col-sm-12">
       <div className='address-container'>
         <div className='address-list'>
           <h2 className="text-primary">Select a delivery address</h2>
@@ -227,6 +229,8 @@ function AddressScreen(props) {
           <br></br>
           <br></br>
         </div>
+        </div>
+        <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
         <div className="form">
           <h2 className="text-primary"> Address Form</h2>
           {addresserror ? <p>Enter valid Address</p> : <span></span>}
@@ -354,45 +358,47 @@ function AddressScreen(props) {
           }
         </div>
       </div>
-      <div className="order-container">
-        <ListGroup variant="flush">
-          <h2 className='heading' > &nbsp; Order Summary</h2>
-          <ListGroupItem className='Book-style'>
-            {props.cartItems.map(function (item) {
-              return (
-                <>
-                  <div className='book-container'>
-                    <div className='book-img-container'>
-                      <Image src={item.image} fluid rounded />
-                    </div>
-                    <div className='book-text'>
-                      <p>{item.title}</p>
-                    </div>
-                    <div className='book-text'>
-                      <p>Rs.{item.price}</p>
-                    </div>
-                    <div className='book-text'>
-                      <p>Qty:{item.quantity}</p>
-                    </div>
-                  </div>
-                  <h1></h1>
-                </>
-              );
-            })}
-          </ListGroupItem>
+      </div>
+      <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div className="order-container">
+            <ListGroup variant="flush">
+              <h2 className='heading' > &nbsp; Order Summary</h2>
+              <ListGroupItem className='Book-style'>
+                {props.cartItems.map(function (item) {
+                  return (
+                    <>
+                      <div className='book-container'>
+                        <div className='book-img-container'>
+                          <Image src={item.image} fluid rounded />
+                        </div>
+                        <div className='book-text'>
+                          <p>{item.title}</p>
+                        </div>
+                        <div className='book-text'>
+                          <p>Rs.{item.price}</p>
+                        </div>
+                        <div className='book-text'>
+                          <p>Qty:{item.quantity}</p>
+                        </div>
+                      </div>
+                      <h1></h1>
+                    </>
+                  );
+                })}
+              </ListGroupItem>
 
-          <div>
-            <OrderSummary />
-            <h5 className="heading">Cart Total Rs.{props.amount}</h5>
+            
+                <OrderSummary />
+                <h5 className="heading">Cart Total Rs.{props.amount}</h5>
 
-          </div>
 
-        </ListGroup>
-
+            </ListGroup>
+            </div>
+        </div>
       </div>
 
 
-    </div>
+    // </div>
   );
 }
 

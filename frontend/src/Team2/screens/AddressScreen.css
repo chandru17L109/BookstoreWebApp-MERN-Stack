@@ -1,10 +1,10 @@
 .wrapper-container {
-  width: 80%;
+  width: 100%;
   margin: 30px auto;
   display: flex;
   flex-direction: row;
 }
 
 .address-container {
-  margin: 0px 60px;
+  margin: 0px 00px;
 }

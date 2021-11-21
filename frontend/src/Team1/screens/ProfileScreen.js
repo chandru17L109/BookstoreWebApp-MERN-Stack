@@ -94,12 +94,12 @@ const ProfileScreen = ({ history }) => {
 		console.log('clicked')
 	}
 
-	const srcp = 'http://localhost:8080/dp/' + photo
+	const srcp = 'https://bookstore-13.herokuapp.com/dp/' + photo
 	console.log(photo)
 	return (
 		<Container>
 			<Row>
-				<Col md={3}>
+				<Col md={3} className="ml-3">
 					<Form onSubmit={submitHandlerPic}>
 						<Form.Group controlId='image'>
 							<Form.Label></Form.Label>
@@ -114,9 +114,10 @@ const ProfileScreen = ({ history }) => {
 							<Form.File
 								id='image-file'
 								onChange={uploadFileHandler}
+								className="mt-3"
 							></Form.File>
 
-							<Button type='submit' variant='primary'>
+							<Button type='submit' variant='primary' className="mt-3">
 								Update Pic
 							</Button>
 						</Form.Group>
@@ -124,7 +125,7 @@ const ProfileScreen = ({ history }) => {
 						<br />
 					</Form>
 				</Col>
-				<Col md={3}>
+				<Col md={3} className="ml-3">
 					<h2>User Profile</h2>
 					{message && <Message variant='danger'>{message}</Message>}
 

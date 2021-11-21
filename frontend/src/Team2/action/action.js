@@ -27,7 +27,7 @@ export const ON_APPLY_COUPON = "ON_APPLY_COUPON"
 export const onCartLoadAction = (useremail) => {
     return (dispatch) => {
         return fetch(
-            `http://localhost:8080/api/v1/cartItems/${useremail}`,
+            `https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -48,7 +48,7 @@ export const onCartLoadAction = (useremail) => {
 export const onDeleteItemAction = (_id, useremail) => {
     return (dispatch) => {
         return fetch(
-            `http://localhost:8080/api/v1/cartItems/${useremail}`,
+            `https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -60,7 +60,7 @@ export const onDeleteItemAction = (_id, useremail) => {
         )
             .then((res) => res.json())
             .then((data) => {
-                fetch(`http://localhost:8080/api/v1/cartItems/${useremail}`, {
+                fetch(`https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`, {
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
@@ -80,7 +80,7 @@ export const onDeleteItemAction = (_id, useremail) => {
 export const onMoveItemAction = (_id, useremail) => {
     return (dispatch) => {
         return fetch(
-            `http://localhost:8080/api/v1/cartItems/${useremail}`,
+            `https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -90,7 +90,7 @@ export const onMoveItemAction = (_id, useremail) => {
                 body: JSON.stringify({ bookid: _id }),
             }
         ).then((res) => {
-            fetch(`http://localhost:8080/api/v1/wishItems/${useremail}`, {
+            fetch(`https://bookstore-13.herokuapp.com/api/v1/wishItems/${useremail}`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
@@ -100,7 +100,7 @@ export const onMoveItemAction = (_id, useremail) => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    fetch(`http://localhost:8080/api/v1/cartItems/${useremail}`, {
+                    fetch(`https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`, {
                         headers: {
                             Accept: "application/json",
                             "Content-type": "application/json",
@@ -120,7 +120,7 @@ export const onMoveItemAction = (_id, useremail) => {
 
 export const onWishLoadAction = () => {
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/wishItems/", {})
+        return fetch("https://bookstore-13.herokuapp.com/api/v1/wishItems/", {})
             .then((res) => res.json())
             .then((data) => {
                 dispatch({
@@ -133,7 +133,7 @@ export const onWishLoadAction = () => {
 
 export const addCartitemWishAction = (wishItem) => {
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/cartItems/", {
+        return fetch("https://bookstore-13.herokuapp.com/api/v1/cartItems/", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -147,7 +147,7 @@ export const addCartitemWishAction = (wishItem) => {
                 countInStock: wishItem.countInStock,
             }),
         }).then((res) => {
-            fetch("http://localhost:8080/api/v1/wishItems/")
+            fetch("https://bookstore-13.herokuapp.com/api/v1/wishItems/")
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch({
@@ -161,7 +161,7 @@ export const addCartitemWishAction = (wishItem) => {
 
 export const onAddressLoadAction = (useremail) => {
     return (dispatch) => {
-        return fetch(`http://localhost:8080/api/v1/adr/${useremail}`, {
+        return fetch(`https://bookstore-13.herokuapp.com/api/v1/adr/${useremail}`, {
             headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -179,7 +179,7 @@ export const onAddressLoadAction = (useremail) => {
 
 export const onDeleteAddressAction = (_id, useremail) => {
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/adr/", {
+        return fetch("https://bookstore-13.herokuapp.com/api/v1/adr/", {
             headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -201,7 +201,7 @@ export const onDeleteAddressAction = (_id, useremail) => {
 
 export const onAddAddressAction = (obj, useremail, username, userphone) => {
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/adr/", {
+        return fetch("https://bookstore-13.herokuapp.com/api/v1/adr/", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -212,7 +212,7 @@ export const onAddAddressAction = (obj, useremail, username, userphone) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                fetch(`http://localhost:8080/api/v1/adr/${useremail}`, {
+                fetch(`https://bookstore-13.herokuapp.com/api/v1/adr/${useremail}`, {
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
@@ -231,7 +231,7 @@ export const onAddAddressAction = (obj, useremail, username, userphone) => {
 
 export const OnEditAddressAction = (id, elem, useremail) => {
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/adr/", {
+        return fetch("https://bookstore-13.herokuapp.com/api/v1/adr/", {
             headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -241,7 +241,7 @@ export const OnEditAddressAction = (id, elem, useremail) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                fetch(`http://localhost:8080/api/v1/adr/${useremail}`, {
+                fetch(`https://bookstore-13.herokuapp.com/api/v1/adr/${useremail}`, {
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
@@ -263,7 +263,7 @@ export const OnEditAddressAction = (id, elem, useremail) => {
 export const onQuantityChangeAction = (_id, useremail, QuantityChange, max) => {
     return (dispatch) => {
         return fetch(
-            `http://localhost:8080/api/v1/cartItems/${useremail}`, {
+            `https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`, {
             headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -275,7 +275,7 @@ export const onQuantityChangeAction = (_id, useremail, QuantityChange, max) => {
         )
             .then((res) => res.json())
             .then((data) => {
-                fetch(`http://localhost:8080/api/v1/cartItems/${useremail}`, {
+                fetch(`https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}`, {
                     headers: {
                         Accept: "application/json",
                         "Content-type": "application/json",
@@ -315,7 +315,7 @@ export const OndeliverToAddressAction = (id, arr) => {
 
 export const OnconfirmPaymentAction = (cartItems, address, amount, useremail) => {
     return (dispatch) => {
-        return fetch("http://localhost:8080/api/v1/cart_orders/", {
+        return fetch("https://bookstore-13.herokuapp.com/api/v1/cart_orders/", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -328,7 +328,7 @@ export const OnconfirmPaymentAction = (cartItems, address, amount, useremail) =>
                 amount: amount,
             }),
         }).then((res) => {
-            fetch("http://localhost:8080/api/v1/cart_orders/")
+            fetch("https://bookstore-13.herokuapp.com/api/v1/cart_orders/")
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch({
@@ -343,7 +343,7 @@ export const OnconfirmPaymentAction = (cartItems, address, amount, useremail) =>
 export const amountAction = (cartTotal, useremail) => {
     return (dispatch) => {
         return fetch(
-            `http://localhost:8080/api/v1/cartItems/${useremail}/amount`,
+            `https://bookstore-13.herokuapp.com/api/v1/cartItems/${useremail}/amount`,
             {
                 headers: {
                     Accept: "application/json",
@@ -367,7 +367,7 @@ export const amountAction = (cartTotal, useremail) => {
 export const onApplycouponAction = (code) => {
 
     return dispatch => {
-        return fetch('http://localhost:8080/api/v1/coupons/compare/', {
+        return fetch('https://bookstore-13.herokuapp.com/api/v1/coupons/compare/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

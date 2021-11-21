@@ -1,20 +1,74 @@
 .main-container {
-  width: 90%;
-  margin: 0px auto;
+  width: 100%;
+  margin: 0px 0px;
 }
 
 .cart-wrapper-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .cart-items {
-  width: 70%;
-  margin: 10px 0px;
+  width: 60%;
+  margin: 0px 25px;
 }
 
 .coupon-container {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  width: 30%;
+}
+
+@media only screen and (max-width: 1220px){
+  .cart-items {
+    width: 80%;
+    margin: 0px 0px;
+  }
+  .coupon-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 900px){
+  .cart-items {
+    width: 90%;
+    margin: 0px 0px;
+  }
+  .coupon-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .cart-items {
+    width: 100%;
+    margin: 0px 0px;
+  }
+  .coupon-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    width: 80%;
+  }
+}
+
+
+@media only screen and (max-width: 480px){
+  .cart-items {
+    width: 100%;
+    margin: 0px 0px;
+  }
+  .coupon-container {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+  }
 }

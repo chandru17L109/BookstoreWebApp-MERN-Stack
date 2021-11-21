@@ -3,8 +3,6 @@
   
 }
 
-
-
 .red-button{
   padding: 0.8em 1.5em;
   background-color: #446e9b;
@@ -42,4 +40,10 @@ transform: translateY(-7px);
     font-size: 14px;
   }
 
+}
+
+@media only screen and (max-width: 480px){
+  .button-wrapper .terms-condition{
+      width: 150px;
+  }
 }
